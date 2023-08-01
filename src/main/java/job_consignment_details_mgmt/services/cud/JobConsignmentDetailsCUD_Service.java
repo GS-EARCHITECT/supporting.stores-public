@@ -60,6 +60,7 @@ public class JobConsignmentDetailsCUD_Service implements I_JobConsignmentDetails
 			if (jobConsignmentDetailsCUDRepo.existsById(jobConsignmentDetailPK)) 
 			{
 				jobConsignmentDetailsCUDRepo.save(this.setJobConsignmentDetail_DTO(jobConsignmentDetail_DTO));
+				
 			}
 			return;
 		}, asyncExecutor);

@@ -15,6 +15,7 @@ public class JobConsignmentDetail_DTO implements Serializable {
 	private Long qtyUnitSeqNo;
 	private String remark;
 	private String status;
+	private Character okFlag;
 
 	public Long getResourceSeqNo() {
 		return resourceSeqNo;
@@ -72,8 +73,20 @@ public class JobConsignmentDetail_DTO implements Serializable {
 		this.status = status;
 	}
 
+	public Character getOkFlag() {
+		return okFlag;
+	}
+
+	public void setOkFlag(Character okFlag) {
+		this.okFlag = okFlag;
+	}
+
+	public JobConsignmentDetail_DTO() {
+		super();
+	}
+
 	public JobConsignmentDetail_DTO(Long resourceSeqNo, Long consignmentSeqNo, Long assetSeqNo, Float qty,
-			Long qtyUnitSeqNo, String remark, String status) {
+			Long qtyUnitSeqNo, String remark, String status, Character okFlag) {
 		super();
 		this.resourceSeqNo = resourceSeqNo;
 		this.consignmentSeqNo = consignmentSeqNo;
@@ -82,10 +95,7 @@ public class JobConsignmentDetail_DTO implements Serializable {
 		this.qtyUnitSeqNo = qtyUnitSeqNo;
 		this.remark = remark;
 		this.status = status;
-	}
-
-	public JobConsignmentDetail_DTO() {
-		super();
+		this.okFlag = okFlag;
 	}
 
 }

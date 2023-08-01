@@ -1,2 +1,6 @@
-/job_consignment_master_mgmt/
+/common/
 /job_consignment_details_mgmt/
+/job_consignment_master_mgmt/
+/main/
+/storeMovementManager/
+/storeRegisterManagement/

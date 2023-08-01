@@ -18,6 +18,9 @@ public class JobConsignmentDetail implements Serializable {
 	@Column(name = "QTY")
 	private Float qty;
 
+	@Column(name = "OK_FLAG")
+	private Character okFkag;
+
 	@Column(name = "QTY_UNIT_SEQ_NO")
 	private Long qtyUnitSeqNo;
 
@@ -70,10 +73,20 @@ public class JobConsignmentDetail implements Serializable {
 		this.status = status;
 	}
 
-	public JobConsignmentDetail(JobConsignmentDetailPK id, Float qty, Long qtyUnitSeqNo, String remark, String status) {
+	public Character getOkFkag() {
+		return okFkag;
+	}
+
+	public void setOkFkag(Character okFkag) {
+		this.okFkag = okFkag;
+	}
+
+	public JobConsignmentDetail(JobConsignmentDetailPK id, Float qty, Character okFkag, Long qtyUnitSeqNo,
+			String remark, String status) {
 		super();
 		this.id = id;
 		this.qty = qty;
+		this.okFkag = okFkag;
 		this.qtyUnitSeqNo = qtyUnitSeqNo;
 		this.remark = remark;
 		this.status = status;
