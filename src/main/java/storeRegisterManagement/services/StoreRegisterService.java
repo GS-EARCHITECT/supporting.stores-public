@@ -14,9 +14,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import common.domain.model.StoreRegister;
 import common.domain.model.StoreRegisterRepo;
-import storeMovementManager.model.StoreIssueMaster;
-import storeMovementManager.model.StoreIssueRepo;
-import storeMovementManager.model.StoreMovementMasterPK;
+import storeMovementManager.issue.model.master.StoreIssueMaster;
+import storeMovementManager.issue.model.repo.read.StoreIssueRepo;
+import storeMovementManager.recieve.model.dto.StoreMovementMasterPK;
 
 @Service("storeRegisterServ")
 public class StoreRegisterService implements I_StoreRegisterService 

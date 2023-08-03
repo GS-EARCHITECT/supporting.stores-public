@@ -1,4 +1,4 @@
-package storeMovementManager.model;
+package storeMovementManager.recieve.model.dto;
 
 import java.io.Serializable;
 
