@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import storeMovementManager.issue.model.master.StoreIssueMaster;
 
-@Repository("storeIssueReadRepo")
-public interface StoreIssueRead_Repo extends JpaRepository<StoreIssueMaster, Long> 
+@Repository("storeIssueMasterReadRepo")
+public interface StoreIssueMasterRead_Repo extends JpaRepository<StoreIssueMaster, Long> 
 {
 @Query(value = "SELECT BY_STORE_VERIFICATION_FLAG FROM TRANSACTION_ITEM_DETAILS where STORE_REQUEST_SEQ_NO=:storeReqSeqNo",nativeQuery = true) 
 Optional<CopyOnWriteArrayList<Character>> getStoreVerifiedStatus(@Param("storeReqSeqNo") Integer storeReqSeqNo);
@@ -21,26 +21,26 @@ Optional<CopyOnWriteArrayList<StoreIssueMaster>> getAllRowsPendingProcessing();
 @Query(value = "SELECT COALESCE(SUM(request_qty),0) FROM STORE_ISSUE_MASTER where (STORE_REQUEST_SEQ_NO=:sid and resource_SEQ_NO=:rid)",nativeQuery = true) 
 Float getTotalRequestItemQtyForStoreRequest(@Param("sid") Long sid, @Param("rid") Long rid);
 
-@Query(value = "SELECT COALESCE(SUM(request_qty),0) FROM STORE_ISSUE_MASTER where STORE_REQUEST_SEQ_NO=:sid",nativeQuery = true) 
-Float getTotalRequestQtyForLineItem(@Param("sid") Long sid);
+@Query(value = "SELECT COALESCE(request_qty,0) FROM STORE_ISSUE_MASTER where STORE_movemeent_SEQ_NO=:mid",nativeQuery = true) 
+Float getRequestQtyForLineItem(@Param("mid") Long mid);
 
 @Query(value = "SELECT COALESCE(SUM(quality_qty),0) FROM STORE_ISSUE_MASTER where (STORE_REQUEST_SEQ_NO=:sid and resource_SEQ_NO=:rid)",nativeQuery = true) 
 Float getTotalQCItemQtyForStoreRequest(@Param("sid") Long sid, @Param("rid") Long rid);
 
-@Query(value = "SELECT COALESCE(SUM(quality_qty),0) FROM STORE_ISSUE_MASTER where STORE_REQUEST_SEQ_NO=:sid",nativeQuery = true) 
-Float getTotalQCQtyForLineItem(@Param("sid") Long sid);
+@Query(value = "SELECT COALESCE(quality_qty,0) FROM STORE_ISSUE_MASTER where STORE_movemeent_SEQ_NO=:mid",nativeQuery = true) 
+Float getQCQtyForLineItem(@Param("mid") Long mid);
 
 @Query(value = "SELECT COALESCE(SUM(processed_qty),0) FROM STORE_ISSUE_MASTER where (STORE_REQUEST_SEQ_NO=:sid and resource_SEQ_NO=:rid)",nativeQuery = true) 
 Float getTotalProcessedItemQtyForStoreRequest(@Param("sid") Long sid, @Param("rid") Long rid);
 
-@Query(value = "SELECT COALESCE(SUM(processed_qty),0) FROM STORE_ISSUE_MASTER where STORE_REQUEST_SEQ_NO=:sid",nativeQuery = true) 
-Float getTotalProcessedQtyForLineItem(@Param("sid") Long sid);
+@Query(value = "SELECT COALESCE(processed_qty,0) FROM STORE_ISSUE_MASTER where STORE_movemeent_SEQ_NO=:sid",nativeQuery = true) 
+Float getProcessedQtyForLineItem(@Param("mid") Long mid);
 
 @Query(value = "SELECT COALESCE(SUM(consign_qty),0) FROM STORE_ISSUE_MASTER where (STORE_REQUEST_SEQ_NO=:sid and resource_SEQ_NO=:rid)",nativeQuery = true) 
 Float getTotalConsignItemQtyForStoreRequest(@Param("sid") Long sid, @Param("rid") Long rid);
 
-@Query(value = "SELECT COALESCE(SUM(consign_qty),0) FROM STORE_ISSUE_MASTER where STORE_REQUEST_SEQ_NO=:sid",nativeQuery = true) 
-Float getTotalConsignQtyForLineItem(@Param("sid") Long sid);
+@Query(value = "SELECT COALESCE(consign_qty,0) FROM STORE_ISSUE_MASTER where STORE_movemeent_SEQ_NO=:mid",nativeQuery = true) 
+Float getConsignQtyForLineItem(@Param("mid") Long mid);
 
 //GET various QTYs for order request and movement line items - END 
 
@@ -52,13 +52,13 @@ CopyOnWriteArrayList<StoreIssueMaster> getSelectStoreIssueMasters(@Param("ids") 
 CopyOnWriteArrayList<StoreIssueMaster> getSelectStoreIssueMastersByRequests(@Param("rids") CopyOnWriteArrayList<Long> rids);
 
 @Query(value = "select * from STORE_ISSUE_MASTER where location_SEQ_NO in :ids ORDER BY location_SEQ_NO", nativeQuery = true)
-CopyOnWriteArrayList<StoreIssueMaster> getSelectStoreIssueMastersByLocation(@Param("lids") CopyOnWriteArrayList<Long> lids);
+CopyOnWriteArrayList<StoreIssueMaster> getSelectStoreIssueMastersByLocations(@Param("lids") CopyOnWriteArrayList<Long> lids);
 
 @Query(value = "SELECT * from  STORE_ISSUE_MASTER where (store_request_SEQ_NO in :rids and upper(trim(doneflag)) <> 'Y') ORDER BY store_request_SEQ_NO", nativeQuery = true)
-CopyOnWriteArrayList<StoreIssueMaster> getSelectStoreIssueMastersLineItemsForRequestsNotDone(@Param("rids") CopyOnWriteArrayList<Long> ids);
+CopyOnWriteArrayList<StoreIssueMaster> getSelectStoreIssueMastersLineItemsForRequestsNotDone(@Param("rids") CopyOnWriteArrayList<Long> rids);
 
 @Query(value = "SELECT * from  STORE_ISSUE_MASTER where (store_request_SEQ_NO in :rids and upper(trim(doneflag)) = 'Y') ORDER BY store_request_SEQ_NO", nativeQuery = true)
-CopyOnWriteArrayList<StoreIssueMaster> getSelectStoreIssueMastersLineItemsForRequestsDone(@Param("rids") CopyOnWriteArrayList<Long> ids);
+CopyOnWriteArrayList<StoreIssueMaster> getSelectStoreIssueMastersLineItemsForRequestsDone(@Param("rids") CopyOnWriteArrayList<Long> rids);
 
 @Query(value = "SELECT * from  STORE_ISSUE_MASTER where (store_request_SEQ_NO in :rids and upper(trim(okflag)) <> 'Y') ORDER BY store_request_SEQ_NO", nativeQuery = true)
 CopyOnWriteArrayList<StoreIssueMaster> getSelectStoreIssueMastersLineItemsForNotOkStatus(@Param("rids") CopyOnWriteArrayList<Long> ids);
