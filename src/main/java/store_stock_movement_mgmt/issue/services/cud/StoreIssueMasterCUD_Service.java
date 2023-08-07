@@ -20,7 +20,6 @@ import consignment_details_mgmt.model.repo.cud.ConsignmentDetailsCUD_Repo;
 import consignment_details_mgmt.model.repo.read.ConsignmentDetailsRead_Repo;
 import consignment_master_mgmt.model.master.ConsignmentMaster;
 import consignment_master_mgmt.model.repo.cud.ConsignmentMasterCUD_Repo;
-import consignment_master_mgmt.model.repo.read.ConsignmentMasterRead_Repo;
 import store_order_outwards_mgmt.model.repo.read.StoreOrderOutwardsRead_Repo;
 import store_stock_movement_mgmt.issue.model.dto.StoreIssueMaster_DTO;
 import store_stock_movement_mgmt.issue.model.master.StoreIssueMaster;
@@ -39,9 +38,6 @@ public class StoreIssueMasterCUD_Service implements I_StoreIssueMasterCUD_Servic
 	
 	@Autowired
 	private ConsignmentMasterCUD_Repo consignmentMasterCUDRepo;
-	
-	@Autowired
-	private ConsignmentMasterRead_Repo consignmentMasterReadRepo;
 	
 	@Autowired
 	private ConsignmentDetailsCUD_Repo consignmentDetailsCUDRepo;	
@@ -360,8 +356,7 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 		Float result = curQty + qty;
 		
 		if((result <= qlyQty) && (prcQty == null || prcQty ==0) && (qty > 0)) 
-		{
-		storeIssueMasterCUDRepo.addProcessQtyForLineItem(mid, qty);
+		{		
 		ConsignmentMaster consignmentMaster = new ConsignmentMaster();
 		ConsignmentDetail consignmentDetail = new ConsignmentDetail();
 		ConsignmentDetailPK consignmentDetailPK = new ConsignmentDetailPK(); 
@@ -373,9 +368,18 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 		consignmentDetail.setDoneFlag('N');				
 		ConsignmentMaster cm =  consignmentMasterCUDRepo.save(consignmentMaster);		
 		consignmentDetailPK.setConsignmentSeqNo(cm.getConsignmentSeqNo());
-		consignmentDetailPK.setResourceSeqNo(storeIssueMaster.getResourceSeqNo());
+		consignmentDetailPK.setStoreMovementSeqNo(storeIssueMaster.getStoreMovementSeqNo());
 		consignmentDetail.setId(consignmentDetailPK);
-		consignmentDetail.setQty(qty);				
+		if(storeIssueMaster.getAssetSeqNo()==null || storeIssueMaster.getAssetSeqNo()<=0)
+		{
+		consignmentDetail.setResourceSeqNo(storeIssueMaster.getResourceSeqNo());
+		consignmentDetail.setQty(qty);
+		}
+		else
+		{
+		consignmentDetail.setAssetSeqNo(storeIssueMaster.getAssetSeqNo());
+		consignmentDetail.setQty((float) 1);
+		}					
 		consignmentDetailsCUDRepo.save(consignmentDetail);
 		}
 		else
@@ -397,18 +401,39 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 		Float result = curQty - qty;
 		Optional<StoreIssueMaster> storeIssueMasterOpt = storeIssueMasterReadRepo.findById(mid);
 		StoreIssueMaster storeIssueMaster = storeIssueMasterOpt.get();
-		Long rid = storeIssueMaster.getResourceSeqNo(); 
+		Long rid = storeIssueMaster.getResourceSeqNo();
+		Long aid = storeIssueMaster.getAssetSeqNo();
+		CopyOnWriteArrayList<ConsignmentDetail> consignmentDetails = null;
 						
-		CopyOnWriteArrayList<ConsignmentDetail> consignmentDetails = consignmentDetailsReadRepo.getSelectConsignmentResourceDetailsPendingForMovement(mid, rid);
-		Float pendingQty = (float) 0;
-		for (int i = 0; i < consignmentDetails.size(); i++) 
+		if(rid != null)
 		{
-		pendingQty = pendingQty + consignmentDetailsReadRepo.getTotalSelectConsignmentAssetDetailsPendingForConsignment(consignmentDetails.get(i).getId().getConsignmentSeqNo(),rid);
+		consignmentDetails = consignmentDetailsReadRepo.getSelectConsignmentResourceDetailsPendingForMovement(mid, rid);
+		}
+		else
+		{
+		consignmentDetails = consignmentDetailsReadRepo.getSelectConsignmentAssetDetailsPendingForMovement(mid, aid);	
+		}
+		
+		Float pendingQty = (float) 0;
+		
+		if(consignmentDetails !=null && aid!=null)
+		{
+		for (int i = 0; i < consignmentDetails.size(); i++) 
+		{			
+		pendingQty = pendingQty + consignmentDetailsReadRepo.getTotalSelectConsignmentAssetDetailsPendingForConsignment(consignmentDetails.get(i).getId().getConsignmentSeqNo(),aid);
+		}
+		}
+		else
+		{
+		for (int i = 0; i < consignmentDetails.size(); i++) 
+		{			
+		pendingQty = pendingQty + consignmentDetailsReadRepo.getTotalSelectConsignmentResourceDetailsPendingForConsignment(consignmentDetails.get(i).getId().getConsignmentSeqNo(),rid);
+		}	
 		}
 		
 		if((result > 0) && (pendingQty >= result))
 		{
-		storeIssueMasterCUDRepo.subProcessQtyForLineItem(mid, qty);		
+		storeIssueMasterCUDRepo.subConsignQtyForLineItem(mid, qty);		
 		}
 		else
 		{

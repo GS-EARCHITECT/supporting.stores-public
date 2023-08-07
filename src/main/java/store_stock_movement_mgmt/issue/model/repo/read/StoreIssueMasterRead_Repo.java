@@ -22,25 +22,25 @@ Optional<CopyOnWriteArrayList<StoreIssueMaster>> getAllRowsPendingProcessing();
 @Query(value = "SELECT COALESCE(SUM(request_qty),0) FROM STORE_ISSUE_MASTER where (STORE_REQUEST_SEQ_NO=:sid and resource_SEQ_NO=:rid)",nativeQuery = true) 
 Float getTotalRequestItemQtyForStoreRequest(@Param("sid") Long sid, @Param("rid") Long rid);
 
-@Query(value = "SELECT COALESCE(request_qty,0) FROM STORE_ISSUE_MASTER where STORE_movemeent_SEQ_NO=:mid",nativeQuery = true) 
+@Query(value = "SELECT COALESCE(request_qty,0) FROM STORE_ISSUE_MASTER where STORE_movement_SEQ_NO=:mid",nativeQuery = true) 
 Float getRequestQtyForLineItem(@Param("mid") Long mid);
 
 @Query(value = "SELECT COALESCE(SUM(quality_qty),0) FROM STORE_ISSUE_MASTER where (STORE_REQUEST_SEQ_NO=:sid and resource_SEQ_NO=:rid)",nativeQuery = true) 
 Float getTotalQCItemQtyForStoreRequest(@Param("sid") Long sid, @Param("rid") Long rid);
 
-@Query(value = "SELECT COALESCE(quality_qty,0) FROM STORE_ISSUE_MASTER where STORE_movemeent_SEQ_NO=:mid",nativeQuery = true) 
+@Query(value = "SELECT COALESCE(quality_qty,0) FROM STORE_ISSUE_MASTER where STORE_movement_SEQ_NO=:mid",nativeQuery = true) 
 Float getQCQtyForLineItem(@Param("mid") Long mid);
 
 @Query(value = "SELECT COALESCE(SUM(processed_qty),0) FROM STORE_ISSUE_MASTER where (STORE_REQUEST_SEQ_NO=:sid and resource_SEQ_NO=:rid)",nativeQuery = true) 
 Float getTotalProcessedItemQtyForStoreRequest(@Param("sid") Long sid, @Param("rid") Long rid);
 
-@Query(value = "SELECT COALESCE(processed_qty,0) FROM STORE_ISSUE_MASTER where STORE_movemeent_SEQ_NO=:sid",nativeQuery = true) 
+@Query(value = "SELECT COALESCE(processed_qty,0) FROM STORE_ISSUE_MASTER where STORE_movement_SEQ_NO=:sid",nativeQuery = true) 
 Float getProcessedQtyForLineItem(@Param("mid") Long mid);
 
 @Query(value = "SELECT COALESCE(SUM(consign_qty),0) FROM STORE_ISSUE_MASTER where (STORE_REQUEST_SEQ_NO=:sid and resource_SEQ_NO=:rid)",nativeQuery = true) 
 Float getTotalConsignItemQtyForStoreRequest(@Param("sid") Long sid, @Param("rid") Long rid);
 
-@Query(value = "SELECT COALESCE(consign_qty,0) FROM STORE_ISSUE_MASTER where STORE_movemeent_SEQ_NO=:mid",nativeQuery = true) 
+@Query(value = "SELECT COALESCE(consign_qty,0) FROM STORE_ISSUE_MASTER where STORE_movement_SEQ_NO=:mid",nativeQuery = true) 
 Float getConsignQtyForLineItem(@Param("mid") Long mid);
 
 //GET various QTYs for order request and movement line items - END 
