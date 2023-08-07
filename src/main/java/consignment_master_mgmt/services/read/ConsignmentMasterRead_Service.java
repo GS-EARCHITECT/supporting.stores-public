@@ -32,9 +32,9 @@ public class ConsignmentMasterRead_Service implements I_ConsignmentMasterRead_Se
 	{
 		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
 		{
-		CopyOnWriteArrayList<ConsignmentMaster> jobList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.findAll();
+		CopyOnWriteArrayList<ConsignmentMaster> conList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.findAll();
 		CopyOnWriteArrayList<ConsignmentMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getConsignmentMaster_DTOs(jobList) : null;
+		jcmDTOs = conList != null ? this.getConsignmentMaster_DTOs(conList) : null;
 		return jcmDTOs;
 		},asyncExecutor);
 
@@ -47,37 +47,23 @@ public class ConsignmentMasterRead_Service implements I_ConsignmentMasterRead_Se
 	{
 		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
 		{
-		CopyOnWriteArrayList<ConsignmentMaster> jobList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMasters(jcmSeqNos);
+		CopyOnWriteArrayList<ConsignmentMaster> conList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMasters(jcmSeqNos);
 		CopyOnWriteArrayList<ConsignmentMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getConsignmentMaster_DTOs(jobList) : null;
+		jcmDTOs = conList != null ? this.getConsignmentMaster_DTOs(conList) : null;
 		return jcmDTOs;
 		},asyncExecutor);
 
 	return future;
 	}
 
-	@Override
-	public CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> getSelectConsignmentMastersByRequests(CopyOnWriteArrayList<Long> pids) 
-	{
-		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
-		{
-		CopyOnWriteArrayList<ConsignmentMaster> jobList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersByRequests(pids);
-		CopyOnWriteArrayList<ConsignmentMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getConsignmentMaster_DTOs(jobList) : null;
-		return jcmDTOs;
-		},asyncExecutor);
-
-	return future;
-	}
-	
 	@Override
 	public CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> getSelectConsignmentMastersByParents(CopyOnWriteArrayList<Long> pids) 
 	{
 		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
 		{
-		CopyOnWriteArrayList<ConsignmentMaster> jobList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersByParents(pids);
+		CopyOnWriteArrayList<ConsignmentMaster> conList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersByParents(pids);
 		CopyOnWriteArrayList<ConsignmentMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getConsignmentMaster_DTOs(jobList) : null;
+		jcmDTOs = conList != null ? this.getConsignmentMaster_DTOs(conList) : null;
 		return jcmDTOs;
 		},asyncExecutor);
 
@@ -89,9 +75,9 @@ public class ConsignmentMasterRead_Service implements I_ConsignmentMasterRead_Se
 	{
 		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
 		{
-		CopyOnWriteArrayList<ConsignmentMaster> jobList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersForParties(pids);
+		CopyOnWriteArrayList<ConsignmentMaster> conList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersForParties(pids);
 		CopyOnWriteArrayList<ConsignmentMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getConsignmentMaster_DTOs(jobList) : null;
+		jcmDTOs = conList != null ? this.getConsignmentMaster_DTOs(conList) : null;
 		return jcmDTOs;
 		},asyncExecutor);
 
@@ -103,9 +89,9 @@ public class ConsignmentMasterRead_Service implements I_ConsignmentMasterRead_Se
 	{
 		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
 		{
-		CopyOnWriteArrayList<ConsignmentMaster> jobList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersToParties(pids);
+		CopyOnWriteArrayList<ConsignmentMaster> conList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersToParties(pids);
 		CopyOnWriteArrayList<ConsignmentMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getConsignmentMaster_DTOs(jobList) : null;
+		jcmDTOs = conList != null ? this.getConsignmentMaster_DTOs(conList) : null;
 		return jcmDTOs;
 		},asyncExecutor);
 
@@ -117,9 +103,9 @@ public class ConsignmentMasterRead_Service implements I_ConsignmentMasterRead_Se
 	{
 		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
 		{
-		CopyOnWriteArrayList<ConsignmentMaster> jobList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersComingIn();
+		CopyOnWriteArrayList<ConsignmentMaster> conList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersComingIn();
 		CopyOnWriteArrayList<ConsignmentMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getConsignmentMaster_DTOs(jobList) : null;
+		jcmDTOs = conList != null ? this.getConsignmentMaster_DTOs(conList) : null;
 		return jcmDTOs;
 		},asyncExecutor);
 
@@ -131,9 +117,9 @@ public class ConsignmentMasterRead_Service implements I_ConsignmentMasterRead_Se
 	{
 		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
 		{
-		CopyOnWriteArrayList<ConsignmentMaster> jobList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersGoingOut();
+		CopyOnWriteArrayList<ConsignmentMaster> conList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersGoingOut();
 		CopyOnWriteArrayList<ConsignmentMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getConsignmentMaster_DTOs(jobList) : null;
+		jcmDTOs = conList != null ? this.getConsignmentMaster_DTOs(conList) : null;
 		return jcmDTOs;
 		},asyncExecutor);
 
@@ -145,23 +131,9 @@ public class ConsignmentMasterRead_Service implements I_ConsignmentMasterRead_Se
 	{
 		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
 		{
-		CopyOnWriteArrayList<ConsignmentMaster> jobList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersPending();
+		CopyOnWriteArrayList<ConsignmentMaster> conList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersPending();
 		CopyOnWriteArrayList<ConsignmentMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getConsignmentMaster_DTOs(jobList) : null;
-		return jcmDTOs;
-		},asyncExecutor);
-
-	return future;
-	}
-
-	@Override
-	public CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> getSelectConsignmentMastersDelivered() 
-	{
-		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
-		{
-		CopyOnWriteArrayList<ConsignmentMaster> jobList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersDelivered();
-		CopyOnWriteArrayList<ConsignmentMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getConsignmentMaster_DTOs(jobList) : null;
+		jcmDTOs = conList != null ? this.getConsignmentMaster_DTOs(conList) : null;
 		return jcmDTOs;
 		},asyncExecutor);
 
@@ -173,9 +145,9 @@ public class ConsignmentMasterRead_Service implements I_ConsignmentMasterRead_Se
 	{
 		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
 		{
-		CopyOnWriteArrayList<ConsignmentMaster> jobList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersCanBeProcessed();
+		CopyOnWriteArrayList<ConsignmentMaster> conList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersCanBeProcessed();
 		CopyOnWriteArrayList<ConsignmentMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getConsignmentMaster_DTOs(jobList) : null;
+		jcmDTOs = conList != null ? this.getConsignmentMaster_DTOs(conList) : null;
 		return jcmDTOs;
 		},asyncExecutor);
 
@@ -187,41 +159,95 @@ public class ConsignmentMasterRead_Service implements I_ConsignmentMasterRead_Se
 	{
 		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
 		{
-		CopyOnWriteArrayList<ConsignmentMaster> jobList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersCannotBeProcessed();
+		CopyOnWriteArrayList<ConsignmentMaster> conList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersCannotBeProcessed();
 		CopyOnWriteArrayList<ConsignmentMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getConsignmentMaster_DTOs(jobList) : null;
+		jcmDTOs = conList != null ? this.getConsignmentMaster_DTOs(conList) : null;
 		return jcmDTOs;
 		},asyncExecutor);
 
 	return future;
 	}
 	
-	
-	private synchronized CopyOnWriteArrayList<ConsignmentMaster_DTO> getConsignmentMaster_DTOs(CopyOnWriteArrayList<ConsignmentMaster> jobMasters) {
-		ConsignmentMaster_DTO jobDTO = null;
-		CopyOnWriteArrayList<ConsignmentMaster_DTO> jobDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
+	@Override
+	public CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> getSelectConsignmentInMastersPending() 
+	{
+		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
+		{
+		CopyOnWriteArrayList<ConsignmentMaster> conList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentInMastersPending();
+		CopyOnWriteArrayList<ConsignmentMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
+		jcmDTOs = conList != null ? this.getConsignmentMaster_DTOs(conList) : null;
+		return jcmDTOs;
+		},asyncExecutor);
 
-		for (int i = 0; i < jobMasters.size(); i++) {
-			jobDTO = getConsignmentMaster_DTO(jobMasters.get(i));
-			jobDTOs.add(jobDTO);
-		}
-		return jobDTOs;
+	return future;
 	}
 
-	private synchronized ConsignmentMaster_DTO getConsignmentMaster_DTO(ConsignmentMaster jobMaster2) 
+	@Override
+	public CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> getSelectConsignmentOutMastersPending() 
 	{
-		ConsignmentMaster_DTO jobMasterDTO = new ConsignmentMaster_DTO();
-		jobMasterDTO = new ConsignmentMaster_DTO();
-		jobMasterDTO.setConsignmentSeqNo(jobMaster2.getConsignmentSeqNo());
-		jobMasterDTO.setFromLocationSeqNo(jobMaster2.getFromLocationSeqNo());
-		jobMasterDTO.setFromPartySeqNo(jobMaster2.getFromPartySeqNo());		
-		jobMasterDTO.setParConsignmentSeqNo(jobMaster2.getParConsignmentSeqNo());
-		jobMasterDTO.setStoreRequestSeqNo(jobMaster2.getStoreRequestSeqNo());
-		jobMasterDTO.setToLocationSeqNo(jobMaster2.getToLocationSeqNo());
-		jobMasterDTO.setToPartySeqNo(jobMaster2.getToPartySeqNo());		
-		jobMasterDTO.setRemark(jobMaster2.getRemark());
-		jobMasterDTO.setStatus(jobMaster2.getStatus());
-		return jobMasterDTO;
+		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
+		{
+		CopyOnWriteArrayList<ConsignmentMaster> conList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentOutMastersPending();
+		CopyOnWriteArrayList<ConsignmentMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
+		jcmDTOs = conList != null ? this.getConsignmentMaster_DTOs(conList) : null;
+		return jcmDTOs;
+		},asyncExecutor);
+
+	return future;
+	}
+	
+	@Override
+	public CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> getSelectConsignmentMastersAppliedOutwards() 
+	{
+		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
+		{
+		CopyOnWriteArrayList<ConsignmentMaster> conList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersAppliedOutwards();
+		CopyOnWriteArrayList<ConsignmentMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
+		jcmDTOs = conList != null ? this.getConsignmentMaster_DTOs(conList) : null;
+		return jcmDTOs;
+		},asyncExecutor);
+
+	return future;
+	}
+
+	@Override
+	public CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> getSelectConsignmentMastersAppliedInwards() 
+	{
+		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
+		{
+		CopyOnWriteArrayList<ConsignmentMaster> conList = (CopyOnWriteArrayList<ConsignmentMaster>) consignmentMasterReadRepo.getSelectConsignmentMastersAppliedInwards();
+		CopyOnWriteArrayList<ConsignmentMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
+		jcmDTOs = conList != null ? this.getConsignmentMaster_DTOs(conList) : null;
+		return jcmDTOs;
+		},asyncExecutor);
+
+	return future;
+	}
+
+	
+	private synchronized CopyOnWriteArrayList<ConsignmentMaster_DTO> getConsignmentMaster_DTOs(CopyOnWriteArrayList<ConsignmentMaster> conMasters) {
+		ConsignmentMaster_DTO conDTO = null;
+		CopyOnWriteArrayList<ConsignmentMaster_DTO> conDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
+
+		for (int i = 0; i < conMasters.size(); i++) {
+			conDTO = getConsignmentMaster_DTO(conMasters.get(i));
+			conDTOs.add(conDTO);
+		}
+		return conDTOs;
+	}
+
+	private synchronized ConsignmentMaster_DTO getConsignmentMaster_DTO(ConsignmentMaster conMaster2) 
+	{
+		ConsignmentMaster_DTO conMasterDTO = new ConsignmentMaster_DTO();
+		conMasterDTO = new ConsignmentMaster_DTO();
+		conMasterDTO.setConsignmentSeqNo(conMaster2.getConsignmentSeqNo());
+		conMasterDTO.setFromLocationSeqNo(conMaster2.getFromLocationSeqNo());
+		conMasterDTO.setFromPartySeqNo(conMaster2.getFromPartySeqNo());		
+		conMasterDTO.setParConsignmentSeqNo(conMaster2.getParConsignmentSeqNo());
+		conMasterDTO.setToLocationSeqNo(conMaster2.getToLocationSeqNo());
+		conMasterDTO.setToPartySeqNo(conMaster2.getToPartySeqNo());		
+		conMasterDTO.setRemark(conMaster2.getRemark());		
+		return conMasterDTO;
 	}
 
 }

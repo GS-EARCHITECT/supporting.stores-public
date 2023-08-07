@@ -101,6 +101,21 @@ public class ConsignmentDetailsCUD_Controller {
 		consignmentDetailsCUDService.updConsignmentAssetDetailOkStatus(id, aid, st);
 		return;
 	}
+	
+	@PutMapping("/updConsignmentMasterMovementNoForResource/{mid}/{cid}/{rid}/{qty}")
+	public void updConsignmentMasterMovementNoForResource(@PathVariable Long mid, @PathVariable Long cid, @PathVariable Long rid, @PathVariable Float qty)
+	{
+		consignmentDetailsCUDService.updConsignmentMasterMovementNoForResource(mid, cid, rid, qty);
+		return;
+	}
+
+	@PutMapping("/updConsignmentMasterMovementNoForAsset/{mid}/{cid}/{rid}")
+	public void updConsignmentMasterMovementNoForAsset(@PathVariable Long mid, @PathVariable Long cid, @PathVariable Long rid)
+	{
+		consignmentDetailsCUDService.updConsignmentMasterMovementNoForAsset(mid, cid, rid);
+		return;
+	}
+
 	@DeleteMapping("/delSelectJobDetailsForResources")
 	public void delSelectJobDetailsForResources(@RequestBody CopyOnWriteArrayList<Long> rids) {
 		consignmentDetailsCUDService.delSelectConsignmentDetailsByResources(rids);

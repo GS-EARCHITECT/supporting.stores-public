@@ -74,24 +74,6 @@ public class ConsignmentMasterRead_Controller {
 		return new ResponseEntity<>(jobMasterList, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/getSelectConsignmentMastersByRequests", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<CopyOnWriteArrayList<ConsignmentMaster_DTO>> getSelectConsignmentMastersByRequests(
-			@RequestBody CopyOnWriteArrayList<Long> pids) {
-		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> jobMaster_DTOs = null;
-		CopyOnWriteArrayList<ConsignmentMaster_DTO> jobMasterList = null;
-		try {
-			jobMaster_DTOs = consignmentMasterReadService.getSelectConsignmentMastersByRequests(pids);
-			jobMasterList = jobMaster_DTOs.get();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ResponseEntity<>(jobMasterList, HttpStatus.OK);
-	}
-
 	@GetMapping(value = "/getAllConsignmentJobMasters", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<CopyOnWriteArrayList<ConsignmentMaster_DTO>> getAllConsignmentJobMasters() {
 		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> jobMaster_DTOs = null;
@@ -179,24 +161,6 @@ public class ConsignmentMasterRead_Controller {
 		return new ResponseEntity<>(jobMasterList, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/getSelectConsignmentMastersDelivered", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<CopyOnWriteArrayList<ConsignmentMaster_DTO>> getSelectConsignmentMastersDelivered() 
-	{
-		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> jobMaster_DTOs = null;
-		CopyOnWriteArrayList<ConsignmentMaster_DTO> jobMasterList = null;
-		try {
-			jobMaster_DTOs = consignmentMasterReadService.getSelectConsignmentMastersDelivered();
-			jobMasterList = jobMaster_DTOs.get();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ResponseEntity<>(jobMasterList, HttpStatus.OK);
-	}
-	
 	@GetMapping(value = "/getSelectConsignmentMastersCanBeProcessed", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<CopyOnWriteArrayList<ConsignmentMaster_DTO>> getSelectConsignmentMastersCanBeProcessed() 
 	{
@@ -233,6 +197,75 @@ public class ConsignmentMasterRead_Controller {
 		return new ResponseEntity<>(jobMasterList, HttpStatus.OK);
 	}
 
-	
-}
+	@GetMapping(value = "/getSelectConsignmentInMastersPending", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<CopyOnWriteArrayList<ConsignmentMaster_DTO>> getSelectConsignmentInMastersPending() 
+	{
+		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> jobMaster_DTOs = null;
+		CopyOnWriteArrayList<ConsignmentMaster_DTO> jobMasterList = null;
+		try {
+			jobMaster_DTOs = consignmentMasterReadService.getSelectConsignmentInMastersPending();
+			jobMasterList = jobMaster_DTOs.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(jobMasterList, HttpStatus.OK);
+	}
 
+	@GetMapping(value = "/getSelectConsignmentOutMastersPending", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<CopyOnWriteArrayList<ConsignmentMaster_DTO>> getSelectConsignmentOutMastersPending() 
+	{
+		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> jobMaster_DTOs = null;
+		CopyOnWriteArrayList<ConsignmentMaster_DTO> jobMasterList = null;
+		try {
+			jobMaster_DTOs = consignmentMasterReadService.getSelectConsignmentOutMastersPending();
+			jobMasterList = jobMaster_DTOs.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(jobMasterList, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/getSelectConsignmentMastersAppliedOutwards", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<CopyOnWriteArrayList<ConsignmentMaster_DTO>> getSelectConsignmentMastersAppliedOutwards() 
+	{
+		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> jobMaster_DTOs = null;
+		CopyOnWriteArrayList<ConsignmentMaster_DTO> jobMasterList = null;
+		try {
+			jobMaster_DTOs = consignmentMasterReadService.getSelectConsignmentMastersAppliedOutwards();
+			jobMasterList = jobMaster_DTOs.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(jobMasterList, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/getSelectConsignmentMastersAppliedInwards", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<CopyOnWriteArrayList<ConsignmentMaster_DTO>> getSelectConsignmentMastersAppliedInwards() 
+	{
+		CompletableFuture<CopyOnWriteArrayList<ConsignmentMaster_DTO>> jobMaster_DTOs = null;
+		CopyOnWriteArrayList<ConsignmentMaster_DTO> jobMasterList = null;
+		try {
+			jobMaster_DTOs = consignmentMasterReadService.getSelectConsignmentMastersAppliedInwards();
+			jobMasterList = jobMaster_DTOs.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(jobMasterList, HttpStatus.OK);
+	}
+}

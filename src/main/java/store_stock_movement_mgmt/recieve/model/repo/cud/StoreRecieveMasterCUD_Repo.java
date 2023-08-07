@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import store_stock_movement_mgmt.recieve.model.master.StoreRecieveMaster;
 
-@Repository("storeRecieveCUDRepo")
-public interface StoreRecieveCUD_Repo extends CrudRepository<StoreRecieveMaster, Long> 
+@Repository("storeRecieveMasterCUDRepo")
+public interface StoreRecieveMasterCUD_Repo extends CrudRepository<StoreRecieveMaster, Long> 
 {
 @Modifying
 @Query(value="update TRANSACTION_ITEM_DETAILS set BY_STORE_VERIFICATION_FLAG = 'Y' where STORE_REQUEST_SEQ_NO = :storeReqSeqNo", nativeQuery = true)

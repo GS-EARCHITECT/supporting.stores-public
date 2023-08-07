@@ -10,6 +10,7 @@ public class ConsignmentDetail_DTO implements Serializable {
 	private static final long serialVersionUID = -5163229169726132531L;
 	private Long resourceSeqNo;
 	private Long consignmentSeqNo;
+	private Long storeMovementSeqNo;
 	private Long assetSeqNo;
 	private Float qty;
 	private Long qtyUnitSeqNo;
@@ -94,11 +95,20 @@ public class ConsignmentDetail_DTO implements Serializable {
 		super();
 	}
 
-	public ConsignmentDetail_DTO(Long resourceSeqNo, Long consignmentSeqNo, Long assetSeqNo, Float qty,
-			Long qtyUnitSeqNo, String remark, String status, Character okFlag, Character doneFlag) {
+	public Long getStoreMovementSeqNo() {
+		return storeMovementSeqNo;
+	}
+
+	public void setStoreMovementSeqNo(Long storeMovementSeqNo) {
+		this.storeMovementSeqNo = storeMovementSeqNo;
+	}
+
+	public ConsignmentDetail_DTO(Long resourceSeqNo, Long consignmentSeqNo, Long storeMovementSeqNo, Long assetSeqNo,
+			Float qty, Long qtyUnitSeqNo, String remark, String status, Character okFlag, Character doneFlag) {
 		super();
 		this.resourceSeqNo = resourceSeqNo;
 		this.consignmentSeqNo = consignmentSeqNo;
+		this.storeMovementSeqNo = storeMovementSeqNo;
 		this.assetSeqNo = assetSeqNo;
 		this.qty = qty;
 		this.qtyUnitSeqNo = qtyUnitSeqNo;

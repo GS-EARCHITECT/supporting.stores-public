@@ -6,6 +6,7 @@ import java.util.concurrent.Executor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -140,6 +141,35 @@ public class ConsignmentDetailRead_Service implements I_ConsignmentDetailsRead_S
 	return future;
 	}
 	
+	@Override
+	public CompletableFuture<CopyOnWriteArrayList<ConsignmentDetail_DTO>> getSelectConsignmentResourceDetailsPending(Long cid) 
+	{
+		CompletableFuture<CopyOnWriteArrayList<ConsignmentDetail_DTO>> future = CompletableFuture.supplyAsync(() -> 
+		{
+		CopyOnWriteArrayList<ConsignmentDetail> jobList = (CopyOnWriteArrayList<ConsignmentDetail>) consignmentDetailsReadRepo.getSelectConsignmentResourceDetailsPending(cid);
+		CopyOnWriteArrayList<ConsignmentDetail_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentDetail_DTO>();
+		jcmDTOs = jobList != null ? this.getConsignmentDetail_DTOs(jobList) : null;
+		return jcmDTOs;
+		},asyncExecutor);
+
+	return future;
+	}
+
+	@Override
+	public CompletableFuture<CopyOnWriteArrayList<ConsignmentDetail_DTO>> getSelectConsignmentAssetDetailsPending(Long cid) 
+	{
+		CompletableFuture<CopyOnWriteArrayList<ConsignmentDetail_DTO>> future = CompletableFuture.supplyAsync(() -> 
+		{
+		CopyOnWriteArrayList<ConsignmentDetail> jobList = (CopyOnWriteArrayList<ConsignmentDetail>) consignmentDetailsReadRepo.getSelectConsignmentAssetDetailsPending(cid);
+		CopyOnWriteArrayList<ConsignmentDetail_DTO> jcmDTOs = new CopyOnWriteArrayList<ConsignmentDetail_DTO>();
+		jcmDTOs = jobList != null ? this.getConsignmentDetail_DTOs(jobList) : null;
+		return jcmDTOs;
+		},asyncExecutor);
+
+	return future;
+	}
+
+	
 	private synchronized CopyOnWriteArrayList<ConsignmentDetail_DTO> getConsignmentDetail_DTOs(CopyOnWriteArrayList<ConsignmentDetail> jobDetailss) {
 		ConsignmentDetail_DTO jobDTO = null;
 		CopyOnWriteArrayList<ConsignmentDetail_DTO> jobDTOs = new CopyOnWriteArrayList<ConsignmentDetail_DTO>();
@@ -156,10 +186,10 @@ public class ConsignmentDetailRead_Service implements I_ConsignmentDetailsRead_S
 		ConsignmentDetail_DTO jobDetailsDTO = new ConsignmentDetail_DTO();
 		jobDetailsDTO = new ConsignmentDetail_DTO();
 		jobDetailsDTO.setConsignmentSeqNo(jobDetails2.getId().getConsignmentSeqNo());
-		jobDetailsDTO.setAssetSeqNo(jobDetails2.getId().getAssetSeqNo());
+		jobDetailsDTO.setAssetSeqNo(jobDetails2.getAssetSeqNo());
 		jobDetailsDTO.setQty(jobDetails2.getQty());		
 		jobDetailsDTO.setQtyUnitSeqNo(jobDetails2.getQtyUnitSeqNo());
-		jobDetailsDTO.setResourceSeqNo(jobDetails2.getId().getResourceSeqNo());
+		jobDetailsDTO.setResourceSeqNo(jobDetails2.getResourceSeqNo());
 		jobDetailsDTO.setRemark(jobDetails2.getRemark());
 		jobDetailsDTO.setStatus(jobDetails2.getStatus());
 		return jobDetailsDTO;

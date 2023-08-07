@@ -8,7 +8,6 @@ import store_stock_movement_mgmt.issue.model.dto.StoreIssueMaster_DTO;
 public interface I_StoreIssueMasterCUD_Service
 {
 	public CompletableFuture<StoreIssueMaster_DTO> newIssueMaster(StoreIssueMaster_DTO storeIssueMaster_DTO);
-	public CompletableFuture<Void> updIssueMaster(StoreIssueMaster_DTO storeIssueMaster_DTO);
 	//public CompletableFuture<Void> check_Processed();	
 	//CompletableFuture<Void> updateStoreVerifiedStatus( Integer storeReqSeqNo);
 	CompletableFuture<Void> updOkStatusForLineItem( Long id,  Character st);

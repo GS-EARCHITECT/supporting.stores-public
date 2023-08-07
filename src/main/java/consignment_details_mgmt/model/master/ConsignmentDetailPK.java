@@ -12,69 +12,66 @@ public class ConsignmentDetailPK implements Serializable {
 	// default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "RESOURCE_SEQ_NO")
-	private Long resourceSeqNo;
-
 	@Column(name = "CONSIGNMENT_SEQ_NO")
 	private Long consignmentSeqNo;
 
-	@Column(name = "ASSET_SEQ_NO")
-	private Long assetSeqNo;
+	@Column(name = "STORE_MOVEMENT_SEQ_NO")
+	private Long storeMovementSeqNo;
 
 	public ConsignmentDetailPK() {
 	}
 
-	public Long getResourceSeqNo() {
-		return this.resourceSeqNo;
-	}
-
-	public void setResourceSeqNo(Long resourceSeqNo) {
-		this.resourceSeqNo = resourceSeqNo;
-	}
-
 	public Long getConsignmentSeqNo() {
-		return this.consignmentSeqNo;
+		return consignmentSeqNo;
 	}
 
 	public void setConsignmentSeqNo(Long consignmentSeqNo) {
 		this.consignmentSeqNo = consignmentSeqNo;
 	}
 
-	public Long getAssetSeqNo() {
-		return this.assetSeqNo;
+	public Long getStoreMovementSeqNo() {
+		return storeMovementSeqNo;
 	}
 
-	public void setAssetSeqNo(Long assetSeqNo) {
-		this.assetSeqNo = assetSeqNo;
+	public void setStoreMovementSeqNo(Long storeMovementSeqNo) {
+		this.storeMovementSeqNo = storeMovementSeqNo;
 	}
 
-	public boolean equals(Object other) {
-		if (this == other) {
-			return true;
-		}
-		if (!(other instanceof ConsignmentDetailPK)) {
-			return false;
-		}
-		ConsignmentDetailPK castOther = (ConsignmentDetailPK) other;
-		return (this.resourceSeqNo == castOther.resourceSeqNo) && (this.consignmentSeqNo == castOther.consignmentSeqNo)
-				&& (this.assetSeqNo == castOther.assetSeqNo);
-	}
-
+	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int hash = 17;
-		hash = hash * prime + ((int) (this.resourceSeqNo ^ (this.resourceSeqNo >>> 32)));
-		hash = hash * prime + ((int) (this.consignmentSeqNo ^ (this.consignmentSeqNo >>> 32)));
-		hash = hash * prime + ((int) (this.assetSeqNo ^ (this.assetSeqNo >>> 32)));
-
-		return hash;
+		int result = 1;
+		result = prime * result + ((consignmentSeqNo == null) ? 0 : consignmentSeqNo.hashCode());
+		result = prime * result + ((storeMovementSeqNo == null) ? 0 : storeMovementSeqNo.hashCode());
+		return result;
 	}
 
-	public ConsignmentDetailPK(Long resourceSeqNo, Long consignmentSeqNo, Long assetSeqNo) {
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ConsignmentDetailPK other = (ConsignmentDetailPK) obj;
+		if (consignmentSeqNo == null) {
+			if (other.consignmentSeqNo != null)
+				return false;
+		} else if (!consignmentSeqNo.equals(other.consignmentSeqNo))
+			return false;
+		if (storeMovementSeqNo == null) {
+			if (other.storeMovementSeqNo != null)
+				return false;
+		} else if (!storeMovementSeqNo.equals(other.storeMovementSeqNo))
+			return false;
+		return true;
+	}
+
+	public ConsignmentDetailPK(Long consignmentSeqNo, Long storeMovementSeqNo) {
 		super();
-		this.resourceSeqNo = resourceSeqNo;
 		this.consignmentSeqNo = consignmentSeqNo;
-		this.assetSeqNo = assetSeqNo;
+		this.storeMovementSeqNo = storeMovementSeqNo;
 	}
 
 }

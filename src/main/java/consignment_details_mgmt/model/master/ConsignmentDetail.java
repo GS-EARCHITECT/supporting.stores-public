@@ -8,12 +8,18 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name = "JOB_CONSIGNMENT_DETAILS")
+@Table(name = "STORE_CONSIGNMENT_DETAILS")
 public class ConsignmentDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private ConsignmentDetailPK id;
+
+	@Column(name = "RESOURCE_SEQ_NO")
+	private Long resourceSeqNo;
+
+	@Column(name = "ASSET_SEQ_NO")
+	private Long assetSeqNo;
 
 	@Column(name = "QTY")
 	private Float qty;
@@ -103,10 +109,28 @@ public class ConsignmentDetail implements Serializable {
 		this.okflag = okflag;
 	}
 
-	public ConsignmentDetail(ConsignmentDetailPK id, Float qty, Character okFkag, Long qtyUnitSeqNo,
-			String remark, String status, Character doneFlag, Character okflag) {
+	public Long getResourceSeqNo() {
+		return resourceSeqNo;
+	}
+
+	public void setResourceSeqNo(Long resourceSeqNo) {
+		this.resourceSeqNo = resourceSeqNo;
+	}
+
+	public Long getAssetSeqNo() {
+		return assetSeqNo;
+	}
+
+	public void setAssetSeqNo(Long assetSeqNo) {
+		this.assetSeqNo = assetSeqNo;
+	}
+
+	public ConsignmentDetail(ConsignmentDetailPK id, Long resourceSeqNo, Long assetSeqNo, Float qty, Character okFkag,
+			Long qtyUnitSeqNo, String remark, String status, Character doneFlag, Character okflag) {
 		super();
 		this.id = id;
+		this.resourceSeqNo = resourceSeqNo;
+		this.assetSeqNo = assetSeqNo;
 		this.qty = qty;
 		this.okFkag = okFkag;
 		this.qtyUnitSeqNo = qtyUnitSeqNo;

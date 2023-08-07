@@ -12,8 +12,7 @@ public interface I_ConsignmentMasterCUD_Service
 	public CompletableFuture<Void> updConsignmentMasterDoneStatus(Long id, Character st);
 	public CompletableFuture<Void> updConsignmentMasterOk(Long id);
 	public CompletableFuture<Void> updConsignmentMasterOkStatus(Long scid, Character st);
-	public CompletableFuture<Void> delSelectConsignmentMasters(CopyOnWriteArrayList<Long> ids);
-	public CompletableFuture<Void> delSelectConsignmentMastersByRequests(CopyOnWriteArrayList<Long> pids);
+	public CompletableFuture<Void> delSelectConsignmentMasters(CopyOnWriteArrayList<Long> ids);	
 	public CompletableFuture<Void> delSelectConsignmentMastersByParents(CopyOnWriteArrayList<Long> pids);
 	public CompletableFuture<Void> delSelectConsignmentMastersForParties(CopyOnWriteArrayList<Long> pids);
 	public CompletableFuture<Void> delSelectConsignmentMastersToParties(CopyOnWriteArrayList<Long> pids);

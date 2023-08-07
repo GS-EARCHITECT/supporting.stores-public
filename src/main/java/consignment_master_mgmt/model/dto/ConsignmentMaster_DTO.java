@@ -7,19 +7,17 @@ public class ConsignmentMaster_DTO implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2793349008458763803L;
+	private static final long serialVersionUID = 3209787825230110673L;
 	private Long consignmentSeqNo;
+	private Character doneflag;
 	private Long fromLocationSeqNo;
 	private Long fromPartySeqNo;
+	private Character inflag;
+	private Character okflag;
 	private Long parConsignmentSeqNo;
 	private String remark;
-	private String status;
-	private Long storeRequestSeqNo;
 	private String toLocationSeqNo;
 	private Long toPartySeqNo;
-	private Character doneFlag;
-	private Character inFlag;
-	private Character okflag;
 
 	public Long getConsignmentSeqNo() {
 		return consignmentSeqNo;
@@ -27,6 +25,14 @@ public class ConsignmentMaster_DTO implements Serializable {
 
 	public void setConsignmentSeqNo(Long consignmentSeqNo) {
 		this.consignmentSeqNo = consignmentSeqNo;
+	}
+
+	public Character getDoneflag() {
+		return doneflag;
+	}
+
+	public void setDoneflag(Character doneflag) {
+		this.doneflag = doneflag;
 	}
 
 	public Long getFromLocationSeqNo() {
@@ -45,6 +51,22 @@ public class ConsignmentMaster_DTO implements Serializable {
 		this.fromPartySeqNo = fromPartySeqNo;
 	}
 
+	public Character getInflag() {
+		return inflag;
+	}
+
+	public void setInflag(Character inflag) {
+		this.inflag = inflag;
+	}
+
+	public Character getOkflag() {
+		return okflag;
+	}
+
+	public void setOkflag(Character okflag) {
+		this.okflag = okflag;
+	}
+
 	public Long getParConsignmentSeqNo() {
 		return parConsignmentSeqNo;
 	}
@@ -59,22 +81,6 @@ public class ConsignmentMaster_DTO implements Serializable {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public Long getStoreRequestSeqNo() {
-		return storeRequestSeqNo;
-	}
-
-	public void setStoreRequestSeqNo(Long storeRequestSeqNo) {
-		this.storeRequestSeqNo = storeRequestSeqNo;
 	}
 
 	public String getToLocationSeqNo() {
@@ -92,51 +98,26 @@ public class ConsignmentMaster_DTO implements Serializable {
 	public void setToPartySeqNo(Long toPartySeqNo) {
 		this.toPartySeqNo = toPartySeqNo;
 	}
+	
+	
 
-	public Character getDoneFlag() {
-		return doneFlag;
-	}
-
-	public void setDoneFlag(Character doneFlag) {
-		this.doneFlag = doneFlag;
-	}
-
-	public Character getInFlag() {
-		return inFlag;
-	}
-
-	public void setInFlag(Character inFlag) {
-		this.inFlag = inFlag;
-	}
-
-	public Character getOkflag() {
-		return okflag;
-	}
-
-	public void setOkflag(Character okflag) {
+	public ConsignmentMaster_DTO(Long consignmentSeqNo, Character doneflag, Long fromLocationSeqNo, Long fromPartySeqNo,
+			Character inflag, Character okflag, Long parConsignmentSeqNo, String remark, String toLocationSeqNo, Long toPartySeqNo) {
+		super();
+		this.consignmentSeqNo = consignmentSeqNo;
+		this.doneflag = doneflag;
+		this.fromLocationSeqNo = fromLocationSeqNo;
+		this.fromPartySeqNo = fromPartySeqNo;
+		this.inflag = inflag;
 		this.okflag = okflag;
+		this.parConsignmentSeqNo = parConsignmentSeqNo;
+		this.remark = remark;	
+		this.toLocationSeqNo = toLocationSeqNo;
+		this.toPartySeqNo = toPartySeqNo;
 	}
 
 	public ConsignmentMaster_DTO() {
 		super();
-	}
-
-	public ConsignmentMaster_DTO(Long consignmentSeqNo, Long fromLocationSeqNo, Long fromPartySeqNo,
-			Long parConsignmentSeqNo, String remark, String status, Long storeRequestSeqNo, String toLocationSeqNo,
-			Long toPartySeqNo, Character doneFlag, Character inFlag, Character okflag) {
-		super();
-		this.consignmentSeqNo = consignmentSeqNo;
-		this.fromLocationSeqNo = fromLocationSeqNo;
-		this.fromPartySeqNo = fromPartySeqNo;
-		this.parConsignmentSeqNo = parConsignmentSeqNo;
-		this.remark = remark;
-		this.status = status;
-		this.storeRequestSeqNo = storeRequestSeqNo;
-		this.toLocationSeqNo = toLocationSeqNo;
-		this.toPartySeqNo = toPartySeqNo;
-		this.doneFlag = doneFlag;
-		this.inFlag = inFlag;
-		this.okflag = okflag;
 	}
 
 }

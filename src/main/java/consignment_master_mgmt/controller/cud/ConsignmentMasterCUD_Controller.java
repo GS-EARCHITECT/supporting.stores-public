@@ -88,12 +88,6 @@ public class ConsignmentMasterCUD_Controller {
 		return;
 	}
 
-	@DeleteMapping("/delSelectConsignmentMastersByRequests")
-	public void delSelectConsignmentMastersByRequests(@RequestBody CopyOnWriteArrayList<Long> pids) {
-		consignmentMasterCUDService.delSelectConsignmentMastersByRequests(pids);
-		return;
-	}
-
 	@DeleteMapping("/delAllConsignmentJobMasters")
 	public void delAllConsignmentJobMasters() {
 		consignmentMasterCUDService.delAllConsignmentMasters();

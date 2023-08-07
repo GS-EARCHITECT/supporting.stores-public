@@ -14,7 +14,7 @@ import consignment_master_mgmt.model.dto.ConsignmentMaster_DTO;
 import consignment_master_mgmt.model.master.ConsignmentMaster;
 import consignment_master_mgmt.model.repo.cud.ConsignmentMasterCUD_Repo;
 
-@Service("jobConsignmentMasterCUDServ")
+@Service("conConsignmentMasterCUDServ")
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 public class ConsignmentMasterCUD_Service implements I_ConsignmentMasterCUD_Service {
 
@@ -29,14 +29,14 @@ public class ConsignmentMasterCUD_Service implements I_ConsignmentMasterCUD_Serv
 
 	@Override
 	public CompletableFuture<ConsignmentMaster_DTO> newConsignmentMaster(
-			ConsignmentMaster_DTO jobConsignmentMaster_DTO) {
+			ConsignmentMaster_DTO conConsignmentMaster_DTO) {
 		CompletableFuture<ConsignmentMaster_DTO> future = CompletableFuture.supplyAsync(() -> 
 		{
 			ConsignmentMaster_DTO jcmDTO = null;
-			if (!consignmentMasterCUDRepo.existsById(jobConsignmentMaster_DTO.getConsignmentSeqNo())) 
+			if (!consignmentMasterCUDRepo.existsById(conConsignmentMaster_DTO.getConsignmentSeqNo())) 
 			{
 				jcmDTO = this.getConsignmentMaster_DTO(
-						consignmentMasterCUDRepo.save(this.setConsignmentMaster_DTO(jobConsignmentMaster_DTO)));
+						consignmentMasterCUDRepo.save(this.setConsignmentMaster_DTO(conConsignmentMaster_DTO)));
 				}
 			return jcmDTO;
 		}, asyncExecutor);
@@ -44,12 +44,12 @@ public class ConsignmentMasterCUD_Service implements I_ConsignmentMasterCUD_Serv
 	}
 
 	@Override
-	public CompletableFuture<Void> updConsignmentMaster(ConsignmentMaster_DTO jobConsignmentMaster_DTO) {
+	public CompletableFuture<Void> updConsignmentMaster(ConsignmentMaster_DTO conConsignmentMaster_DTO) {
 		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
 			
-			if (consignmentMasterCUDRepo.existsById(jobConsignmentMaster_DTO.getConsignmentSeqNo())) 
+			if (consignmentMasterCUDRepo.existsById(conConsignmentMaster_DTO.getConsignmentSeqNo())) 
 			{
-				consignmentMasterCUDRepo.save(this.setConsignmentMaster_DTO(jobConsignmentMaster_DTO));
+				consignmentMasterCUDRepo.save(this.setConsignmentMaster_DTO(conConsignmentMaster_DTO));
 			}
 			return;
 		}, asyncExecutor);
@@ -62,16 +62,6 @@ public class ConsignmentMasterCUD_Service implements I_ConsignmentMasterCUD_Serv
 			consignmentMasterCUDRepo.delSelectConsignmentMasters(jcmSeqNos);
 			return;
 		}, asyncExecutor);
-		return future;
-	}
-
-	@Override
-	public CompletableFuture<Void> delSelectConsignmentMastersByRequests(CopyOnWriteArrayList<Long> pids) {
-		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-			consignmentMasterCUDRepo.delSelectConsignmentMastersByRequests(pids);
-			return;
-		}, asyncExecutor);
-
 		return future;
 	}
 
@@ -155,43 +145,39 @@ public class ConsignmentMasterCUD_Service implements I_ConsignmentMasterCUD_Serv
 	}
 	
 	private synchronized CopyOnWriteArrayList<ConsignmentMaster_DTO> getConsignmentMaster_DTOs(
-			CopyOnWriteArrayList<ConsignmentMaster> jobMasters) {
-		ConsignmentMaster_DTO jobDTO = null;
-		CopyOnWriteArrayList<ConsignmentMaster_DTO> jobDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
+			CopyOnWriteArrayList<ConsignmentMaster> conMasters) {
+		ConsignmentMaster_DTO conDTO = null;
+		CopyOnWriteArrayList<ConsignmentMaster_DTO> conDTOs = new CopyOnWriteArrayList<ConsignmentMaster_DTO>();
 
-		for (int i = 0; i < jobMasters.size(); i++) {
-			jobDTO = getConsignmentMaster_DTO(jobMasters.get(i));
-			jobDTOs.add(jobDTO);
+		for (int i = 0; i < conMasters.size(); i++) {
+			conDTO = getConsignmentMaster_DTO(conMasters.get(i));
+			conDTOs.add(conDTO);
 		}
-		return jobDTOs;
+		return conDTOs;
 	}
 
-	private synchronized ConsignmentMaster_DTO getConsignmentMaster_DTO(ConsignmentMaster jobMaster2) {
-		ConsignmentMaster_DTO jobMasterDTO = new ConsignmentMaster_DTO();
-		jobMasterDTO = new ConsignmentMaster_DTO();
-		jobMasterDTO.setConsignmentSeqNo(jobMaster2.getConsignmentSeqNo());
-		jobMasterDTO.setFromLocationSeqNo(jobMaster2.getFromLocationSeqNo());
-		jobMasterDTO.setFromPartySeqNo(jobMaster2.getFromPartySeqNo());
-		jobMasterDTO.setParConsignmentSeqNo(jobMaster2.getParConsignmentSeqNo());
-		jobMasterDTO.setStoreRequestSeqNo(jobMaster2.getStoreRequestSeqNo());
-		jobMasterDTO.setToLocationSeqNo(jobMaster2.getToLocationSeqNo());
-		jobMasterDTO.setToPartySeqNo(jobMaster2.getToPartySeqNo());
-		jobMasterDTO.setRemark(jobMaster2.getRemark());
-		jobMasterDTO.setStatus(jobMaster2.getStatus());
-		return jobMasterDTO;
+	private synchronized ConsignmentMaster_DTO getConsignmentMaster_DTO(ConsignmentMaster conMaster2) {
+		ConsignmentMaster_DTO conMasterDTO = new ConsignmentMaster_DTO();
+		conMasterDTO = new ConsignmentMaster_DTO();
+		conMasterDTO.setConsignmentSeqNo(conMaster2.getConsignmentSeqNo());
+		conMasterDTO.setFromLocationSeqNo(conMaster2.getFromLocationSeqNo());
+		conMasterDTO.setFromPartySeqNo(conMaster2.getFromPartySeqNo());
+		conMasterDTO.setParConsignmentSeqNo(conMaster2.getParConsignmentSeqNo());
+		conMasterDTO.setToLocationSeqNo(conMaster2.getToLocationSeqNo());
+		conMasterDTO.setToPartySeqNo(conMaster2.getToPartySeqNo());
+		conMasterDTO.setRemark(conMaster2.getRemark());
+		return conMasterDTO;
 	}
 
-	private synchronized ConsignmentMaster setConsignmentMaster_DTO(ConsignmentMaster_DTO jobMasterDTO) {
-		ConsignmentMaster jobMaster = new ConsignmentMaster();
-		jobMaster.setFromLocationSeqNo(jobMasterDTO.getFromLocationSeqNo());
-		jobMaster.setFromPartySeqNo(jobMasterDTO.getFromPartySeqNo());
-		jobMaster.setParConsignmentSeqNo(jobMasterDTO.getParConsignmentSeqNo());
-		jobMaster.setStoreRequestSeqNo(jobMasterDTO.getStoreRequestSeqNo());
-		jobMaster.setToLocationSeqNo(jobMasterDTO.getToLocationSeqNo());
-		jobMaster.setToPartySeqNo(jobMasterDTO.getToPartySeqNo());
-		jobMaster.setRemark(jobMasterDTO.getRemark());
-		jobMaster.setStatus(jobMasterDTO.getStatus());
-		return jobMaster;
+	private synchronized ConsignmentMaster setConsignmentMaster_DTO(ConsignmentMaster_DTO conMasterDTO) {
+		ConsignmentMaster conMaster = new ConsignmentMaster();
+		conMaster.setFromLocationSeqNo(conMasterDTO.getFromLocationSeqNo());
+		conMaster.setFromPartySeqNo(conMasterDTO.getFromPartySeqNo());
+		conMaster.setParConsignmentSeqNo(conMasterDTO.getParConsignmentSeqNo());
+		conMaster.setToLocationSeqNo(conMasterDTO.getToLocationSeqNo());
+		conMaster.setToPartySeqNo(conMasterDTO.getToPartySeqNo());
+		conMaster.setRemark(conMasterDTO.getRemark());		
+		return conMaster;
 	}
 
 }

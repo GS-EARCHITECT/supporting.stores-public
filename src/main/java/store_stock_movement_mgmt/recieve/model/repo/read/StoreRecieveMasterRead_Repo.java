@@ -32,12 +32,6 @@ public interface StoreRecieveMasterRead_Repo extends JpaRepository<StoreRecieveM
 	@Query(value = "SELECT COALESCE(quality_qty,0) FROM STORE_RECIEVE_MASTER where STORE_movemeent_SEQ_NO=:mid",nativeQuery = true) 
 	Float getQCQtyForLineItem(@Param("mid") Long mid);
 
-	@Query(value = "SELECT COALESCE(SUM(processed_qty),0) FROM STORE_RECIEVE_MASTER where (STORE_REQUEST_SEQ_NO=:sid and resource_SEQ_NO=:rid)",nativeQuery = true) 
-	Float getTotalProcessedItemQtyForStoreRequest(@Param("sid") Long sid, @Param("rid") Long rid);
-
-	@Query(value = "SELECT COALESCE(processed_qty,0) FROM STORE_RECIEVE_MASTER where STORE_movemeent_SEQ_NO=:sid",nativeQuery = true) 
-	Float getProcessedQtyForLineItem(@Param("mid") Long mid);
-
 	@Query(value = "SELECT COALESCE(SUM(consign_qty),0) FROM STORE_RECIEVE_MASTER where (STORE_REQUEST_SEQ_NO=:sid and resource_SEQ_NO=:rid)",nativeQuery = true) 
 	Float getTotalConsignItemQtyForStoreRequest(@Param("sid") Long sid, @Param("rid") Long rid);
 

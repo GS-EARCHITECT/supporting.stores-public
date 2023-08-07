@@ -3,6 +3,7 @@ package store_stock_movement_mgmt.issue.services.cud;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executor;
@@ -13,10 +14,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import consignment_master_mgmt.model.dto.ConsignmentMaster_DTO;
+import consignment_details_mgmt.model.master.ConsignmentDetail;
+import consignment_details_mgmt.model.master.ConsignmentDetailPK;
+import consignment_details_mgmt.model.repo.cud.ConsignmentDetailsCUD_Repo;
+import consignment_details_mgmt.model.repo.read.ConsignmentDetailsRead_Repo;
 import consignment_master_mgmt.model.master.ConsignmentMaster;
 import consignment_master_mgmt.model.repo.cud.ConsignmentMasterCUD_Repo;
+import consignment_master_mgmt.model.repo.read.ConsignmentMasterRead_Repo;
 import store_order_outwards_mgmt.model.repo.read.StoreOrderOutwardsRead_Repo;
 import store_stock_movement_mgmt.issue.model.dto.StoreIssueMaster_DTO;
 import store_stock_movement_mgmt.issue.model.master.StoreIssueMaster;
@@ -35,7 +39,16 @@ public class StoreIssueMasterCUD_Service implements I_StoreIssueMasterCUD_Servic
 	
 	@Autowired
 	private ConsignmentMasterCUD_Repo consignmentMasterCUDRepo;
+	
+	@Autowired
+	private ConsignmentMasterRead_Repo consignmentMasterReadRepo;
+	
+	@Autowired
+	private ConsignmentDetailsCUD_Repo consignmentDetailsCUDRepo;	
 
+	@Autowired
+	private ConsignmentDetailsRead_Repo consignmentDetailsReadRepo;
+	
 	@Autowired
 	private StoreOrderOutwardsRead_Repo storeOrderOutwardsReadRepo;
 	
@@ -134,30 +147,19 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 			StoreIssueMaster_DTO jcmDTO = null;
 			if (!storeIssueMasterCUDRepo.existsById(storeIssueMaster_DTO.getStoreMovementSeqNo())) 
 			{
+				Float orderQty = storeOrderOutwardsReadRepo.getOrderOutwardsAllocatedQty(storeIssueMaster_DTO.getStoreRequestSeqNo());
+				Float curQty = storeIssueMaster_DTO.getRequestQty();
+				
+				if(curQty <= orderQty)
+				{
 				jcmDTO = this.getStoreIssueMaster_DTO(storeIssueMasterCUDRepo.save(this.setStoreIssueMaster_DTO(storeIssueMaster_DTO)));
+				}
 			}
 			return jcmDTO;
 		}, asyncExecutor);
 		return future;
 	}
 	
-	@Override
-	public CompletableFuture<Void> updIssueMaster(StoreIssueMaster_DTO storeIssueMaster_DTO)
-			{
-		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> 
-		{
-			StoreIssueMaster_DTO jcmDTO = null;
-			if (storeIssueMasterCUDRepo.existsById(storeIssueMaster_DTO.getStoreMovementSeqNo())) 
-			{
-				StoreIssueMaster storeIssueMaster = this.setStoreIssueMaster_DTO(storeIssueMaster_DTO);
-				storeIssueMaster.setStoreMovementSeqNo(storeIssueMaster_DTO.getStoreMovementSeqNo());
-				jcmDTO = this.getStoreIssueMaster_DTO(storeIssueMasterCUDRepo.save(storeIssueMaster));
-			}
-			return;
-		}, asyncExecutor);
-		return future;
-	}
-
 	@Override
 	public CompletableFuture<Void> updOkStatusForLineItem( Long id,  Character st)  
 	{
@@ -261,11 +263,9 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 		{
 		Float reqQty = storeIssueMasterReadRepo.getRequestQtyForLineItem(mid);
 		Float curQty = storeIssueMasterReadRepo.getQCQtyForLineItem(mid);
-		Float prcQty = storeIssueMasterReadRepo.getProcessedQtyForLineItem(mid);
-		Float conQty = storeIssueMasterReadRepo.getConsignQtyForLineItem(mid);
 		Float result = curQty + qty;
 		
-		if((result <= reqQty) && ((result >= prcQty) || (result >= conQty)) && (qty > 0))
+		if((result <= reqQty) && (qty > 0))
 		{
 		storeIssueMasterCUDRepo.addQualityQtyForLineItem(mid, qty);		
 		}
@@ -284,7 +284,6 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
-		Float reqQty = storeIssueMasterReadRepo.getRequestQtyForLineItem(mid);
 		Float curQty = storeIssueMasterReadRepo.getQCQtyForLineItem(mid);
 		Float prcQty = storeIssueMasterReadRepo.getProcessedQtyForLineItem(mid);
 		Float conQty = storeIssueMasterReadRepo.getConsignQtyForLineItem(mid);
@@ -311,10 +310,9 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 		{		
 		Float qlyQty = storeIssueMasterReadRepo.getQCQtyForLineItem(mid);
 		Float curQty = storeIssueMasterReadRepo.getProcessedQtyForLineItem(mid);
-		Float conQty = storeIssueMasterReadRepo.getConsignQtyForLineItem(mid);
 		Float result = curQty + qty;
 		
-		if((result <= qlyQty) && (conQty == null || conQty ==0) && (qty > 0)) 
+		if((result <= qlyQty) && (qty > 0)) 
 		{
 		storeIssueMasterCUDRepo.addProcessQtyForLineItem(mid, qty);		
 		}
@@ -364,7 +362,21 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 		if((result <= qlyQty) && (prcQty == null || prcQty ==0) && (qty > 0)) 
 		{
 		storeIssueMasterCUDRepo.addProcessQtyForLineItem(mid, qty);
-		
+		ConsignmentMaster consignmentMaster = new ConsignmentMaster();
+		ConsignmentDetail consignmentDetail = new ConsignmentDetail();
+		ConsignmentDetailPK consignmentDetailPK = new ConsignmentDetailPK(); 
+		Optional<StoreIssueMaster> storeIssueMasterOpt = storeIssueMasterReadRepo.findById(mid);
+		StoreIssueMaster storeIssueMaster = storeIssueMasterOpt.get();
+		consignmentMaster.setDoneflag('N');
+		consignmentMaster.setInflag('N');
+		consignmentMaster.setOkflag('Y');		
+		consignmentDetail.setDoneFlag('N');				
+		ConsignmentMaster cm =  consignmentMasterCUDRepo.save(consignmentMaster);		
+		consignmentDetailPK.setConsignmentSeqNo(cm.getConsignmentSeqNo());
+		consignmentDetailPK.setResourceSeqNo(storeIssueMaster.getResourceSeqNo());
+		consignmentDetail.setId(consignmentDetailPK);
+		consignmentDetail.setQty(qty);				
+		consignmentDetailsCUDRepo.save(consignmentDetail);
 		}
 		else
 		{
@@ -381,11 +393,20 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{		
-		Float curQty = storeIssueMasterReadRepo.getProcessedQtyForLineItem(mid);
 		Float curQty = storeIssueMasterReadRepo.getConsignQtyForLineItem(mid);
 		Float result = curQty - qty;
+		Optional<StoreIssueMaster> storeIssueMasterOpt = storeIssueMasterReadRepo.findById(mid);
+		StoreIssueMaster storeIssueMaster = storeIssueMasterOpt.get();
+		Long rid = storeIssueMaster.getResourceSeqNo(); 
+						
+		CopyOnWriteArrayList<ConsignmentDetail> consignmentDetails = consignmentDetailsReadRepo.getSelectConsignmentResourceDetailsPendingForMovement(mid, rid);
+		Float pendingQty = (float) 0;
+		for (int i = 0; i < consignmentDetails.size(); i++) 
+		{
+		pendingQty = pendingQty + consignmentDetailsReadRepo.getTotalSelectConsignmentAssetDetailsPendingForConsignment(consignmentDetails.get(i).getId().getConsignmentSeqNo(),rid);
+		}
 		
-		if((qty > 0) && (conQty == null || conQty ==0))
+		if((result > 0) && (pendingQty >= result))
 		{
 		storeIssueMasterCUDRepo.subProcessQtyForLineItem(mid, qty);		
 		}
@@ -400,188 +421,102 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 	}
 	
 	@Override
-	public CompletableFuture<Float> getTotalQCItemQtyForStoreRequest(Long sid,  Long rid)  
+	public CompletableFuture<Void> delSelectStoreIssueMasters(CopyOnWriteArrayList<Long> ids)  
 	{
-		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
+		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> 
 		{
-		Float qty = storeIssueMasterReadRepo.getTotalQCItemQtyForStoreRequest(sid,  rid);
-		return qty;
+		storeIssueMasterCUDRepo.delSelectStoreIssueMasters(ids);
+		return ;
 		},asyncExecutor);
 
 	return future;
 	}
 
 	@Override
-	public CompletableFuture<Float> getQCQtyForLineItem(Long mid)  
+	public CompletableFuture<Void> delSelectStoreIssueMastersByRequests( CopyOnWriteArrayList<Long> rids)
 	{
-		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
+		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> 
 		{
-		Float qty = storeIssueMasterReadRepo.getQCQtyForLineItem(mid);
-		return qty;
+		storeIssueMasterCUDRepo.delSelectStoreIssueMastersByRequests(rids);
+		return ;
 		},asyncExecutor);
 
 	return future;
 	}
+
+	@Override
+	public CompletableFuture<Void> delSelectStoreIssueMastersByLocation( CopyOnWriteArrayList<Long> lids)
+	{
+		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> 
+		{
+		storeIssueMasterCUDRepo.delSelectStoreIssueMastersByLocation(lids);
+		return ;
+		},asyncExecutor);
+
+	return future;
+	}
+
 	
 	@Override
-	public CompletableFuture<Float> getTotalProcessedItemQtyForStoreRequest(Long sid,  Long rid)  
+	public CompletableFuture<Void> delSelectStoreIssueMastersLineItemsForRequestsNotDone( CopyOnWriteArrayList<Long> ids)
 	{
-		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
+		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> 
 		{
-		Float qty = storeIssueMasterReadRepo.getTotalProcessedItemQtyForStoreRequest(sid,  rid);
-		return qty;
+		storeIssueMasterCUDRepo.delSelectStoreIssueMastersLineItemsForRequestsNotDone(ids);
+		return ;
 		},asyncExecutor);
 
 	return future;
 	}
 
 	@Override
-	public CompletableFuture<Float> getProcessedQtyForLineItem(Long mid)  
+	public CompletableFuture<Void> delSelectStoreIssueMastersLineItemsForRequestsDone( CopyOnWriteArrayList<Long> ids)
 	{
-		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
+		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> 
 		{
-		Float qty = storeIssueMasterReadRepo.getProcessedQtyForLineItem(mid);
-		return qty;
+		storeIssueMasterCUDRepo.delSelectStoreIssueMastersLineItemsForRequestsDone(ids);
+		return ;
 		},asyncExecutor);
 
 	return future;
 	}
 
 	@Override
-	public CompletableFuture<Float> getTotalConsignItemQtyForStoreRequest(Long sid,  Long rid)  
+	public CompletableFuture<Void> delSelectStoreIssueMastersLineItemsForNotOkStatus( CopyOnWriteArrayList<Long> ids)
 	{
-		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
+		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> 
 		{
-		Float qty = storeIssueMasterReadRepo.getTotalConsignItemQtyForStoreRequest(sid,  rid);
-		return qty;
-		},asyncExecutor);
-
-	return future;
-	}
-	
-	@Override
-	public CompletableFuture<Float> getConsignQtyForLineItem(Long mid)  
-	{
-		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
-		{
-		Float qty = storeIssueMasterReadRepo.getConsignQtyForLineItem(mid);
-		return qty;
-		},asyncExecutor);
-
-	return future;
-	}
-	
-	@Override
-	public CompletableFuture<CopyOnWriteArrayList<StoreIssueMaster_DTO>> getSelectStoreIssueMasters(CopyOnWriteArrayList<Long> jcmSeqNos)  
-	{
-		CompletableFuture<CopyOnWriteArrayList<StoreIssueMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
-		{
-		CopyOnWriteArrayList<StoreIssueMaster> jobList = (CopyOnWriteArrayList<StoreIssueMaster>) storeIssueMasterReadRepo.getSelectStoreIssueMasters(jcmSeqNos);
-		CopyOnWriteArrayList<StoreIssueMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<StoreIssueMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getStoreIssueMaster_DTOs(jobList) : null;
-		return jcmDTOs;
+		storeIssueMasterCUDRepo.delSelectStoreIssueMastersLineItemsForNotOkStatus(ids);
+		return ;
 		},asyncExecutor);
 
 	return future;
 	}
 
 	@Override
-	public CompletableFuture<CopyOnWriteArrayList<StoreIssueMaster_DTO>> getSelectStoreIssueMastersByRequests(CopyOnWriteArrayList<Long> pids) 
+	public CompletableFuture<Void> delSelectStoreIssueMastersLineItemsForForOkStatus( CopyOnWriteArrayList<Long> ids)
 	{
-		CompletableFuture<CopyOnWriteArrayList<StoreIssueMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
+		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> 
 		{
-		CopyOnWriteArrayList<StoreIssueMaster> jobList = (CopyOnWriteArrayList<StoreIssueMaster>) storeIssueMasterReadRepo.getSelectStoreIssueMastersByRequests(pids);
-		CopyOnWriteArrayList<StoreIssueMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<StoreIssueMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getStoreIssueMaster_DTOs(jobList) : null;
-		return jcmDTOs;
-		},asyncExecutor);
-
-	return future;
-	}
-	
-	@Override
-	public CompletableFuture<CopyOnWriteArrayList<StoreIssueMaster_DTO>> getSelectStoreIssueMastersByLocations( CopyOnWriteArrayList<Long> lids) 
-	{
-		CompletableFuture<CopyOnWriteArrayList<StoreIssueMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
-		{
-		CopyOnWriteArrayList<StoreIssueMaster> jobList = (CopyOnWriteArrayList<StoreIssueMaster>) storeIssueMasterReadRepo.getSelectStoreIssueMastersByLocations(lids);
-		CopyOnWriteArrayList<StoreIssueMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<StoreIssueMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getStoreIssueMaster_DTOs(jobList) : null;
-		return jcmDTOs;
+		storeIssueMasterCUDRepo.delSelectStoreIssueMastersLineItemsForForOkStatus(ids);
+		return ;
 		},asyncExecutor);
 
 	return future;
 	}
 
 	@Override
-	public CompletableFuture<CopyOnWriteArrayList<StoreIssueMaster_DTO>> getSelectStoreIssueMastersLineItemsForRequestsNotDone( CopyOnWriteArrayList<Long> ids) 
+	public CompletableFuture<Void> delAllStoreIssueMasters()
 	{
-		CompletableFuture<CopyOnWriteArrayList<StoreIssueMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
+		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> 
 		{
-		CopyOnWriteArrayList<StoreIssueMaster> jobList = (CopyOnWriteArrayList<StoreIssueMaster>) storeIssueMasterReadRepo.getSelectStoreIssueMastersLineItemsForRequestsNotDone(ids);
-		CopyOnWriteArrayList<StoreIssueMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<StoreIssueMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getStoreIssueMaster_DTOs(jobList) : null;
-		return jcmDTOs;
+		storeIssueMasterCUDRepo.deleteAll();
+		return ;
 		},asyncExecutor);
 
 	return future;
 	}
 
-	@Override
-	public CompletableFuture<CopyOnWriteArrayList<StoreIssueMaster_DTO>> getSelectStoreIssueMastersLineItemsForRequestsDone(CopyOnWriteArrayList<Long> ids) 
-	{
-		CompletableFuture<CopyOnWriteArrayList<StoreIssueMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
-		{
-		CopyOnWriteArrayList<StoreIssueMaster> jobList = (CopyOnWriteArrayList<StoreIssueMaster>) storeIssueMasterReadRepo.getSelectStoreIssueMastersLineItemsForRequestsDone(ids);
-		CopyOnWriteArrayList<StoreIssueMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<StoreIssueMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getStoreIssueMaster_DTOs(jobList) : null;
-		return jcmDTOs;
-		},asyncExecutor);
-
-	return future;
-	}
-	
-	@Override
-	public CompletableFuture<CopyOnWriteArrayList<StoreIssueMaster_DTO>> getSelectStoreIssueMastersLineItemsForNotOkStatus( CopyOnWriteArrayList<Long> ids) 
-	{
-		CompletableFuture<CopyOnWriteArrayList<StoreIssueMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
-		{
-		CopyOnWriteArrayList<StoreIssueMaster> jobList = (CopyOnWriteArrayList<StoreIssueMaster>) storeIssueMasterReadRepo.getSelectStoreIssueMastersLineItemsForNotOkStatus(ids);
-		CopyOnWriteArrayList<StoreIssueMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<StoreIssueMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getStoreIssueMaster_DTOs(jobList) : null;
-		return jcmDTOs;
-		},asyncExecutor);
-
-	return future;
-	}
-
-	@Override
-	public CompletableFuture<CopyOnWriteArrayList<StoreIssueMaster_DTO>> getSelectStoreIssueMastersLineItemsForForOkStatus( CopyOnWriteArrayList<Long> ids) 
-	{
-		CompletableFuture<CopyOnWriteArrayList<StoreIssueMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
-		{
-		CopyOnWriteArrayList<StoreIssueMaster> jobList = (CopyOnWriteArrayList<StoreIssueMaster>) storeIssueMasterReadRepo.getSelectStoreIssueMastersLineItemsForForOkStatus(ids);
-		CopyOnWriteArrayList<StoreIssueMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<StoreIssueMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getStoreIssueMaster_DTOs(jobList) : null;
-		return jcmDTOs;
-		},asyncExecutor);
-
-	return future;
-	}
-
-	@Override
-	public CompletableFuture<CopyOnWriteArrayList<StoreIssueMaster_DTO>> getAllStoreIssueMasters() 
-	{
-		CompletableFuture<CopyOnWriteArrayList<StoreIssueMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
-		{
-		CopyOnWriteArrayList<StoreIssueMaster> jobList = (CopyOnWriteArrayList<StoreIssueMaster>) storeIssueMasterReadRepo.findAll();
-		CopyOnWriteArrayList<StoreIssueMaster_DTO> jcmDTOs = new CopyOnWriteArrayList<StoreIssueMaster_DTO>();
-		jcmDTOs = jobList != null ? this.getStoreIssueMaster_DTOs(jobList) : null;
-		return jcmDTOs;
-		},asyncExecutor);
-
-	return future;
-	}
 	
 	private synchronized StoreIssueMaster_DTO getStoreIssueMaster_DTO(StoreIssueMaster storeIssueMaster) 
 	{
@@ -614,7 +549,10 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 		LocalDateTime ad = LocalDateTime.parse(sIssueMaster_DTO.getAppliedOn(), formatter);		
 		Timestamp rs = Timestamp.valueOf(rd);		
 		Timestamp ps = Timestamp.valueOf(pd);
-		Timestamp as = Timestamp.valueOf(ad);		
+		Timestamp as = Timestamp.valueOf(ad);
+		storeIssueMaster.setAppliedOn(as);
+		storeIssueMaster.setProcessedOn(ps);
+		storeIssueMaster.setRequestOn(rs);
 		storeIssueMaster.setAssetSeqNo(sIssueMaster_DTO.getAssetSeqNo());
 		storeIssueMaster.setConsignQty(sIssueMaster_DTO.getConsignQty());
 		storeIssueMaster.setDoneflag(sIssueMaster_DTO.getDoneflag());
@@ -628,6 +566,5 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 		storeIssueMaster.setStoreRequestSeqNo(sIssueMaster_DTO.getStoreRequestSeqNo());
 		return storeIssueMaster;
 	}
-
 
 }

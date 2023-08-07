@@ -82,4 +82,9 @@ public interface ConsignmentDetailsCUD_Repo extends JpaRepository<ConsignmentDet
 	@Query(value = "update store_CONSIGNMENT_details set okflag = :st where (CONSIGNMENT_seq_no = :id and asset_seq_no = :aid)", nativeQuery = true)
 	void updConsignmentAssetDetailOkStatus(@Param("scid") Long id, @Param("aid") Long aid, @Param("st") Character st);
 
+	@Query(value = "update STORE_CONSIGNMENT_DETAIL set STORE_MOVEMENT_SEQ_no = :mid where (CONSIGNMENT_seq_no = :id) and resource_seq_no= :rid and qty= :qty)", nativeQuery = true)
+	void updConsignmentMasterMovementNoForResource(@Param("mid") Long mid, @Param("cid") Long cid, @Param("rid") Long rid, @Param("qty") Float qty);
+
+	@Query(value = "update STORE_CONSIGNMENT_DETAIL set STORE_MOVEMENT_SEQ_no = :mid where (CONSIGNMENT_seq_no = :id) and asset_seq_no= :rid and qty= :qty)", nativeQuery = true)
+	void updConsignmentMasterMovementNoForAsset(@Param("mid") Long mid, @Param("cid") Long cid, @Param("aid") Long aid);
 }

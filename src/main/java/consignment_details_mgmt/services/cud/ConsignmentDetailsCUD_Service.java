@@ -34,9 +34,8 @@ public class ConsignmentDetailsCUD_Service implements I_ConsignmentDetailsCUD_Se
 		CompletableFuture<ConsignmentDetail_DTO> future = CompletableFuture.supplyAsync(() -> 
 		{
 			ConsignmentDetailPK consignmentDetailPK = new ConsignmentDetailPK();
-			consignmentDetailPK.setAssetSeqNo(consignmentDetail_DTO.getAssetSeqNo());
-			consignmentDetailPK.setConsignmentSeqNo(consignmentDetail_DTO.getConsignmentSeqNo());
-			consignmentDetailPK.setResourceSeqNo(consignmentDetail_DTO.getResourceSeqNo());
+			consignmentDetailPK.setStoreMovementSeqNo(consignmentDetail_DTO.getStoreMovementSeqNo());
+			consignmentDetailPK.setConsignmentSeqNo(consignmentDetail_DTO.getConsignmentSeqNo());			
 			ConsignmentDetail_DTO jcmDTO = null;
 			if (!consignmentDetailsCUDRepo.existsById(consignmentDetailPK)) 
 			{
@@ -53,6 +52,28 @@ public class ConsignmentDetailsCUD_Service implements I_ConsignmentDetailsCUD_Se
 	{
 		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
 			consignmentDetailsCUDRepo.updConsignmentAssetDetailDone(id, aid);
+			
+			return;
+		}, asyncExecutor);
+		return future;
+	}
+	
+	@Override
+	public CompletableFuture<Void> updConsignmentMasterMovementNoForResource(Long mid, Long cid, Long rid, Float qty) 
+	{
+		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+			consignmentDetailsCUDRepo.updConsignmentMasterMovementNoForResource(mid, cid, rid, qty);
+			
+			return;
+		}, asyncExecutor);
+		return future;
+	}
+
+	@Override
+	public CompletableFuture<Void> updConsignmentMasterMovementNoForAsset(Long mid, Long cid, Long aid) 
+	{
+		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+			consignmentDetailsCUDRepo.updConsignmentMasterMovementNoForAsset(mid, cid, aid);
 			
 			return;
 		}, asyncExecutor);
@@ -141,11 +162,9 @@ public class ConsignmentDetailsCUD_Service implements I_ConsignmentDetailsCUD_Se
 	public CompletableFuture<Void> updConsignmentDetail(ConsignmentDetail_DTO consignmentDetail_DTO) {
 		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
 			ConsignmentDetailPK consignmentDetailPK = new ConsignmentDetailPK();
-			consignmentDetailPK.setAssetSeqNo(consignmentDetail_DTO.getAssetSeqNo());
+			consignmentDetailPK.setStoreMovementSeqNo(consignmentDetail_DTO.getStoreMovementSeqNo());
 			consignmentDetailPK.setConsignmentSeqNo(consignmentDetail_DTO.getConsignmentSeqNo());
-			consignmentDetailPK.setResourceSeqNo(consignmentDetail_DTO.getResourceSeqNo());
-			ConsignmentDetail_DTO jcmDTO = null;
-
+		
 			if (consignmentDetailsCUDRepo.existsById(consignmentDetailPK)) 
 			{
 				consignmentDetailsCUDRepo.save(this.setConsignmentDetail_DTO(consignmentDetail_DTO));
@@ -201,8 +220,9 @@ public class ConsignmentDetailsCUD_Service implements I_ConsignmentDetailsCUD_Se
 		ConsignmentDetail_DTO jobDetailDTO = new ConsignmentDetail_DTO();
 		jobDetailDTO = new ConsignmentDetail_DTO();
 		jobDetailDTO.setConsignmentSeqNo(jobDetail2.getId().getConsignmentSeqNo());
-		jobDetailDTO.setAssetSeqNo(jobDetail2.getId().getAssetSeqNo());
-		jobDetailDTO.setResourceSeqNo(jobDetail2.getId().getResourceSeqNo());
+		jobDetailDTO.setAssetSeqNo(jobDetail2.getAssetSeqNo());
+		jobDetailDTO.setResourceSeqNo(jobDetail2.getResourceSeqNo());
+		jobDetailDTO.setStoreMovementSeqNo(jobDetail2.getId().getStoreMovementSeqNo());
 		jobDetailDTO.setQty(jobDetail2.getQty());
 		jobDetailDTO.setQtyUnitSeqNo(jobDetail2.getQtyUnitSeqNo());
 		jobDetailDTO.setRemark(jobDetail2.getRemark());
@@ -213,9 +233,10 @@ public class ConsignmentDetailsCUD_Service implements I_ConsignmentDetailsCUD_Se
 	private synchronized ConsignmentDetail setConsignmentDetail_DTO(ConsignmentDetail_DTO jobDetailDTO) {
 		ConsignmentDetail jobDetail = new ConsignmentDetail();
 		ConsignmentDetailPK consignmentDetailPK = new ConsignmentDetailPK();
-		consignmentDetailPK.setAssetSeqNo(jobDetailDTO.getAssetSeqNo());
+		consignmentDetailPK.setStoreMovementSeqNo(jobDetailDTO.getStoreMovementSeqNo());
 		consignmentDetailPK.setConsignmentSeqNo(jobDetailDTO.getConsignmentSeqNo());
-		consignmentDetailPK.setResourceSeqNo(jobDetailDTO.getResourceSeqNo());
+		jobDetail.setAssetSeqNo(jobDetailDTO.getAssetSeqNo());
+		jobDetail.setResourceSeqNo(jobDetailDTO.getResourceSeqNo());
 		jobDetail.setId(consignmentDetailPK);
 		jobDetail.setQty(jobDetailDTO.getQty());
 		jobDetail.setQtyUnitSeqNo(jobDetailDTO.getQtyUnitSeqNo());

@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import consignment_master_mgmt.model.master.ConsignmentMaster;
 
 @Repository("consignmentMasterCUDRepo")
@@ -15,9 +14,6 @@ public interface ConsignmentMasterCUD_Repo extends JpaRepository<ConsignmentMast
 
 	@Query(value = "delete from store_CONSIGNMENT_MASTER where CONSIGNMENT_SEQ_NO in :ids", nativeQuery = true)
 	void delSelectConsignmentMasters(@Param("ids") CopyOnWriteArrayList<Long> ids);
-
-	@Query(value = "delete from  store_CONSIGNMENT_MASTER where store_request_SEQ_NO in :ids ", nativeQuery = true)
-	void delSelectConsignmentMastersByRequests(@Param("pids") CopyOnWriteArrayList<Long> pids);
 
 	@Query(value = "delete from  store_CONSIGNMENT_MASTER where par_CONSIGNMENT_SEQ_NO in :ids", nativeQuery = true)
 	void delSelectConsignmentMastersByParents(@Param("pids") CopyOnWriteArrayList<Long> pids);
@@ -43,6 +39,5 @@ public interface ConsignmentMasterCUD_Repo extends JpaRepository<ConsignmentMast
 	@Modifying
 	@Query(value = "update store_CONSIGNMENT_MASTER set okflag = :st where CONSIGNMENT_seq_no = :id", nativeQuery = true)
 	void updConsignmentMasterOkStatus(@Param("scid") Long scid, @Param("st") Character st);
-	
 	
 }

@@ -7,12 +7,6 @@ public interface I_ConsignmentDetailsCUD_Service
 {	
 	public CompletableFuture<ConsignmentDetail_DTO> newConsignmentDetail(ConsignmentDetail_DTO jobConsignmentDetail_DTO);
 	public CompletableFuture<Void> updConsignmentDetail(ConsignmentDetail_DTO jobConsignmentDetail_DTO);
-	//public CompletableFuture<Void> addIssueConsignmentQty(Long reqid, String reqDtTm, Long rid, Long qty);
-	//public CompletableFuture<Void> subIssueConsignmentQty(Long reqid, String reqDtTm, Long rid, Long qty);
-	//public CompletableFuture<Void> addRecieveConsignmentQty(Long reqid, String reqDtTm, Long rid, Long qty);
-	//public CompletableFuture<Void> subRecieveConsignmentQty(Long reqid, String reqDtTm, Long rid, Long qty);
-	//public CompletableFuture<Void> updOkStatus(Long reqid, String reqDtTm, Long rid);
-	//public CompletableFuture<Void> updNOkStatus(Long reqid, String reqDtTm, Long rid);
 	public CompletableFuture<Void> delSelectConsignmentDetails(CopyOnWriteArrayList<Long> ids);	
 	public CompletableFuture<Void> delSelectConsignmentDetailsByResources(CopyOnWriteArrayList<Long> rids);
 	public CompletableFuture<Void> delSelectConsignmentDetailsByAssets(CopyOnWriteArrayList<Long> aids);
@@ -25,4 +19,6 @@ public interface I_ConsignmentDetailsCUD_Service
 	public CompletableFuture<Void> updConsignmentAssetDetailOk(Long id, Long aid);
 	public CompletableFuture<Void> updConsignmentResourceDetailOkStatus(Long id, Long rid, Character st);
 	public CompletableFuture<Void> updConsignmentAssetDetailOkStatus(Long id, Long aid, Character st);
+	public CompletableFuture<Void> updConsignmentMasterMovementNoForResource(Long mid, Long cid, Long rid, Float qty);
+	public CompletableFuture<Void> updConsignmentMasterMovementNoForAsset(Long mid, Long cid, Long aid);
 }
