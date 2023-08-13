@@ -17,7 +17,7 @@ import consignment_details_mgmt.model.repo.read.ConsignmentDetailsRead_Repo;
 import consignment_master_mgmt.model.master.ConsignmentMaster;
 import consignment_master_mgmt.model.repo.cud.ConsignmentMasterCUD_Repo;
 import consignment_master_mgmt.model.repo.read.ConsignmentMasterRead_Repo;
-import store_order_outwards_mgmt.model.repo.read.StoreOrderOutwardsRead_Repo;
+import store_order_resource_outwards_mgmt.model.repo.read.StoreOrderOutwardsRead_Repo;
 import store_stock_movement_mgmt.recieve.model.master.StoreRecieveMaster;
 import store_stock_movement_mgmt.recieve.model.repo.cud.StoreRecieveMasterCUD_Repo;
 import store_stock_movement_mgmt.recieve.model.repo.read.StoreRecieveMasterRead_Repo;

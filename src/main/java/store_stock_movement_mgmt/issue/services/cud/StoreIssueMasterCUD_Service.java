@@ -20,7 +20,8 @@ import consignment_details_mgmt.model.repo.cud.ConsignmentDetailsCUD_Repo;
 import consignment_details_mgmt.model.repo.read.ConsignmentDetailsRead_Repo;
 import consignment_master_mgmt.model.master.ConsignmentMaster;
 import consignment_master_mgmt.model.repo.cud.ConsignmentMasterCUD_Repo;
-import store_order_outwards_mgmt.model.repo.read.StoreOrderOutwardsRead_Repo;
+import store_order_resource_outwards_mgmt.model.repo.read.StoreOrderOutwardsRead_Repo;
+import store_order_resource_outwards_mgmt.model.repo.read.StoreOrderResourceOutwardsReadPublic_Repo;
 import store_stock_movement_mgmt.issue.model.dto.StoreIssueMaster_DTO;
 import store_stock_movement_mgmt.issue.model.master.StoreIssueMaster;
 import store_stock_movement_mgmt.issue.model.repo.cud.StoreIssueMasterCUD_Repo;
@@ -46,7 +47,7 @@ public class StoreIssueMasterCUD_Service implements I_StoreIssueMasterCUD_Servic
 	private ConsignmentDetailsRead_Repo consignmentDetailsReadRepo;
 	
 	@Autowired
-	private StoreOrderOutwardsRead_Repo storeOrderOutwardsReadRepo;
+	private StoreOrderResourceOutwardsReadPublic_Repo storeOrderResourceOutwardsReadPublicRepo;
 	
 	@Autowired
 	private StoreIssueMasterRead_Repo storeIssueMasterReadRepo;
@@ -143,7 +144,7 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 			StoreIssueMaster_DTO jcmDTO = null;
 			if (!storeIssueMasterCUDRepo.existsById(storeIssueMaster_DTO.getStoreMovementSeqNo())) 
 			{
-				Float orderQty = storeOrderOutwardsReadRepo.getOrderOutwardsAllocatedQty(storeIssueMaster_DTO.getStoreRequestSeqNo());
+				Float orderQtyRs = storeOrderResourceOutwardsReadPublicRepo.getOrderAllocatedQty(storeIssueMaster_DTO.getStoreRequestSeqNo());
 				Float curQty = storeIssueMaster_DTO.getRequestQty();
 				
 				if(curQty <= orderQty)

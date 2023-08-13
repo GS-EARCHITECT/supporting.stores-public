@@ -27,7 +27,7 @@ import consignment_master_mgmt.model.master.ConsignmentMaster;
 import consignment_master_mgmt.model.repo.cud.ConsignmentMasterCUD_Repo;
 import consignment_master_mgmt.model.repo.read.ConsignmentMasterRead_Repo;
 import oracle.net.aso.s;
-import store_order_outwards_mgmt.model.repo.read.StoreOrderOutwardsRead_Repo;
+import store_order_resource_outwards_mgmt.model.repo.read.StoreOrderOutwardsRead_Repo;
 import store_stock_movement_mgmt.recieve.model.dto.StoreRecieveMaster_DTO;
 import store_stock_movement_mgmt.recieve.model.master.StoreRecieveMaster;
 import store_stock_movement_mgmt.recieve.model.repo.cud.StoreRecieveMasterCUD_Repo;
