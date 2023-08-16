@@ -5,19 +5,14 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * The persistent class for the STORE_ORDERASSET_OUTWARDS database table.
+ * The persistent class for the STORE_ORDERASSET_INWARDS database table.
  * 
  */
 @Entity
 @Table(name = "STORE_ORDERASSET_INWARDS")
 public class StoreOrderAssetInward implements Serializable 
 {
-	
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8302074278989607103L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "STORE_REQUEST_SEQUENCE")
@@ -70,6 +65,16 @@ public class StoreOrderAssetInward implements Serializable
 	@Column(name = "TO_DTTM")
 	private Timestamp toDttm;
 
+	@Column(name = "TARGET_WORK_SEQ_NO")
+	private Long targetWorkSeqNo;
+	
+	@Column(name = "TO_LOCATION_SEQ_NO")
+	private Long toLocationSeqNo;
+
+	@Column(name = "FR_LOCATION_SEQ_NO")
+	private Long frLocationSeqNo;
+
+	
 	public StoreOrderAssetInward() {
 	}
 
@@ -119,6 +124,14 @@ public class StoreOrderAssetInward implements Serializable
 
 	public void setFlagRequested(Character flagRequested) {
 		this.flagRequested = flagRequested;
+	}
+
+	public Long getFrLocationSeqNo() {
+		return frLocationSeqNo;
+	}
+
+	public void setFrLocationSeqNo(Long frLocationSeqNo) {
+		this.frLocationSeqNo = frLocationSeqNo;
 	}
 
 	public Timestamp getFromDttm() {
@@ -193,6 +206,14 @@ public class StoreOrderAssetInward implements Serializable
 		this.requestorSeqNo = requestorSeqNo;
 	}
 
+	public Long getTargetWorkSeqNo() {
+		return targetWorkSeqNo;
+	}
+
+	public void setTargetWorkSeqNo(Long targetWorkSeqNo) {
+		this.targetWorkSeqNo = targetWorkSeqNo;
+	}
+
 	public Timestamp getToDttm() {
 		return toDttm;
 	}
@@ -201,14 +222,20 @@ public class StoreOrderAssetInward implements Serializable
 		this.toDttm = toDttm;
 	}
 
+	public Long getToLocationSeqNo() {
+		return toLocationSeqNo;
+	}
+
+	public void setToLocationSeqNo(Long toLocationSeqNo) {
+		this.toLocationSeqNo = toLocationSeqNo;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((assetSeqNo == null) ? 0 : assetSeqNo.hashCode());
-		result = prime * result + ((jobWorkSeqNo == null) ? 0 : jobWorkSeqNo.hashCode());
 		result = prime * result + ((locationSeqNo == null) ? 0 : locationSeqNo.hashCode());
-		result = prime * result + ((requestedToPartySeqNo == null) ? 0 : requestedToPartySeqNo.hashCode());
 		result = prime * result + ((storeRequestSeqNo == null) ? 0 : storeRequestSeqNo.hashCode());
 		return result;
 	}
@@ -227,20 +254,10 @@ public class StoreOrderAssetInward implements Serializable
 				return false;
 		} else if (!assetSeqNo.equals(other.assetSeqNo))
 			return false;
-		if (jobWorkSeqNo == null) {
-			if (other.jobWorkSeqNo != null)
-				return false;
-		} else if (!jobWorkSeqNo.equals(other.jobWorkSeqNo))
-			return false;
 		if (locationSeqNo == null) {
 			if (other.locationSeqNo != null)
 				return false;
 		} else if (!locationSeqNo.equals(other.locationSeqNo))
-			return false;
-		if (requestedToPartySeqNo == null) {
-			if (other.requestedToPartySeqNo != null)
-				return false;
-		} else if (!requestedToPartySeqNo.equals(other.requestedToPartySeqNo))
 			return false;
 		if (storeRequestSeqNo == null) {
 			if (other.storeRequestSeqNo != null)
@@ -251,9 +268,10 @@ public class StoreOrderAssetInward implements Serializable
 	}
 
 	public StoreOrderAssetInward(Long storeRequestSeqNo, Long assetSeqNo, Character doneflag, Character flagAllocated,
-			Character flagBooked, Character flagRequested, Timestamp fromDttm, Character isBooked, Long jobWorkSeqNo,
-			Long locationSeqNo, Long modeTxn, Character movedFlag, Character okflag, Long requestedToPartySeqNo,
-			Long requestorSeqNo, Timestamp toDttm) {
+			Character flagBooked, Character flagRequested, Long frLocationSeqNo, Timestamp fromDttm, Character isBooked,
+			Long jobWorkSeqNo, Long locationSeqNo, Long modeTxn, Character movedFlag, Character okflag,
+			Long requestedToPartySeqNo, Long requestorSeqNo, Long targetWorkSeqNo, Timestamp toDttm,
+			Long toLocationSeqNo) {
 		super();
 		this.storeRequestSeqNo = storeRequestSeqNo;
 		this.assetSeqNo = assetSeqNo;
@@ -261,6 +279,7 @@ public class StoreOrderAssetInward implements Serializable
 		this.flagAllocated = flagAllocated;
 		this.flagBooked = flagBooked;
 		this.flagRequested = flagRequested;
+		this.frLocationSeqNo = frLocationSeqNo;
 		this.fromDttm = fromDttm;
 		this.isBooked = isBooked;
 		this.jobWorkSeqNo = jobWorkSeqNo;
@@ -270,7 +289,9 @@ public class StoreOrderAssetInward implements Serializable
 		this.okflag = okflag;
 		this.requestedToPartySeqNo = requestedToPartySeqNo;
 		this.requestorSeqNo = requestorSeqNo;
+		this.targetWorkSeqNo = targetWorkSeqNo;
 		this.toDttm = toDttm;
+		this.toLocationSeqNo = toLocationSeqNo;
 	}
 
 }

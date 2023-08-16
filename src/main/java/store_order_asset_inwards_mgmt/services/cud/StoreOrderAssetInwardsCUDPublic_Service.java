@@ -238,55 +238,61 @@ public class StoreOrderAssetInwardsCUDPublic_Service implements I_StoreOrderAsse
 		return stoDTOs;
 	}
 
-	private synchronized StoreOrderAssetInward_DTO getStoreOrderAssetInward_DTO(StoreOrderAssetInward storeOrderAssetInward) 
+	private synchronized StoreOrderAssetInward_DTO getStoreOrderAssetInward_DTO(StoreOrderAssetInward storeOrderAssetInward2) 
 	{
 		StoreOrderAssetInward_DTO storeOrderAssetInward_DTO = new StoreOrderAssetInward_DTO();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-		storeOrderAssetInward_DTO.setDoneflag(storeOrderAssetInward.getDoneflag());
-		storeOrderAssetInward_DTO.setFromDttm(formatter.format(storeOrderAssetInward.getFromDttm().toLocalDateTime()));
-		storeOrderAssetInward_DTO.setToDttm(formatter.format(storeOrderAssetInward.getToDttm().toLocalDateTime()));
-		storeOrderAssetInward_DTO.setIsBooked(storeOrderAssetInward.getIsBooked());
-		storeOrderAssetInward_DTO.setJobWorkSeqNo(storeOrderAssetInward.getJobWorkSeqNo());
-		storeOrderAssetInward_DTO.setDoneflag(storeOrderAssetInward.getDoneflag());
-		storeOrderAssetInward_DTO.setLocationSeqNo(storeOrderAssetInward.getLocationSeqNo());
-		storeOrderAssetInward_DTO.setModeTxn(storeOrderAssetInward.getModeTxn());
-		storeOrderAssetInward_DTO.setMovedFlag(storeOrderAssetInward.getMovedFlag());
-		storeOrderAssetInward_DTO.setOkflag(storeOrderAssetInward.getOkflag());
-		storeOrderAssetInward_DTO.setFlagAllocated(storeOrderAssetInward.getFlagAllocated());
-		storeOrderAssetInward_DTO.setFlagBooked(storeOrderAssetInward.getFlagBooked());
-		storeOrderAssetInward_DTO.setFlagRequested(storeOrderAssetInward.getFlagRequested());
-		storeOrderAssetInward_DTO.setRequestedToPartySeqNo(storeOrderAssetInward.getRequestedToPartySeqNo());
-		storeOrderAssetInward_DTO.setRequestorSeqNo(storeOrderAssetInward.getRequestorSeqNo());
-		storeOrderAssetInward_DTO.setAssetSeqNo(storeOrderAssetInward.getAssetSeqNo());
-		storeOrderAssetInward_DTO.setStoreRequestSeqNo(storeOrderAssetInward.getStoreRequestSeqNo());
+		storeOrderAssetInward_DTO.setDoneflag(storeOrderAssetInward2.getDoneflag());
+		storeOrderAssetInward_DTO.setFromDttm(formatter.format(storeOrderAssetInward2.getFromDttm().toLocalDateTime()));
+		storeOrderAssetInward_DTO.setToDttm(formatter.format(storeOrderAssetInward2.getToDttm().toLocalDateTime()));
+		storeOrderAssetInward_DTO.setIsBooked(storeOrderAssetInward2.getIsBooked());
+		storeOrderAssetInward_DTO.setJobWorkSeqNo(storeOrderAssetInward2.getJobWorkSeqNo());
+		storeOrderAssetInward_DTO.setDoneflag(storeOrderAssetInward2.getDoneflag());
+		storeOrderAssetInward_DTO.setLocationSeqNo(storeOrderAssetInward2.getLocationSeqNo());
+		storeOrderAssetInward_DTO.setModeTxn(storeOrderAssetInward2.getModeTxn());
+		storeOrderAssetInward_DTO.setMovedFlag(storeOrderAssetInward2.getMovedFlag());
+		storeOrderAssetInward_DTO.setOkflag(storeOrderAssetInward2.getOkflag());
+		storeOrderAssetInward_DTO.setFlagAllocated(storeOrderAssetInward2.getFlagAllocated());
+		storeOrderAssetInward_DTO.setFlagBooked(storeOrderAssetInward2.getFlagBooked());
+		storeOrderAssetInward_DTO.setFlagRequested(storeOrderAssetInward2.getFlagRequested());
+		storeOrderAssetInward_DTO.setRequestedToPartySeqNo(storeOrderAssetInward2.getRequestedToPartySeqNo());
+		storeOrderAssetInward_DTO.setRequestorSeqNo(storeOrderAssetInward2.getRequestorSeqNo());
+		storeOrderAssetInward_DTO.setAssetSeqNo(storeOrderAssetInward2.getAssetSeqNo());
+		storeOrderAssetInward_DTO.setStoreRequestSeqNo(storeOrderAssetInward2.getStoreRequestSeqNo());
+		storeOrderAssetInward_DTO.setFrLocationSeqNo(storeOrderAssetInward2.getFrLocationSeqNo());
+		storeOrderAssetInward_DTO.setToLocationSeqNo(storeOrderAssetInward2.getToLocationSeqNo());
+		storeOrderAssetInward_DTO.setTargetWorkSeqNo(storeOrderAssetInward2.getTargetWorkSeqNo());
 		return storeOrderAssetInward_DTO;
 	}
 	
 	private synchronized StoreOrderAssetInward setStoreOrderAssetInward(StoreOrderAssetInward_DTO storeOrderAssetInward_DTO) 
 	{
-		StoreOrderAssetInward storeOrderAssetInward = new StoreOrderAssetInward();
+		StoreOrderAssetInward storeOrderAssetInward2 = new StoreOrderAssetInward();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 		LocalDateTime fd = LocalDateTime.parse(storeOrderAssetInward_DTO.getFromDttm(), formatter);
 		LocalDateTime td = LocalDateTime.parse(storeOrderAssetInward_DTO.getToDttm(), formatter);
 		Timestamp fs = Timestamp.valueOf(fd);		
 		Timestamp ts = Timestamp.valueOf(td);		
-		storeOrderAssetInward.setFromDttm(fs);
-		storeOrderAssetInward.setToDttm(ts);
-		storeOrderAssetInward.setDoneflag(storeOrderAssetInward_DTO.getDoneflag());
-		storeOrderAssetInward.setIsBooked(storeOrderAssetInward_DTO.getIsBooked());
-		storeOrderAssetInward.setJobWorkSeqNo(storeOrderAssetInward_DTO.getJobWorkSeqNo());
-		storeOrderAssetInward.setDoneflag(storeOrderAssetInward_DTO.getDoneflag());
-		storeOrderAssetInward.setLocationSeqNo(storeOrderAssetInward_DTO.getLocationSeqNo());
-		storeOrderAssetInward.setModeTxn(storeOrderAssetInward_DTO.getModeTxn());
-		storeOrderAssetInward.setMovedFlag(storeOrderAssetInward_DTO.getMovedFlag());
-		storeOrderAssetInward.setOkflag(storeOrderAssetInward_DTO.getOkflag());
-		storeOrderAssetInward.setFlagAllocated(storeOrderAssetInward_DTO.getFlagAllocated());
-		storeOrderAssetInward.setFlagBooked(storeOrderAssetInward_DTO.getFlagBooked());
-		storeOrderAssetInward.setFlagRequested(storeOrderAssetInward_DTO.getFlagRequested());
-		storeOrderAssetInward.setRequestedToPartySeqNo(storeOrderAssetInward_DTO.getRequestedToPartySeqNo());
-		storeOrderAssetInward.setRequestorSeqNo(storeOrderAssetInward_DTO.getRequestorSeqNo());
-		storeOrderAssetInward.setAssetSeqNo(storeOrderAssetInward_DTO.getAssetSeqNo());
-		return storeOrderAssetInward;
+		storeOrderAssetInward2.setFromDttm(fs);
+		storeOrderAssetInward2.setToDttm(ts);
+		storeOrderAssetInward2.setDoneflag(storeOrderAssetInward_DTO.getDoneflag());
+		storeOrderAssetInward2.setIsBooked(storeOrderAssetInward_DTO.getIsBooked());
+		storeOrderAssetInward2.setJobWorkSeqNo(storeOrderAssetInward_DTO.getJobWorkSeqNo());
+		storeOrderAssetInward2.setDoneflag(storeOrderAssetInward_DTO.getDoneflag());
+		storeOrderAssetInward2.setLocationSeqNo(storeOrderAssetInward_DTO.getLocationSeqNo());
+		storeOrderAssetInward2.setModeTxn(storeOrderAssetInward_DTO.getModeTxn());
+		storeOrderAssetInward2.setMovedFlag(storeOrderAssetInward_DTO.getMovedFlag());
+		storeOrderAssetInward2.setOkflag(storeOrderAssetInward_DTO.getOkflag());
+		storeOrderAssetInward2.setFlagAllocated(storeOrderAssetInward_DTO.getFlagAllocated());
+		storeOrderAssetInward2.setFlagBooked(storeOrderAssetInward_DTO.getFlagBooked());
+		storeOrderAssetInward2.setFlagRequested(storeOrderAssetInward_DTO.getFlagRequested());
+		storeOrderAssetInward2.setRequestedToPartySeqNo(storeOrderAssetInward_DTO.getRequestedToPartySeqNo());
+		storeOrderAssetInward2.setRequestorSeqNo(storeOrderAssetInward_DTO.getRequestorSeqNo());
+		storeOrderAssetInward2.setAssetSeqNo(storeOrderAssetInward_DTO.getAssetSeqNo());
+		storeOrderAssetInward2.setFrLocationSeqNo(storeOrderAssetInward_DTO.getFrLocationSeqNo());
+		storeOrderAssetInward2.setToLocationSeqNo(storeOrderAssetInward_DTO.getToLocationSeqNo());
+		storeOrderAssetInward2.setTargetWorkSeqNo(storeOrderAssetInward_DTO.getTargetWorkSeqNo());
+		return storeOrderAssetInward2;
 	}
 
 }

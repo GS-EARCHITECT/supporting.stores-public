@@ -126,9 +126,9 @@ public class StoreOrderAssetInwardsReadPublic_Controller {
 	}
 
 	@GetMapping(value = "/getOrderRequestedFlag/{sid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getOrderRequestedFlag(@PathVariable Long sid) {
-		CompletableFuture<Float> qty = null;
-		Float result = null;
+	public ResponseEntity<Character> getOrderRequestedFlag(@PathVariable Long sid) {
+		CompletableFuture<Character> qty = null;
+		Character result = null;
 		try {
 			qty = storeOrderAssetInwardsReadPublicServ.getOrderRequestedFlag(sid);
 			result = qty.get();
@@ -199,9 +199,9 @@ public class StoreOrderAssetInwardsReadPublic_Controller {
 	}
 
 	@GetMapping(value = "/getOrderAllocatedFlag/{sid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getOrderAllocatedFlag(@PathVariable Long sid) {
-		CompletableFuture<Float> qty = null;
-		Float result = null;
+	public ResponseEntity<Character> getOrderAllocatedFlag(@PathVariable Long sid) {
+		CompletableFuture<Character> qty = null;
+		Character result = null;
 		try {
 			qty = storeOrderAssetInwardsReadPublicServ.getOrderAllocatedFlag(sid);
 			result = qty.get();
@@ -272,9 +272,9 @@ public class StoreOrderAssetInwardsReadPublic_Controller {
 	}
 
 	@GetMapping(value = "/getOrderBookedFlag/{sid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getOrderBookedFlag(@PathVariable Long sid) {
-		CompletableFuture<Float> qty = null;
-		Float result = null;
+	public ResponseEntity<Character> getOrderBookedFlag(@PathVariable Long sid) {
+		CompletableFuture<Character> qty = null;
+		Character result = null;
 		try {
 			qty = storeOrderAssetInwardsReadPublicServ.getOrderBookedFlag(sid);
 			result = qty.get();
@@ -344,9 +344,9 @@ public class StoreOrderAssetInwardsReadPublic_Controller {
 	}
 
 	@GetMapping(value = "/getMovedFlagForRequest/{sid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getMovedFlagForRequest(@PathVariable Long sid) {
-		CompletableFuture<Float> qty = null;
-		Float result = null;
+	public ResponseEntity<Character> getMovedFlagForRequest(@PathVariable Long sid) {
+		CompletableFuture<Character> qty = null;
+		Character result = null;
 		try {
 			qty = storeOrderAssetInwardsReadPublicServ.getOrderMovedFlag(sid);
 			result = qty.get();

@@ -397,6 +397,9 @@ public class StoreOrderResourceOutwardsReadPublic_Service implements I_StoreOrde
 		storeOrderResourceOutward_DTO.setRequestorSeqNo(storeOrderResourceOutward.getRequestorSeqNo());
 		storeOrderResourceOutward_DTO.setResourceSeqNo(storeOrderResourceOutward.getResourceSeqNo());
 		storeOrderResourceOutward_DTO.setStoreRequestSeqNo(storeOrderResourceOutward.getStoreRequestSeqNo());
+		storeOrderResourceOutward_DTO.setFrLocationSeqNo(storeOrderResourceOutward.getFrLocationSeqNo());
+		storeOrderResourceOutward_DTO.setToLocationSeqNo(storeOrderResourceOutward.getToLocationSeqNo());
+		storeOrderResourceOutward_DTO.setTargetWorkSeqNo(storeOrderResourceOutward.getTargetWorkSeqNo());
 		return storeOrderResourceOutward_DTO;
 	}
 

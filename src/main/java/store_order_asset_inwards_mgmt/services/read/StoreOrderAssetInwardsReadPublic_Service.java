@@ -127,11 +127,11 @@ public class StoreOrderAssetInwardsReadPublic_Service implements I_StoreOrderAss
 
 	}
 	
-	public CompletableFuture<Float> getOrderRequestedFlag( Long storeReqSeqNo)
+	public CompletableFuture<Character> getOrderRequestedFlag( Long storeReqSeqNo)
 	{
-		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
+		CompletableFuture<Character> future = CompletableFuture.supplyAsync(() -> 
 		{
-		Float result = storeOrderAssetInwardsReadPublicRepo.getOrderRequestedFlag(storeReqSeqNo);
+		Character result = storeOrderAssetInwardsReadPublicRepo.getOrderRequestedFlag(storeReqSeqNo);
 		return result;
 		},asyncExecutor);
 
@@ -178,11 +178,11 @@ public class StoreOrderAssetInwardsReadPublic_Service implements I_StoreOrderAss
 
 	}
 	
-	public CompletableFuture<Float>	getOrderAllocatedFlag( Long storeReqSeqNo)
+	public CompletableFuture<Character>	getOrderAllocatedFlag( Long storeReqSeqNo)
 	{
-		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
+		CompletableFuture<Character> future = CompletableFuture.supplyAsync(() -> 
 		{
-		Float result = storeOrderAssetInwardsReadPublicRepo.getOrderAllocatedFlag( storeReqSeqNo);
+			Character result = storeOrderAssetInwardsReadPublicRepo.getOrderAllocatedFlag( storeReqSeqNo);
 		return result;
 		},asyncExecutor);
 
@@ -231,11 +231,11 @@ public class StoreOrderAssetInwardsReadPublic_Service implements I_StoreOrderAss
 	}	
 
 
-	public CompletableFuture<Float> getOrderBookedFlag( Long storeReqSeqNo)
+	public CompletableFuture<Character> getOrderBookedFlag( Long storeReqSeqNo)
 	{
-		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
+		CompletableFuture<Character> future = CompletableFuture.supplyAsync(() -> 
 		{
-		Float result = storeOrderAssetInwardsReadPublicRepo.getOrderBookedFlag( storeReqSeqNo);
+		Character result = storeOrderAssetInwardsReadPublicRepo.getOrderBookedFlag( storeReqSeqNo);
 		return result;
 		},asyncExecutor);
 
@@ -285,11 +285,11 @@ public class StoreOrderAssetInwardsReadPublic_Service implements I_StoreOrderAss
 	}	
 
 	
-	public CompletableFuture<Float> getOrderMovedFlag( Long storeReqSeqNo)
+	public CompletableFuture<Character> getOrderMovedFlag( Long storeReqSeqNo)
 	{
-		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
+		CompletableFuture<Character> future = CompletableFuture.supplyAsync(() -> 
 		{
-		Float result = storeOrderAssetInwardsReadPublicRepo.getOrderMovedFlag( storeReqSeqNo);
+		Character result = storeOrderAssetInwardsReadPublicRepo.getOrderMovedFlag( storeReqSeqNo);
 		return result;
 		},asyncExecutor);
 
@@ -375,26 +375,29 @@ public class StoreOrderAssetInwardsReadPublic_Service implements I_StoreOrderAss
 		return stoDTOs;
 	}
 
-	private synchronized StoreOrderAssetInward_DTO getStoreOrderAssetInward_DTO(StoreOrderAssetInward storeOrderAssetInward) 
+	private synchronized StoreOrderAssetInward_DTO getStoreOrderAssetInward_DTO(StoreOrderAssetInward storeOrderAssetInward2) 
 	{
 		StoreOrderAssetInward_DTO storeOrderAssetInward_DTO = new StoreOrderAssetInward_DTO();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-		storeOrderAssetInward_DTO.setDoneflag(storeOrderAssetInward.getDoneflag());
-		storeOrderAssetInward_DTO.setFromDttm(formatter.format(storeOrderAssetInward.getFromDttm().toLocalDateTime()));
-		storeOrderAssetInward_DTO.setToDttm(formatter.format(storeOrderAssetInward.getToDttm().toLocalDateTime()));
-		storeOrderAssetInward_DTO.setIsBooked(storeOrderAssetInward.getIsBooked());
-		storeOrderAssetInward_DTO.setJobWorkSeqNo(storeOrderAssetInward.getJobWorkSeqNo());		
-		storeOrderAssetInward_DTO.setLocationSeqNo(storeOrderAssetInward.getLocationSeqNo());
-		storeOrderAssetInward_DTO.setModeTxn(storeOrderAssetInward.getModeTxn());
-		storeOrderAssetInward_DTO.setMovedFlag(storeOrderAssetInward.getMovedFlag());
-		storeOrderAssetInward_DTO.setOkflag(storeOrderAssetInward.getOkflag());
-		storeOrderAssetInward_DTO.setFlagAllocated(storeOrderAssetInward.getFlagAllocated());
-		storeOrderAssetInward_DTO.setFlagBooked(storeOrderAssetInward.getFlagBooked());
-		storeOrderAssetInward_DTO.setFlagRequested(storeOrderAssetInward.getFlagRequested());
-		storeOrderAssetInward_DTO.setRequestedToPartySeqNo(storeOrderAssetInward.getRequestedToPartySeqNo());
-		storeOrderAssetInward_DTO.setRequestorSeqNo(storeOrderAssetInward.getRequestorSeqNo());
-		storeOrderAssetInward_DTO.setAssetSeqNo(storeOrderAssetInward.getAssetSeqNo());
-		storeOrderAssetInward_DTO.setStoreRequestSeqNo(storeOrderAssetInward.getStoreRequestSeqNo());
+		storeOrderAssetInward_DTO.setDoneflag(storeOrderAssetInward2.getDoneflag());
+		storeOrderAssetInward_DTO.setFromDttm(formatter.format(storeOrderAssetInward2.getFromDttm().toLocalDateTime()));
+		storeOrderAssetInward_DTO.setToDttm(formatter.format(storeOrderAssetInward2.getToDttm().toLocalDateTime()));
+		storeOrderAssetInward_DTO.setIsBooked(storeOrderAssetInward2.getIsBooked());
+		storeOrderAssetInward_DTO.setJobWorkSeqNo(storeOrderAssetInward2.getJobWorkSeqNo());		
+		storeOrderAssetInward_DTO.setLocationSeqNo(storeOrderAssetInward2.getLocationSeqNo());
+		storeOrderAssetInward_DTO.setModeTxn(storeOrderAssetInward2.getModeTxn());
+		storeOrderAssetInward_DTO.setMovedFlag(storeOrderAssetInward2.getMovedFlag());
+		storeOrderAssetInward_DTO.setOkflag(storeOrderAssetInward2.getOkflag());
+		storeOrderAssetInward_DTO.setFlagAllocated(storeOrderAssetInward2.getFlagAllocated());
+		storeOrderAssetInward_DTO.setFlagBooked(storeOrderAssetInward2.getFlagBooked());
+		storeOrderAssetInward_DTO.setFlagRequested(storeOrderAssetInward2.getFlagRequested());
+		storeOrderAssetInward_DTO.setRequestedToPartySeqNo(storeOrderAssetInward2.getRequestedToPartySeqNo());
+		storeOrderAssetInward_DTO.setRequestorSeqNo(storeOrderAssetInward2.getRequestorSeqNo());
+		storeOrderAssetInward_DTO.setAssetSeqNo(storeOrderAssetInward2.getAssetSeqNo());
+		storeOrderAssetInward_DTO.setStoreRequestSeqNo(storeOrderAssetInward2.getStoreRequestSeqNo());
+		storeOrderAssetInward_DTO.setFrLocationSeqNo(storeOrderAssetInward2.getFrLocationSeqNo());
+		storeOrderAssetInward_DTO.setToLocationSeqNo(storeOrderAssetInward2.getToLocationSeqNo());
+		storeOrderAssetInward_DTO.setTargetWorkSeqNo(storeOrderAssetInward2.getTargetWorkSeqNo());
 		return storeOrderAssetInward_DTO;
 	}
 

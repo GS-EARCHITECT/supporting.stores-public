@@ -10,7 +10,6 @@ import store_order_asset_inwards_mgmt.model.master.StoreOrderAssetInward;
 @Repository("storeOrderAssetInwardsCUDPublicRepo")
 public interface StoreOrderAssetInwardsCUDPublic_Repo extends JpaRepository<StoreOrderAssetInward, Long> 
 {
-
 @Modifying
 @Query(value="update STORE_ORDERASSET_OUTWARDS set FLAG_REQUESTED = :flag where STORE_REQUEST_SEQ_NO = :storeReqSeqNo", nativeQuery = true)
 void setFlagRequested(@Param(value = "flag") Character flag, @Param(value = "storeReqSeqNo") Long storeReqSeqNo);

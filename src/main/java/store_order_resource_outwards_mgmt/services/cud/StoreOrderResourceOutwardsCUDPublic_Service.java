@@ -330,18 +330,6 @@ public class StoreOrderResourceOutwardsCUDPublic_Service implements I_StoreOrder
 
 	}
 	
-	
-	private synchronized CopyOnWriteArrayList<StoreOrderResourceOutward_DTO> getStoreOrderResourceOutward_DTOs(CopyOnWriteArrayList<StoreOrderResourceOutward> stoMasters) {
-		StoreOrderResourceOutward_DTO stoDTO = null;
-		CopyOnWriteArrayList<StoreOrderResourceOutward_DTO> stoDTOs = new CopyOnWriteArrayList<StoreOrderResourceOutward_DTO>();
-
-		for (int i = 0; i < stoMasters.size(); i++) {
-			stoDTO = getStoreOrderResourceOutward_DTO(stoMasters.get(i));
-			stoDTOs.add(stoDTO);
-		}
-		return stoDTOs;
-	}
-
 	private synchronized StoreOrderResourceOutward_DTO getStoreOrderResourceOutward_DTO(StoreOrderResourceOutward storeOrderResourceOutward) 
 	{
 		StoreOrderResourceOutward_DTO storeOrderResourceOutward_DTO = new StoreOrderResourceOutward_DTO();
@@ -364,6 +352,9 @@ public class StoreOrderResourceOutwardsCUDPublic_Service implements I_StoreOrder
 		storeOrderResourceOutward_DTO.setRequestorSeqNo(storeOrderResourceOutward.getRequestorSeqNo());
 		storeOrderResourceOutward_DTO.setResourceSeqNo(storeOrderResourceOutward.getResourceSeqNo());
 		storeOrderResourceOutward_DTO.setStoreRequestSeqNo(storeOrderResourceOutward.getStoreRequestSeqNo());
+		storeOrderResourceOutward_DTO.setFrLocationSeqNo(storeOrderResourceOutward.getFrLocationSeqNo());
+		storeOrderResourceOutward_DTO.setToLocationSeqNo(storeOrderResourceOutward.getToLocationSeqNo());
+		storeOrderResourceOutward_DTO.setTargetWorkSeqNo(storeOrderResourceOutward.getTargetWorkSeqNo());
 		return storeOrderResourceOutward_DTO;
 	}
 	
@@ -392,6 +383,9 @@ public class StoreOrderResourceOutwardsCUDPublic_Service implements I_StoreOrder
 		storeOrderResourceOutward.setRequestedToPartySeqNo(storeOrderResourceOutward_DTO.getRequestedToPartySeqNo());
 		storeOrderResourceOutward.setRequestorSeqNo(storeOrderResourceOutward_DTO.getRequestorSeqNo());
 		storeOrderResourceOutward.setResourceSeqNo(storeOrderResourceOutward_DTO.getResourceSeqNo());
+		storeOrderResourceOutward.setFrLocationSeqNo(storeOrderResourceOutward_DTO.getFrLocationSeqNo());
+		storeOrderResourceOutward.setToLocationSeqNo(storeOrderResourceOutward_DTO.getToLocationSeqNo());
+		storeOrderResourceOutward.setTargetWorkSeqNo(storeOrderResourceOutward_DTO.getTargetWorkSeqNo());
 		return storeOrderResourceOutward;
 	}
 

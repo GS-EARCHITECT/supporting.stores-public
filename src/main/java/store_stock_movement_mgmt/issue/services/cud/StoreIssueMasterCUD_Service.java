@@ -20,7 +20,7 @@ import consignment_details_mgmt.model.repo.cud.ConsignmentDetailsCUD_Repo;
 import consignment_details_mgmt.model.repo.read.ConsignmentDetailsRead_Repo;
 import consignment_master_mgmt.model.master.ConsignmentMaster;
 import consignment_master_mgmt.model.repo.cud.ConsignmentMasterCUD_Repo;
-import store_order_resource_outwards_mgmt.model.repo.read.StoreOrderOutwardsRead_Repo;
+import store_order_asset_outwards_mgmt.model.repo.read.StoreOrderAssetOutwardsReadPublic_Repo;
 import store_order_resource_outwards_mgmt.model.repo.read.StoreOrderResourceOutwardsReadPublic_Repo;
 import store_stock_movement_mgmt.issue.model.dto.StoreIssueMaster_DTO;
 import store_stock_movement_mgmt.issue.model.master.StoreIssueMaster;
@@ -48,6 +48,9 @@ public class StoreIssueMasterCUD_Service implements I_StoreIssueMasterCUD_Servic
 	
 	@Autowired
 	private StoreOrderResourceOutwardsReadPublic_Repo storeOrderResourceOutwardsReadPublicRepo;
+	
+	@Autowired
+	private StoreOrderAssetOutwardsReadPublic_Repo storeOrderAssetOutwardsReadPublicRepo;
 	
 	@Autowired
 	private StoreIssueMasterRead_Repo storeIssueMasterReadRepo;
@@ -144,10 +147,24 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 			StoreIssueMaster_DTO jcmDTO = null;
 			if (!storeIssueMasterCUDRepo.existsById(storeIssueMaster_DTO.getStoreMovementSeqNo())) 
 			{
-				Float orderQtyRs = storeOrderResourceOutwardsReadPublicRepo.getOrderAllocatedQty(storeIssueMaster_DTO.getStoreRequestSeqNo());
-				Float curQty = storeIssueMaster_DTO.getRequestQty();
+				Float orderQtyRs = (float) 0;
+				Character oFlag = null; 
+				if(storeIssueMaster_DTO.getAssetSeqNo()!=null &&  storeIssueMaster_DTO.getAssetSeqNo()>0)
+				{				
+				oFlag = Character.toUpperCase(storeOrderAssetOutwardsReadPublicRepo.getOrderAllocatedFlag(storeIssueMaster_DTO.getStoreRequestSeqNo()));    			
+				if(!oFlag.equals('Y'))
+				{
+				orderQtyRs = (float) 1 ;	
+				}
+				}
+				else
+				{
+				orderQtyRs = storeOrderResourceOutwardsReadPublicRepo.getOrderAllocatedQty(storeIssueMaster_DTO.getStoreRequestSeqNo());	
+				}
 				
-				if(curQty <= orderQty)
+				Float curQty = storeIssueMaster_DTO.getRequestQty() + storeIssueMasterReadRepo.getTotalRequestItemQtyForStoreRequest(storeIssueMaster_DTO.getStoreRequestSeqNo());
+				
+				if(curQty <= orderQtyRs)
 				{
 				jcmDTO = this.getStoreIssueMaster_DTO(storeIssueMasterCUDRepo.save(this.setStoreIssueMaster_DTO(storeIssueMaster_DTO)));
 				}
@@ -210,11 +227,32 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
-		Float orderQty = storeOrderOutwardsReadRepo.getOrderOutwardsAllocatedQty(sid);
-		Float curQty = storeIssueMasterReadRepo.getRequestQtyForLineItem(sid);
-		Float result = curQty+qty;
+		Optional<StoreIssueMaster> storeIssueMasterOpt = storeIssueMasterReadRepo.findById(sid);
 		
-		if((orderQty>=result) && (qty > 0))
+		Float result = (float) 0;
+		if(storeIssueMasterOpt!=null)
+		{
+		StoreIssueMaster storeIssueMaster = storeIssueMasterOpt.get();
+		Float allocQty = (float) 0;		
+		Float curQty  = storeIssueMaster.getRequestQty();
+		Long resAssetFlag =  storeIssueMaster.getAssetSeqNo();
+		
+		if(resAssetFlag !=0 && resAssetFlag>0)
+		{		
+		Character allocFlag = storeOrderAssetOutwardsReadPublicRepo.getOrderAllocatedFlag(storeIssueMaster.getStoreRequestSeqNo());
+		if(allocFlag.equals('Y'))
+		{
+		allocQty = (float) 1 ;	
+		}		
+		}
+		else
+		{
+		allocQty = storeOrderResourceOutwardsReadPublicRepo.getOrderAllocatedQty(storeIssueMaster.getStoreRequestSeqNo());	
+		}
+		
+		Float totQty = qty + storeIssueMasterReadRepo.getTotalRequestItemQtyForStoreRequest(sid);
+		
+		if((totQty<=allocQty) && (qty > 0))
 		{
 		storeIssueMasterCUDRepo.addRequestQtyForLineItem(sid, qty);
 		result = curQty+qty;
@@ -222,6 +260,7 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 		else
 		{
 		result= (float) -1;	
+		}
 		}
 		return result;
 		},asyncExecutor);

@@ -111,11 +111,11 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 	*/
 
 	@Override
-	public CompletableFuture<Float> getTotalRequestItemQtyForStoreRequest(Long sid,  Long rid)  
+	public CompletableFuture<Float> getTotalRequestItemQtyForStoreRequest(Long sid)  
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
-		Float qty = storeIssueMasterReadRepo.getTotalRequestItemQtyForStoreRequest(sid,  rid);
+		Float qty = storeIssueMasterReadRepo.getTotalRequestItemQtyForStoreRequest(sid);
 		return qty;
 		},asyncExecutor);
 

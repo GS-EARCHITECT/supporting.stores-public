@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import store_order_asset_inwards_mgmt.model.master.StoreOrderAssetInward;
 
 @Repository("storeOrderAssetInwardsReadPublicRepo")
@@ -24,8 +23,8 @@ Character getIsDoneStatus(@Param("storeReqSeqNo") Long storeReqSeqNo);
 Character getIsOkStatus(@Param("storeReqSeqNo") Long storeReqSeqNo);
 
 //Requested QTY Queries
-@Query(value = "SELECT COALESCE(flag_Requested,0) FROM STORE_ORDERASSET_OUTWARDS where STORE_REQUEST_SEQ_NO=:storeReqSeqNo",nativeQuery = true) 
-Float getOrderRequestedFlag(@Param("storeReqSeqNo") Long storeReqSeqNo);
+@Query(value = "SELECT COALESCE(flag_Requested,' ') FROM STORE_ORDERASSET_OUTWARDS where STORE_REQUEST_SEQ_NO=:storeReqSeqNo",nativeQuery = true) 
+Character getOrderRequestedFlag(@Param("storeReqSeqNo") Long storeReqSeqNo);
 
 @Query(value = "SELECT count(*) FROM STORE_ORDERASSET_OUTWARDS where Asset_SEQ_NO= :assetSeqNo and job_work_SEQ_NO = :jobWorkSeqNo and mode_txn = :mode and upper(trim(flag_requested))<> 'Y' and upper(trim(doneflag))<> 'Y'",nativeQuery = true) 
 Float getCountRequestedForJob(@Param("jobWorkSeqNo") Long jobWorkSeqNo, @Param("assetSeqNo") Long assetSeqNo, @Param("mode") Short mode);
@@ -37,8 +36,8 @@ Float getCountRequestedBeforeThisRequest(@Param("storeReqSeqNo") Long storeReqSe
 Float getCountRequestedBeforeDTTM(@Param("dTTm") Timestamp dTTm, @Param("assetSeqNo") Long assetSeqNo, @Param("mode") Short mode);
 
 // Allocated QTY Queries
-@Query(value = "SELECT COALESCE(flag_Allocated,0) FROM STORE_ORDERASSET_OUTWARDS where STORE_REQUEST_SEQ_NO=:storeReqSeqNo",nativeQuery = true) 
-Float getOrderAllocatedFlag(@Param("storeReqSeqNo") Long storeReqSeqNo);
+@Query(value = "SELECT COALESCE(flag_Allocated,' ') FROM STORE_ORDERASSET_OUTWARDS where STORE_REQUEST_SEQ_NO=:storeReqSeqNo",nativeQuery = true) 
+Character getOrderAllocatedFlag(@Param("storeReqSeqNo") Long storeReqSeqNo);
 
 @Query(value = "SELECT count(*) FROM STORE_ORDERASSET_OUTWARDS where Asset_SEQ_NO= :assetSeqNo and job_work_SEQ_NO = :jobWorkSeqNo and mode_txn = :mode and upper(trim(flag_Allocated))<> 'Y' and upper(trim(doneflag))<> 'Y'",nativeQuery = true) 
 Float getCountAllocatedForJob(@Param("jobWorkSeqNo") Long jobWorkSeqNo, @Param("assetSeqNo") Long assetSeqNo, @Param("mode") Short mode);
@@ -50,8 +49,8 @@ Float getCountAllocatedBeforeThisRequest(@Param("storeReqSeqNo") Long storeReqSe
 Float getCountAllocatedBeforeDTTM(@Param("dTTm") Timestamp dTTm, @Param("assetSeqNo") Long assetSeqNo, @Param("mode") Short mode);
 
 //Booked QTY Queries
-@Query(value = "SELECT COALESCE(flag_Booked,0) FROM STORE_ORDERASSET_OUTWARDS where STORE_REQUEST_SEQ_NO=:storeReqSeqNo",nativeQuery = true) 
-Float getOrderBookedFlag(@Param("storeReqSeqNo") Long storeReqSeqNo);
+@Query(value = "SELECT COALESCE(flag_Booked,' ') FROM STORE_ORDERASSET_OUTWARDS where STORE_REQUEST_SEQ_NO=:storeReqSeqNo",nativeQuery = true) 
+Character getOrderBookedFlag(@Param("storeReqSeqNo") Long storeReqSeqNo);
 
 @Query(value = "SELECT count(*) FROM STORE_ORDERASSET_OUTWARDS where Asset_SEQ_NO= :assetSeqNo and job_work_SEQ_NO = :jobWorkSeqNo and mode_txn = :mode and upper(trim(flag_Booked))<> 'Y' and upper(trim(doneflag))<> 'Y'",nativeQuery = true) 
 Float getCountBookedForJob(@Param("jobWorkSeqNo") Long jobWorkSeqNo, @Param("assetSeqNo") Long assetSeqNo, @Param("mode") Short mode);
@@ -64,8 +63,8 @@ Float getCountBookedBeforeDTTM(@Param("dTTm") Timestamp dTTm, @Param("assetSeqNo
 
 
 //Moved QTY Queries
-@Query(value = "SELECT COALESCE(flag_Moved,0) FROM STORE_ORDERASSET_OUTWARDS where STORE_REQUEST_SEQ_NO=:storeReqSeqNo",nativeQuery = true) 
-Float getOrderMovedFlag(@Param("storeReqSeqNo") Long storeReqSeqNo);
+@Query(value = "SELECT COALESCE(flag_Moved,' ') FROM STORE_ORDERASSET_OUTWARDS where STORE_REQUEST_SEQ_NO=:storeReqSeqNo",nativeQuery = true) 
+Character getOrderMovedFlag(@Param("storeReqSeqNo") Long storeReqSeqNo);
 
 @Query(value = "SELECT count(*) FROM STORE_ORDERASSET_OUTWARDS where Asset_SEQ_NO= :assetSeqNo and job_work_SEQ_NO = :jobWorkSeqNo and mode_txn = :mode and upper(trim(flag_Moved))<> 'Y' and upper(trim(doneflag))<> 'Y'",nativeQuery = true) 
 Float getCountMovedForJob(@Param("jobWorkSeqNo") Long jobWorkSeqNo, @Param("assetSeqNo") Long assetSeqNo, @Param("mode") Short mode);

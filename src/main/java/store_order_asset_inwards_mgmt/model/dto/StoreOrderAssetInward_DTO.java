@@ -2,20 +2,20 @@ package store_order_asset_inwards_mgmt.model.dto;
 
 import java.io.Serializable;
 
-public class StoreOrderAssetInward_DTO implements Serializable 
-{
-	
-	
+public class StoreOrderAssetInward_DTO implements Serializable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7017977873504515022L;
+	private static final long serialVersionUID = 4741562555342005228L;
+	
 	private Long storeRequestSeqNo;
 	private Long assetSeqNo;
 	private Character doneflag;
 	private Character flagAllocated;
 	private Character flagBooked;
 	private Character flagRequested;
+	private Long frLocationSeqNo;
 	private String fromDttm;
 	private Character isBooked;
 	private Long jobWorkSeqNo;
@@ -25,7 +25,9 @@ public class StoreOrderAssetInward_DTO implements Serializable
 	private Character okflag;
 	private Long requestedToPartySeqNo;
 	private Long requestorSeqNo;
+	private Long targetWorkSeqNo;
 	private String toDttm;
+	private Long toLocationSeqNo;
 
 	public Long getStoreRequestSeqNo() {
 		return storeRequestSeqNo;
@@ -73,6 +75,14 @@ public class StoreOrderAssetInward_DTO implements Serializable
 
 	public void setFlagRequested(Character flagRequested) {
 		this.flagRequested = flagRequested;
+	}
+
+	public Long getFrLocationSeqNo() {
+		return frLocationSeqNo;
+	}
+
+	public void setFrLocationSeqNo(Long frLocationSeqNo) {
+		this.frLocationSeqNo = frLocationSeqNo;
 	}
 
 	public String getFromDttm() {
@@ -147,6 +157,14 @@ public class StoreOrderAssetInward_DTO implements Serializable
 		this.requestorSeqNo = requestorSeqNo;
 	}
 
+	public Long getTargetWorkSeqNo() {
+		return targetWorkSeqNo;
+	}
+
+	public void setTargetWorkSeqNo(Long targetWorkSeqNo) {
+		this.targetWorkSeqNo = targetWorkSeqNo;
+	}
+
 	public String getToDttm() {
 		return toDttm;
 	}
@@ -155,10 +173,19 @@ public class StoreOrderAssetInward_DTO implements Serializable
 		this.toDttm = toDttm;
 	}
 
+	public Long getToLocationSeqNo() {
+		return toLocationSeqNo;
+	}
+
+	public void setToLocationSeqNo(Long toLocationSeqNo) {
+		this.toLocationSeqNo = toLocationSeqNo;
+	}
+
 	public StoreOrderAssetInward_DTO(Long storeRequestSeqNo, Long assetSeqNo, Character doneflag,
-			Character flagAllocated, Character flagBooked, Character flagRequested, String fromDttm, Character isBooked,
-			Long jobWorkSeqNo, Long locationSeqNo, Long modeTxn, Character movedFlag, Character okflag,
-			Long requestedToPartySeqNo, Long requestorSeqNo, String toDttm) {
+			Character flagAllocated, Character flagBooked, Character flagRequested, Long frLocationSeqNo,
+			String fromDttm, Character isBooked, Long jobWorkSeqNo, Long locationSeqNo, Long modeTxn,
+			Character movedFlag, Character okflag, Long requestedToPartySeqNo, Long requestorSeqNo,
+			Long targetWorkSeqNo, String toDttm, Long toLocationSeqNo) {
 		super();
 		this.storeRequestSeqNo = storeRequestSeqNo;
 		this.assetSeqNo = assetSeqNo;
@@ -166,6 +193,7 @@ public class StoreOrderAssetInward_DTO implements Serializable
 		this.flagAllocated = flagAllocated;
 		this.flagBooked = flagBooked;
 		this.flagRequested = flagRequested;
+		this.frLocationSeqNo = frLocationSeqNo;
 		this.fromDttm = fromDttm;
 		this.isBooked = isBooked;
 		this.jobWorkSeqNo = jobWorkSeqNo;
@@ -175,11 +203,15 @@ public class StoreOrderAssetInward_DTO implements Serializable
 		this.okflag = okflag;
 		this.requestedToPartySeqNo = requestedToPartySeqNo;
 		this.requestorSeqNo = requestorSeqNo;
+		this.targetWorkSeqNo = targetWorkSeqNo;
 		this.toDttm = toDttm;
+		this.toLocationSeqNo = toLocationSeqNo;
 	}
 
 	public StoreOrderAssetInward_DTO() {
 		super();
 	}
+	
+	
 
 }

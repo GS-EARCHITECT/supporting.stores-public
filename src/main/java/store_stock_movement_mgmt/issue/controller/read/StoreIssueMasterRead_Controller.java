@@ -23,13 +23,13 @@ public class StoreIssueMasterRead_Controller
 	@Autowired
 	private I_StoreIssueMasterRead_Service storeIssueMasterReadService;
 
-	@GetMapping(value = "/getTotalRequestItemQtyForStoreRequest/{sid}/{rid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getTotalRequestItemQtyForStoreRequest(@PathVariable Long sid,  @PathVariable Long rid)
+	@GetMapping(value = "/getTotalRequestItemQtyForStoreRequest/{sid}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<Float> getTotalRequestItemQtyForStoreRequest(@PathVariable Long sid)
 	{
 		CompletableFuture<Float> qty = null;
 		Float result = null;
 		try {
-			qty = storeIssueMasterReadService.getTotalRequestItemQtyForStoreRequest(sid,  rid);
+			qty = storeIssueMasterReadService.getTotalRequestItemQtyForStoreRequest(sid);
 			result = qty.get();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

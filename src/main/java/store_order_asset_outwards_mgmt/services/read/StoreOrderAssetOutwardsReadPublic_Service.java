@@ -127,11 +127,11 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 
 	}
 	
-	public CompletableFuture<Float> getOrderRequestedFlag( Long storeReqSeqNo)
+	public CompletableFuture<Character> getOrderRequestedFlag( Long storeReqSeqNo)
 	{
-		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
+		CompletableFuture<Character> future = CompletableFuture.supplyAsync(() -> 
 		{
-		Float result = storeOrderAssetOutwardsReadPublicRepo.getOrderRequestedFlag(storeReqSeqNo);
+		Character result = storeOrderAssetOutwardsReadPublicRepo.getOrderRequestedFlag(storeReqSeqNo);
 		return result;
 		},asyncExecutor);
 
@@ -178,11 +178,11 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 
 	}
 	
-	public CompletableFuture<Float>	getOrderAllocatedFlag( Long storeReqSeqNo)
+	public CompletableFuture<Character>	getOrderAllocatedFlag( Long storeReqSeqNo)
 	{
-		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
+		CompletableFuture<Character> future = CompletableFuture.supplyAsync(() -> 
 		{
-		Float result = storeOrderAssetOutwardsReadPublicRepo.getOrderAllocatedFlag( storeReqSeqNo);
+		Character result = storeOrderAssetOutwardsReadPublicRepo.getOrderAllocatedFlag( storeReqSeqNo);
 		return result;
 		},asyncExecutor);
 
@@ -231,11 +231,11 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 	}	
 
 
-	public CompletableFuture<Float> getOrderBookedFlag( Long storeReqSeqNo)
+	public CompletableFuture<Character> getOrderBookedFlag( Long storeReqSeqNo)
 	{
-		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
+		CompletableFuture<Character> future = CompletableFuture.supplyAsync(() -> 
 		{
-		Float result = storeOrderAssetOutwardsReadPublicRepo.getOrderBookedFlag( storeReqSeqNo);
+			Character result = storeOrderAssetOutwardsReadPublicRepo.getOrderBookedFlag( storeReqSeqNo);
 		return result;
 		},asyncExecutor);
 
@@ -285,11 +285,11 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 	}	
 
 	
-	public CompletableFuture<Float> getOrderMovedFlag( Long storeReqSeqNo)
+	public CompletableFuture<Character> getOrderMovedFlag( Long storeReqSeqNo)
 	{
-		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
+		CompletableFuture<Character> future = CompletableFuture.supplyAsync(() -> 
 		{
-		Float result = storeOrderAssetOutwardsReadPublicRepo.getOrderMovedFlag( storeReqSeqNo);
+		Character result = storeOrderAssetOutwardsReadPublicRepo.getOrderMovedFlag( storeReqSeqNo);
 		return result;
 		},asyncExecutor);
 
@@ -395,6 +395,9 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 		storeOrderAssetOutward_DTO.setRequestorSeqNo(storeOrderAssetOutward.getRequestorSeqNo());
 		storeOrderAssetOutward_DTO.setAssetSeqNo(storeOrderAssetOutward.getAssetSeqNo());
 		storeOrderAssetOutward_DTO.setStoreRequestSeqNo(storeOrderAssetOutward.getStoreRequestSeqNo());
+		storeOrderAssetOutward_DTO.setFrLocationSeqNo(storeOrderAssetOutward.getFrLocationSeqNo());
+		storeOrderAssetOutward_DTO.setToLocationSeqNo(storeOrderAssetOutward.getToLocationSeqNo());
+		storeOrderAssetOutward_DTO.setTargetWorkSeqNo(storeOrderAssetOutward.getTargetWorkSeqNo());
 		return storeOrderAssetOutward_DTO;
 	}
 

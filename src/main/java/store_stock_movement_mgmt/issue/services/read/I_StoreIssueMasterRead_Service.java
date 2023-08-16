@@ -9,7 +9,7 @@ public interface I_StoreIssueMasterRead_Service
 {
 	public CompletableFuture<CopyOnWriteArrayList<StoreIssueMaster_DTO>> getAllStoreIssueMasters();
 	//public CompletableFuture<Void> check_Processed();	
-	public CompletableFuture<Float> getTotalRequestItemQtyForStoreRequest(Long sid,  Long rid);
+	public CompletableFuture<Float> getTotalRequestItemQtyForStoreRequest(Long sid);
 	public CompletableFuture<Float> getRequestQtyForLineItem(Long mid);
 	public CompletableFuture<Float> getTotalQCItemQtyForStoreRequest(Long sid,  Long rid);
 	public CompletableFuture<Float> getQCQtyForLineItem(Long mid);

@@ -67,6 +67,15 @@ public class StoreOrderResourceOutward implements Serializable {
 	@Column(name = "TO_DTTM")
 	private Timestamp toDttm;
 
+	@Column(name = "TARGET_WORK_SEQ_NO")
+	private Long targetWorkSeqNo;
+
+	@Column(name = "TO_LOCATION_SEQ_NO")
+	private Long toLocationSeqNo;
+
+	@Column(name = "FR_LOCATION_SEQ_NO")
+	private Long frLocationSeqNo;
+
 	public StoreOrderResourceOutward() {
 	}
 
@@ -206,13 +215,35 @@ public class StoreOrderResourceOutward implements Serializable {
 		this.toDttm = toDttm;
 	}
 
+	public Long getTargetWorkSeqNo() {
+		return targetWorkSeqNo;
+	}
+
+	public void setTargetWorkSeqNo(Long targetWorkSeqNo) {
+		this.targetWorkSeqNo = targetWorkSeqNo;
+	}
+
+	public Long getToLocationSeqNo() {
+		return toLocationSeqNo;
+	}
+
+	public void setToLocationSeqNo(Long toLocationSeqNo) {
+		this.toLocationSeqNo = toLocationSeqNo;
+	}
+
+	public Long getFrLocationSeqNo() {
+		return frLocationSeqNo;
+	}
+
+	public void setFrLocationSeqNo(Long frLocationSeqNo) {
+		this.frLocationSeqNo = frLocationSeqNo;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((jobWorkSeqNo == null) ? 0 : jobWorkSeqNo.hashCode());
 		result = prime * result + ((locationSeqNo == null) ? 0 : locationSeqNo.hashCode());
-		result = prime * result + ((requestedToPartySeqNo == null) ? 0 : requestedToPartySeqNo.hashCode());
 		result = prime * result + ((resourceSeqNo == null) ? 0 : resourceSeqNo.hashCode());
 		result = prime * result + ((storeRequestSeqNo == null) ? 0 : storeRequestSeqNo.hashCode());
 		return result;
@@ -227,20 +258,10 @@ public class StoreOrderResourceOutward implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		StoreOrderResourceOutward other = (StoreOrderResourceOutward) obj;
-		if (jobWorkSeqNo == null) {
-			if (other.jobWorkSeqNo != null)
-				return false;
-		} else if (!jobWorkSeqNo.equals(other.jobWorkSeqNo))
-			return false;
 		if (locationSeqNo == null) {
 			if (other.locationSeqNo != null)
 				return false;
 		} else if (!locationSeqNo.equals(other.locationSeqNo))
-			return false;
-		if (requestedToPartySeqNo == null) {
-			if (other.requestedToPartySeqNo != null)
-				return false;
-		} else if (!requestedToPartySeqNo.equals(other.requestedToPartySeqNo))
 			return false;
 		if (resourceSeqNo == null) {
 			if (other.resourceSeqNo != null)
@@ -258,7 +279,7 @@ public class StoreOrderResourceOutward implements Serializable {
 	public StoreOrderResourceOutward(Long storeRequestSeqNo, Character doneflag, Timestamp fromDttm, Character isBooked,
 			Long jobWorkSeqNo, Long locationSeqNo, Long modeTxn, Float movedQty, Character okflag, Float qtyAllocated,
 			Float qtyBooked, Float qtyRequested, Long qtyUnitSeqNo, Long requestedToPartySeqNo, Long requestorSeqNo,
-			Long resourceSeqNo, Timestamp toDttm) {
+			Long resourceSeqNo, Timestamp toDttm, Long targetWorkSeqNo, Long toLocationSeqNo, Long frLocationSeqNo) {
 		super();
 		this.storeRequestSeqNo = storeRequestSeqNo;
 		this.doneflag = doneflag;
@@ -277,6 +298,9 @@ public class StoreOrderResourceOutward implements Serializable {
 		this.requestorSeqNo = requestorSeqNo;
 		this.resourceSeqNo = resourceSeqNo;
 		this.toDttm = toDttm;
+		this.targetWorkSeqNo = targetWorkSeqNo;
+		this.toLocationSeqNo = toLocationSeqNo;
+		this.frLocationSeqNo = frLocationSeqNo;
 	}
 
 }

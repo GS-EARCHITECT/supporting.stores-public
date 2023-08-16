@@ -19,8 +19,8 @@ Optional<CopyOnWriteArrayList<Character>> getStoreVerifiedStatus(@Param("storeRe
 Optional<CopyOnWriteArrayList<StoreIssueMaster>> getAllRowsPendingProcessing();
 
 // GET various QTYs for order request and movement line items - BEGIN 
-@Query(value = "SELECT COALESCE(SUM(request_qty),0) FROM STORE_ISSUE_MASTER where (STORE_REQUEST_SEQ_NO=:sid and resource_SEQ_NO=:rid)",nativeQuery = true) 
-Float getTotalRequestItemQtyForStoreRequest(@Param("sid") Long sid, @Param("rid") Long rid);
+@Query(value = "SELECT COALESCE(SUM(request_qty),0) FROM STORE_ISSUE_MASTER where STORE_REQUEST_SEQ_NO=:sid",nativeQuery = true) 
+Float getTotalRequestItemQtyForStoreRequest(@Param("sid") Long sid);
 
 @Query(value = "SELECT COALESCE(request_qty,0) FROM STORE_ISSUE_MASTER where STORE_movement_SEQ_NO=:mid",nativeQuery = true) 
 Float getRequestQtyForLineItem(@Param("mid") Long mid);

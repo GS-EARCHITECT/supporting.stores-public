@@ -259,6 +259,9 @@ public class StoreOrderAssetOutwardsCUDPublic_Service implements I_StoreOrderAss
 		storeOrderAssetOutward_DTO.setRequestorSeqNo(storeOrderAssetOutward.getRequestorSeqNo());
 		storeOrderAssetOutward_DTO.setAssetSeqNo(storeOrderAssetOutward.getAssetSeqNo());
 		storeOrderAssetOutward_DTO.setStoreRequestSeqNo(storeOrderAssetOutward.getStoreRequestSeqNo());
+		storeOrderAssetOutward_DTO.setFrLocationSeqNo(storeOrderAssetOutward.getFrLocationSeqNo());
+		storeOrderAssetOutward_DTO.setToLocationSeqNo(storeOrderAssetOutward.getToLocationSeqNo());
+		storeOrderAssetOutward_DTO.setTargetWorkSeqNo(storeOrderAssetOutward.getTargetWorkSeqNo());
 		return storeOrderAssetOutward_DTO;
 	}
 	
@@ -286,6 +289,9 @@ public class StoreOrderAssetOutwardsCUDPublic_Service implements I_StoreOrderAss
 		storeOrderAssetOutward.setRequestedToPartySeqNo(storeOrderAssetOutward_DTO.getRequestedToPartySeqNo());
 		storeOrderAssetOutward.setRequestorSeqNo(storeOrderAssetOutward_DTO.getRequestorSeqNo());
 		storeOrderAssetOutward.setAssetSeqNo(storeOrderAssetOutward_DTO.getAssetSeqNo());
+		storeOrderAssetOutward.setFrLocationSeqNo(storeOrderAssetOutward_DTO.getFrLocationSeqNo());
+		storeOrderAssetOutward.setToLocationSeqNo(storeOrderAssetOutward_DTO.getToLocationSeqNo());
+		storeOrderAssetOutward.setTargetWorkSeqNo(storeOrderAssetOutward_DTO.getTargetWorkSeqNo());
 		return storeOrderAssetOutward;
 	}
 

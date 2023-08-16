@@ -3,31 +3,16 @@ package store_stock_movement_mgmt.recieve.services.cud;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.fasterxml.jackson.databind.PropertyNamingStrategy.UpperCamelCaseStrategy;
-
-import consignment_details_mgmt.model.master.ConsignmentDetail;
-import consignment_details_mgmt.model.master.ConsignmentDetailPK;
-import consignment_details_mgmt.model.repo.cud.ConsignmentDetailsCUD_Repo;
-import consignment_details_mgmt.model.repo.read.ConsignmentDetailsRead_Repo;
-import consignment_master_mgmt.model.master.ConsignmentMaster;
-import consignment_master_mgmt.model.repo.cud.ConsignmentMasterCUD_Repo;
-import consignment_master_mgmt.model.repo.read.ConsignmentMasterRead_Repo;
-import oracle.net.aso.s;
-import store_order_resource_outwards_mgmt.model.repo.read.StoreOrderOutwardsRead_Repo;
 import store_stock_movement_mgmt.recieve.model.dto.StoreRecieveMaster_DTO;
 import store_stock_movement_mgmt.recieve.model.master.StoreRecieveMaster;
 import store_stock_movement_mgmt.recieve.model.repo.cud.StoreRecieveMasterCUD_Repo;
@@ -42,21 +27,6 @@ public class StoreRecieveMasterCUD_Service implements I_StoreRecieveMasterCUD_Se
 
 	@Autowired
 	private StoreRecieveMasterCUD_Repo storeRecieveMasterCUDRepo;
-	
-	@Autowired
-	private ConsignmentMasterCUD_Repo consignmentMasterCUDRepo;
-	
-	@Autowired
-	private ConsignmentMasterRead_Repo consignmentMasterReadRepo;
-	
-	@Autowired
-	private ConsignmentDetailsCUD_Repo consignmentDetailsCUDRepo;	
-
-	@Autowired
-	private ConsignmentDetailsRead_Repo consignmentDetailsReadRepo;
-	
-	@Autowired
-	private StoreOrderOutwardsRead_Repo storeOrderOutwardsReadRepo;
 	
 	@Autowired
 	private StoreRecieveMasterRead_Repo storeRecieveMasterReadRepo;
@@ -153,15 +123,11 @@ private boolean checkTxnStoreStatus(Optional<ArrayList<Character>> storeTxnFlags
 		CompletableFuture<StoreRecieveMaster_DTO> future = CompletableFuture.supplyAsync(() -> 
 		{
 			StoreRecieveMaster_DTO jcmDTO = null;
+			storeRecieveMaster_DTO.setQualityQty((float) 0);
+			storeRecieveMaster_DTO.setRecievedQty((float) 0);			
 			if (!storeRecieveMasterCUDRepo.existsById(storeRecieveMaster_DTO.getStoreMovementSeqNo())) 
 			{
-				Float orderQty = storeOrderOutwardsReadRepo.getOrderOutwardsAllocatedQty(storeRecieveMaster_DTO.getStoreRequestSeqNo());
-				Float curQty = storeRecieveMaster_DTO.getRecievedQty();
-				
-				if(curQty <= orderQty)
-				{
 				jcmDTO = this.getStoreRecieveMaster_DTO(storeRecieveMasterCUDRepo.save(this.setStoreRecieveMaster_DTO(storeRecieveMaster_DTO)));
-				}
 			}
 			return jcmDTO;
 		}, asyncExecutor);
