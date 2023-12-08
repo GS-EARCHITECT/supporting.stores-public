@@ -61,7 +61,7 @@ public class StoreOrderResourceOutwardsReadPublic_Service implements I_StoreOrde
 	}
 
 	@Override
-	public CompletableFuture<CopyOnWriteArrayList<StoreOrderResourceOutward_DTO>> getAllRowsForMode( Short mode)  
+	public CompletableFuture<CopyOnWriteArrayList<StoreOrderResourceOutward_DTO>> getAllRowsForMode( Integer mode)  
 	{
 		CompletableFuture<CopyOnWriteArrayList<StoreOrderResourceOutward_DTO>> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -139,7 +139,7 @@ public class StoreOrderResourceOutwardsReadPublic_Service implements I_StoreOrde
 
 	}	
 	
-	public CompletableFuture<Float> getTotalRequestedForJob( Long jobWorkSeqNo,  Long resourceSeqNo,  Short mode)
+	public CompletableFuture<Float> getTotalRequestedForJob( Long jobWorkSeqNo,  Long resourceSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -151,7 +151,7 @@ public class StoreOrderResourceOutwardsReadPublic_Service implements I_StoreOrde
 
 	}	
 
-	public CompletableFuture<Float> getTotalQtyRequestedBeforeThisRequest( Long storeReqSeqNo,  Long resourceSeqNo,  Short mode)
+	public CompletableFuture<Float> getTotalQtyRequestedBeforeThisRequest( Long storeReqSeqNo,  Long resourceSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -163,7 +163,7 @@ public class StoreOrderResourceOutwardsReadPublic_Service implements I_StoreOrde
 
 	}	
 
-	public CompletableFuture<Float> getTotalQtyRequestedBeforeDTTM( String dTTm,  Long resourceSeqNo,  Short mode)
+	public CompletableFuture<Float> getTotalQtyRequestedBeforeDTTM( String dTTm,  Long resourceSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -190,7 +190,7 @@ public class StoreOrderResourceOutwardsReadPublic_Service implements I_StoreOrde
 
 	}
 	
-	public CompletableFuture<Float> getTotalAllocatedForJob( Long jobWorkSeqNo,  Long resourceSeqNo,  Short mode)
+	public CompletableFuture<Float> getTotalAllocatedForJob( Long jobWorkSeqNo,  Long resourceSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -202,7 +202,7 @@ public class StoreOrderResourceOutwardsReadPublic_Service implements I_StoreOrde
 
 	}	
 
-	public CompletableFuture<Float> getTotalQtyAllocatedBeforeThisRequest( Long storeReqSeqNo,  Long resourceSeqNo,  Short mode)
+	public CompletableFuture<Float> getTotalQtyAllocatedBeforeThisRequest( Long storeReqSeqNo,  Long resourceSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -215,7 +215,7 @@ public class StoreOrderResourceOutwardsReadPublic_Service implements I_StoreOrde
 	}	
 
 
-	public CompletableFuture<Float> getTotalQtyAllocatedBeforeDTTM( String dTTm,  Long resourceSeqNo,  Short mode)
+	public CompletableFuture<Float> getTotalQtyAllocatedBeforeDTTM( String dTTm,  Long resourceSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -244,7 +244,7 @@ public class StoreOrderResourceOutwardsReadPublic_Service implements I_StoreOrde
 	}
 
 	
-	public CompletableFuture<Float> getTotalBookedForJob( Long jobWorkSeqNo,  Long resourceSeqNo,  Short mode)
+	public CompletableFuture<Float> getTotalBookedForJob( Long jobWorkSeqNo,  Long resourceSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -256,7 +256,7 @@ public class StoreOrderResourceOutwardsReadPublic_Service implements I_StoreOrde
 
 	}	
 
-	public CompletableFuture<Float> getTotalQtyBookedBeforeThisRequest( Long storeReqSeqNo,  Long resourceSeqNo,  Short mode)
+	public CompletableFuture<Float> getTotalQtyBookedBeforeThisRequest( Long storeReqSeqNo,  Long resourceSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -269,7 +269,7 @@ public class StoreOrderResourceOutwardsReadPublic_Service implements I_StoreOrde
 	}	
 
 
-	public CompletableFuture<Float> getTotalQtyBookedBeforeDTTM( String dTTm,  Long resourceSeqNo,  Short mode)
+	public CompletableFuture<Float> getTotalQtyBookedBeforeDTTM( String dTTm,  Long resourceSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -297,7 +297,7 @@ public class StoreOrderResourceOutwardsReadPublic_Service implements I_StoreOrde
 
 	}
 
-	public CompletableFuture<Float> getTotalQtyMovedForResourceForJob( Long jobWorkSeqNo,  Long resourceSeqNo, Short md)
+	public CompletableFuture<Float> getTotalQtyMovedForResourceForJob( Long jobWorkSeqNo,  Long resourceSeqNo, Integer md)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -309,7 +309,7 @@ public class StoreOrderResourceOutwardsReadPublic_Service implements I_StoreOrde
 
 	}
 	
-	public CompletableFuture<Float> getTotalQtyMovedForResourceBeforeThisRequest( Long storeReqSeqNo,  Long resourceSeqNo,  Short mode)
+	public CompletableFuture<Float> getTotalQtyMovedForResourceBeforeThisRequest( Long storeReqSeqNo,  Long resourceSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -321,7 +321,7 @@ public class StoreOrderResourceOutwardsReadPublic_Service implements I_StoreOrde
 
 	}
 	
-	public CompletableFuture<Float> getTotalRowsMovedForResourcesBeforeThisDTTM( String dTTm,  Long resourceSeqNo,  Long storeReqSeqNo,  Short mode)
+	public CompletableFuture<Float> getTotalRowsMovedForResourcesBeforeThisDTTM( String dTTm,  Long resourceSeqNo,  Long storeReqSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -336,7 +336,7 @@ public class StoreOrderResourceOutwardsReadPublic_Service implements I_StoreOrde
 
 	}	
 
-	public CompletableFuture<Float> getTotalRowsForResourcesBeforeThisDTTM( String dTTm,  Long resourceSeqNo, Short mode)
+	public CompletableFuture<Float> getTotalRowsForResourcesBeforeThisDTTM( String dTTm,  Long resourceSeqNo, Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{

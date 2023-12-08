@@ -61,7 +61,7 @@ public class StoreOrderResourceInwardsReadPublic_Controller
 
 
 	@GetMapping(value = "/getAllRowsForMode/{md}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<CopyOnWriteArrayList<StoreOrderResourceInward_DTO>> getAllRowsForMode(@PathVariable Short md) 
+	public ResponseEntity<CopyOnWriteArrayList<StoreOrderResourceInward_DTO>> getAllRowsForMode(@PathVariable Integer md) 
 	{
 		CompletableFuture<CopyOnWriteArrayList<StoreOrderResourceInward_DTO>> stMaster_DTOs = null;
 		CopyOnWriteArrayList<StoreOrderResourceInward_DTO> stMasterList = null;
@@ -151,7 +151,7 @@ public class StoreOrderResourceInwardsReadPublic_Controller
 	}
 	
 	@GetMapping(value = "/getTotalRequestedForJob/{jid}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getTotalRequestedForJob(@PathVariable Long jid, @PathVariable Long rid, @PathVariable Short mid)
+	public ResponseEntity<Float> getTotalRequestedForJob(@PathVariable Long jid, @PathVariable Long rid, @PathVariable Integer mid)
 	{
 		CompletableFuture<Float> qty = null;
 		Float result = null;
@@ -169,7 +169,7 @@ public class StoreOrderResourceInwardsReadPublic_Controller
 	}
 	
 	@GetMapping(value = "/getTotalQtyRequestedBeforeThisRequest/{sid}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getTotalQtyRequestedBeforeThisRequest(@PathVariable Long sid, @PathVariable Long rid, @PathVariable Short mid)
+	public ResponseEntity<Float> getTotalQtyRequestedBeforeThisRequest(@PathVariable Long sid, @PathVariable Long rid, @PathVariable Integer mid)
 	{
 		CompletableFuture<Float> qty = null;
 		Float result = null;
@@ -187,7 +187,7 @@ public class StoreOrderResourceInwardsReadPublic_Controller
 	}
 	
 	@GetMapping(value = "/getTotalQtyRequestedBeforeDTTM/{dt}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getTotalQtyRequestedBeforeDTTM(@PathVariable String dt, @PathVariable Long rid, @PathVariable Short mid)
+	public ResponseEntity<Float> getTotalQtyRequestedBeforeDTTM(@PathVariable String dt, @PathVariable Long rid, @PathVariable Integer mid)
 	{
 		CompletableFuture<Float> qty = null;
 		Float result = null;
@@ -223,7 +223,7 @@ public class StoreOrderResourceInwardsReadPublic_Controller
 	}
 	
 	@GetMapping(value = "/getTotalAllocatedForJob/{jid}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getTotalAllocatedForJob(@PathVariable Long jid, @PathVariable Long rid, @PathVariable Short mid)
+	public ResponseEntity<Float> getTotalAllocatedForJob(@PathVariable Long jid, @PathVariable Long rid, @PathVariable Integer mid)
 	{
 		CompletableFuture<Float> qty = null;
 		Float result = null;
@@ -241,7 +241,7 @@ public class StoreOrderResourceInwardsReadPublic_Controller
 	}
 	
 	@GetMapping(value = "/getTotalQtyAllocatedBeforeThisRequest/{sid}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getTotalQtyAllocatedBeforeThisRequest(@PathVariable Long sid, @PathVariable Long rid, @PathVariable Short mid)
+	public ResponseEntity<Float> getTotalQtyAllocatedBeforeThisRequest(@PathVariable Long sid, @PathVariable Long rid, @PathVariable Integer mid)
 	{
 		CompletableFuture<Float> qty = null;
 		Float result = null;
@@ -259,7 +259,7 @@ public class StoreOrderResourceInwardsReadPublic_Controller
 	}
 	
 	@GetMapping(value = "/getTotalQtyAllocatedBeforeDTTM/{dt}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getTotalQtyAllocatedBeforeDTTM(@PathVariable String dt, @PathVariable Long rid, @PathVariable Short mid)
+	public ResponseEntity<Float> getTotalQtyAllocatedBeforeDTTM(@PathVariable String dt, @PathVariable Long rid, @PathVariable Integer mid)
 	{
 		CompletableFuture<Float> qty = null;
 		Float result = null;
@@ -295,7 +295,7 @@ public class StoreOrderResourceInwardsReadPublic_Controller
 	}
 	
 	@GetMapping(value = "/getTotalBookedForJob/{jid}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getTotalBookedForJob(@PathVariable Long jid, @PathVariable Long rid, @PathVariable Short mid)
+	public ResponseEntity<Float> getTotalBookedForJob(@PathVariable Long jid, @PathVariable Long rid, @PathVariable Integer mid)
 	{
 		CompletableFuture<Float> qty = null;
 		Float result = null;
@@ -313,7 +313,7 @@ public class StoreOrderResourceInwardsReadPublic_Controller
 	}
 	
 	@GetMapping(value = "/getTotalQtyBookedBeforeThisRequest/{sid}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getTotalQtyBookedBeforeThisRequest(@PathVariable Long sid, @PathVariable Long rid, @PathVariable Short mid)
+	public ResponseEntity<Float> getTotalQtyBookedBeforeThisRequest(@PathVariable Long sid, @PathVariable Long rid, @PathVariable Integer mid)
 	{
 		CompletableFuture<Float> qty = null;
 		Float result = null;
@@ -331,7 +331,7 @@ public class StoreOrderResourceInwardsReadPublic_Controller
 	}
 	
 	@GetMapping(value = "/getTotalQtyBookedBeforeDTTM/{dt}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getTotalQtyBookededBeforeDTTM(@PathVariable String dt, @PathVariable Long rid, @PathVariable Short mid)
+	public ResponseEntity<Float> getTotalQtyBookededBeforeDTTM(@PathVariable String dt, @PathVariable Long rid, @PathVariable Integer mid)
 	{
 		CompletableFuture<Float> qty = null;
 		Float result = null;
@@ -368,7 +368,7 @@ public class StoreOrderResourceInwardsReadPublic_Controller
 	}
 	
 	@GetMapping(value = "/getTotalQtyMovedForResourceForJob/{jid}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getTotalQtyMovedForResourceForJob(@PathVariable Long jid, @PathVariable Long rid, @PathVariable Short mid)
+	public ResponseEntity<Float> getTotalQtyMovedForResourceForJob(@PathVariable Long jid, @PathVariable Long rid, @PathVariable Integer mid)
 	{
 		CompletableFuture<Float> qty = null;
 		Float result = null;
@@ -386,7 +386,7 @@ public class StoreOrderResourceInwardsReadPublic_Controller
 	}
 	
 	@GetMapping(value = "/getTotalQtyMovedForResourceBeforeThisRequest/{sid}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getTotalQtyMovedForResourceBeforeThisRequest(@PathVariable Long sid, @PathVariable Long rid, @PathVariable Short mid)
+	public ResponseEntity<Float> getTotalQtyMovedForResourceBeforeThisRequest(@PathVariable Long sid, @PathVariable Long rid, @PathVariable Integer mid)
 	{
 		CompletableFuture<Float> qty = null;
 		Float result = null;
@@ -404,7 +404,7 @@ public class StoreOrderResourceInwardsReadPublic_Controller
 	}
 	
 	@GetMapping(value = "/getTotalRowsMovedForResourcesBeforeThisDTTM/{dt}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getTotalRowsMovedForResourcesBeforeThisDTTM(@PathVariable Long sd, @PathVariable Long rid, @PathVariable Short mid)
+	public ResponseEntity<Float> getTotalRowsMovedForResourcesBeforeThisDTTM(@PathVariable Long sd, @PathVariable Long rid, @PathVariable Integer mid)
 	{
 		CompletableFuture<Float> qty = null;
 		Float result = null;
@@ -422,7 +422,7 @@ public class StoreOrderResourceInwardsReadPublic_Controller
 	}
 
 	@GetMapping(value = "/getTotalRowsForResourcesBeforeThisDTTM/{dt}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Float> getTotalRowsForResourcesBeforeThisDTTM(@PathVariable String dt, @PathVariable Long rid, @PathVariable Short mid)
+	public ResponseEntity<Float> getTotalRowsForResourcesBeforeThisDTTM(@PathVariable String dt, @PathVariable Long rid, @PathVariable Integer mid)
 	{
 		CompletableFuture<Float> qty = null;
 		Float result = null;

@@ -57,7 +57,7 @@ public class StoreOrderAssetOutwardsReadPublic_Controller {
 	}
 
 	@GetMapping(value = "/getAllRowsForMode/{md}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<CopyOnWriteArrayList<StoreOrderAssetOutward_DTO>> getAllRowsForMode(@PathVariable Short md) {
+	public ResponseEntity<CopyOnWriteArrayList<StoreOrderAssetOutward_DTO>> getAllRowsForMode(@PathVariable Integer md) {
 		CompletableFuture<CopyOnWriteArrayList<StoreOrderAssetOutward_DTO>> stMaster_DTOs = null;
 		CopyOnWriteArrayList<StoreOrderAssetOutward_DTO> stMasterList = null;
 		try {
@@ -143,7 +143,7 @@ public class StoreOrderAssetOutwardsReadPublic_Controller {
 
 	@GetMapping(value = "/getCountRequestedForJob/{jid}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Float> getCountRequestedForJob(@PathVariable Long jid, @PathVariable Long rid,
-			@PathVariable Short mid) {
+			@PathVariable Integer mid) {
 		CompletableFuture<Float> qty = null;
 		Float result = null;
 		try {
@@ -162,7 +162,7 @@ public class StoreOrderAssetOutwardsReadPublic_Controller {
 	@GetMapping(value = "/getCountRequestedBeforeThisRequest/{sid}/{rid}/{mid}", produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Float> getCountRequestedBeforeThisRequest(@PathVariable Long sid, @PathVariable Long rid,
-			@PathVariable Short mid) {
+			@PathVariable Integer mid) {
 		CompletableFuture<Float> qty = null;
 		Float result = null;
 		try {
@@ -181,7 +181,7 @@ public class StoreOrderAssetOutwardsReadPublic_Controller {
 	@GetMapping(value = "/getCountRequestedBeforeDTTM/{dt}/{rid}/{mid}", produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Float> getCountRequestedBeforeDTTM(@PathVariable String dt, @PathVariable Long rid,
-			@PathVariable Short mid) {
+			@PathVariable Integer mid) {
 		CompletableFuture<Float> qty = null;
 		Float result = null;
 		try {
@@ -216,7 +216,7 @@ public class StoreOrderAssetOutwardsReadPublic_Controller {
 
 	@GetMapping(value = "/getCountAllocatedForJob/{jid}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Float> getCountAllocatedForJob(@PathVariable Long jid, @PathVariable Long rid,
-			@PathVariable Short mid) {
+			@PathVariable Integer mid) {
 		CompletableFuture<Float> qty = null;
 		Float result = null;
 		try {
@@ -235,7 +235,7 @@ public class StoreOrderAssetOutwardsReadPublic_Controller {
 	@GetMapping(value = "/getCountAllocatedBeforeThisRequest/{sid}/{rid}/{mid}", produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Float> getCountAllocatedBeforeThisRequest(@PathVariable Long sid, @PathVariable Long rid,
-			@PathVariable Short mid) {
+			@PathVariable Integer mid) {
 		CompletableFuture<Float> qty = null;
 		Float result = null;
 		try {
@@ -254,7 +254,7 @@ public class StoreOrderAssetOutwardsReadPublic_Controller {
 	@GetMapping(value = "/getCountAllocatedBeforeDTTM/{dt}/{rid}/{mid}", produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Float> getCountAllocatedBeforeDTTM(@PathVariable String dt, @PathVariable Long rid,
-			@PathVariable Short mid) {
+			@PathVariable Integer mid) {
 		CompletableFuture<Float> qty = null;
 		Float result = null;
 		try {
@@ -289,7 +289,7 @@ public class StoreOrderAssetOutwardsReadPublic_Controller {
 
 	@GetMapping(value = "/getCountBookedForJob/{jid}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Float> getCountBookedForJob(@PathVariable Long jid, @PathVariable Long rid,
-			@PathVariable Short mid) {
+			@PathVariable Integer mid) {
 		CompletableFuture<Float> qty = null;
 		Float result = null;
 		try {
@@ -308,7 +308,7 @@ public class StoreOrderAssetOutwardsReadPublic_Controller {
 	@GetMapping(value = "/getCountBookedBeforeThisRequest/{sid}/{rid}/{mid}", produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Float> getCountBookedBeforeThisRequest(@PathVariable Long sid, @PathVariable Long rid,
-			@PathVariable Short mid) {
+			@PathVariable Integer mid) {
 		CompletableFuture<Float> qty = null;
 		Float result = null;
 		try {
@@ -326,7 +326,7 @@ public class StoreOrderAssetOutwardsReadPublic_Controller {
 
 	@GetMapping(value = "/getCountBookedBeforeDTTM/{dt}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Float> getCountBookededBeforeDTTM(@PathVariable String dt, @PathVariable Long rid,
-			@PathVariable Short mid) {
+			@PathVariable Integer mid) {
 		CompletableFuture<Float> qty = null;
 		Float result = null;
 		try {
@@ -362,7 +362,7 @@ public class StoreOrderAssetOutwardsReadPublic_Controller {
 	@GetMapping(value = "/getCountMovedForAssetForJob/{jid}/{rid}/{mid}", produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Float> getCountMovedForAssetForJob(@PathVariable Long jid, @PathVariable Long rid,
-			@PathVariable Short mid) {
+			@PathVariable Integer mid) {
 		CompletableFuture<Float> qty = null;
 		Float result = null;
 		try {
@@ -381,7 +381,7 @@ public class StoreOrderAssetOutwardsReadPublic_Controller {
 	@GetMapping(value = "/getCountMovedForAssetBeforeThisRequest/{sid}/{rid}/{mid}", produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Float> getCountMovedForAssetBeforeThisRequest(@PathVariable Long sid, @PathVariable Long rid,
-			@PathVariable Short mid) {
+			@PathVariable Integer mid) {
 		CompletableFuture<Float> qty = null;
 		Float result = null;
 		try {
@@ -399,7 +399,7 @@ public class StoreOrderAssetOutwardsReadPublic_Controller {
 
 	@GetMapping(value = "/getCountMovedBeforeDTTM/{dt}/{rid}/{mid}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Float> getCountMovedBeforeDTTM(@PathVariable String dt, @PathVariable Long rid,
-			@PathVariable Short mid) {
+			@PathVariable Integer mid) {
 		CompletableFuture<Float> qty = null;
 		Float result = null;
 		try {
@@ -435,7 +435,7 @@ public class StoreOrderAssetOutwardsReadPublic_Controller {
 	@GetMapping(value = "/getCountRowsForAssetsBeforeThisDTTM/{dt}/{rid}/{mid}", produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Float> getCountRowsForAssetsBeforeThisDTTM(@PathVariable String dt, @PathVariable Long rid,
-			@PathVariable Short mid) {
+			@PathVariable Integer mid) {
 		CompletableFuture<Float> qty = null;
 		Float result = null;
 		try {

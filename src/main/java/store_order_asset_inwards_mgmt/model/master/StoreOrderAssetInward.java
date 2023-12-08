@@ -48,7 +48,7 @@ public class StoreOrderAssetInward implements Serializable
 	private Long locationSeqNo;
 
 	@Column(name = "MODE_TXN")
-	private Long modeTxn;
+	private Integer modeTxn;
 
 	@Column(name = "MOVED_FLAG")
 	private Character movedFlag;
@@ -67,6 +67,9 @@ public class StoreOrderAssetInward implements Serializable
 
 	@Column(name = "TARGET_WORK_SEQ_NO")
 	private Long targetWorkSeqNo;
+	
+	@Column(name = "TARGET_SEQ_NO")
+	private Long targetSeqNo;
 	
 	@Column(name = "TO_LOCATION_SEQ_NO")
 	private Long toLocationSeqNo;
@@ -166,11 +169,11 @@ public class StoreOrderAssetInward implements Serializable
 		this.locationSeqNo = locationSeqNo;
 	}
 
-	public Long getModeTxn() {
+	public Integer getModeTxn() {
 		return modeTxn;
 	}
 
-	public void setModeTxn(Long modeTxn) {
+	public void setModeTxn(Integer modeTxn) {
 		this.modeTxn = modeTxn;
 	}
 
@@ -230,6 +233,15 @@ public class StoreOrderAssetInward implements Serializable
 		this.toLocationSeqNo = toLocationSeqNo;
 	}
 
+	public Long getTargetSeqNo() {
+		return targetSeqNo;
+	}
+
+	public void setTargetSeqNo(Long targetSeqNo) {
+		this.targetSeqNo = targetSeqNo;
+	}
+
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -268,10 +280,10 @@ public class StoreOrderAssetInward implements Serializable
 	}
 
 	public StoreOrderAssetInward(Long storeRequestSeqNo, Long assetSeqNo, Character doneflag, Character flagAllocated,
-			Character flagBooked, Character flagRequested, Long frLocationSeqNo, Timestamp fromDttm, Character isBooked,
-			Long jobWorkSeqNo, Long locationSeqNo, Long modeTxn, Character movedFlag, Character okflag,
-			Long requestedToPartySeqNo, Long requestorSeqNo, Long targetWorkSeqNo, Timestamp toDttm,
-			Long toLocationSeqNo) {
+			Character flagBooked, Character flagRequested, Timestamp fromDttm, Character isBooked, Long jobWorkSeqNo,
+			Long locationSeqNo, Integer modeTxn, Character movedFlag, Character okflag, Long requestedToPartySeqNo,
+			Long requestorSeqNo, Timestamp toDttm, Long targetWorkSeqNo, Long targetSeqNo, Long toLocationSeqNo,
+			Long frLocationSeqNo) {
 		super();
 		this.storeRequestSeqNo = storeRequestSeqNo;
 		this.assetSeqNo = assetSeqNo;
@@ -279,7 +291,6 @@ public class StoreOrderAssetInward implements Serializable
 		this.flagAllocated = flagAllocated;
 		this.flagBooked = flagBooked;
 		this.flagRequested = flagRequested;
-		this.frLocationSeqNo = frLocationSeqNo;
 		this.fromDttm = fromDttm;
 		this.isBooked = isBooked;
 		this.jobWorkSeqNo = jobWorkSeqNo;
@@ -289,9 +300,13 @@ public class StoreOrderAssetInward implements Serializable
 		this.okflag = okflag;
 		this.requestedToPartySeqNo = requestedToPartySeqNo;
 		this.requestorSeqNo = requestorSeqNo;
-		this.targetWorkSeqNo = targetWorkSeqNo;
 		this.toDttm = toDttm;
+		this.targetWorkSeqNo = targetWorkSeqNo;
+		this.targetSeqNo = targetSeqNo;
 		this.toLocationSeqNo = toLocationSeqNo;
+		this.frLocationSeqNo = frLocationSeqNo;
 	}
+
+
 
 }

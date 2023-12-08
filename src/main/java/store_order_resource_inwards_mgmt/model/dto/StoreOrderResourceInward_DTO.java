@@ -2,6 +2,8 @@ package store_order_resource_inwards_mgmt.model.dto;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+
 public class StoreOrderResourceInward_DTO implements Serializable {
 
 	/**
@@ -14,7 +16,7 @@ public class StoreOrderResourceInward_DTO implements Serializable {
 	private Character isBooked;
 	private Long jobWorkSeqNo;
 	private Long locationSeqNo;
-	private Long modeTxn;
+	private Integer modeTxn;
 	private Float movedQty;
 	private Character okflag;
 	private Float qtyAllocated;
@@ -26,8 +28,17 @@ public class StoreOrderResourceInward_DTO implements Serializable {
 	private Long resourceSeqNo;
 	private String toDttm;
 	private Long targetWorkSeqNo;
+	private Long targetSeqNo;
 	private Long toLocationSeqNo;
 	private Long frLocationSeqNo;
+
+	public Long getTargetSeqNo() {
+		return targetSeqNo;
+	}
+
+	public void setTargetSeqNo(Long targetSeqNo) {
+		this.targetSeqNo = targetSeqNo;
+	}
 
 	public Long getStoreRequestSeqNo() {
 		return storeRequestSeqNo;
@@ -77,11 +88,11 @@ public class StoreOrderResourceInward_DTO implements Serializable {
 		this.locationSeqNo = locationSeqNo;
 	}
 
-	public Long getModeTxn() {
+	public Integer getModeTxn() {
 		return modeTxn;
 	}
 
-	public void setModeTxn(Long modeTxn) {
+	public void setModeTxn(Integer modeTxn) {
 		this.modeTxn = modeTxn;
 	}
 
@@ -165,33 +176,6 @@ public class StoreOrderResourceInward_DTO implements Serializable {
 		this.toDttm = toDttm;
 	}
 
-	public StoreOrderResourceInward_DTO(Long storeRequestSeqNo, Character doneflag, String fromDttm, Character isBooked,
-			Long jobWorkSeqNo, Long locationSeqNo, Long modeTxn, Float movedQty, Character okflag, Float qtyAllocated,
-			Float qtyBooked, Float qtyRequested, Long qtyUnitSeqNo, Long requestedToPartySeqNo, Long requestorSeqNo,
-			Long resourceSeqNo, String toDttm, Long targetWorkSeqNo, Long toLocationSeqNo, Long frLocationSeqNo) {
-		super();
-		this.storeRequestSeqNo = storeRequestSeqNo;
-		this.doneflag = doneflag;
-		this.fromDttm = fromDttm;
-		this.isBooked = isBooked;
-		this.jobWorkSeqNo = jobWorkSeqNo;
-		this.locationSeqNo = locationSeqNo;
-		this.modeTxn = modeTxn;
-		this.movedQty = movedQty;
-		this.okflag = okflag;
-		this.qtyAllocated = qtyAllocated;
-		this.qtyBooked = qtyBooked;
-		this.qtyRequested = qtyRequested;
-		this.qtyUnitSeqNo = qtyUnitSeqNo;
-		this.requestedToPartySeqNo = requestedToPartySeqNo;
-		this.requestorSeqNo = requestorSeqNo;
-		this.resourceSeqNo = resourceSeqNo;
-		this.toDttm = toDttm;
-		this.targetWorkSeqNo = targetWorkSeqNo;
-		this.toLocationSeqNo = toLocationSeqNo;
-		this.frLocationSeqNo = frLocationSeqNo;
-	}
-
 	public Long getTargetWorkSeqNo() {
 		return targetWorkSeqNo;
 	}
@@ -218,6 +202,35 @@ public class StoreOrderResourceInward_DTO implements Serializable {
 
 	public StoreOrderResourceInward_DTO() {
 		super();
+	}
+
+	public StoreOrderResourceInward_DTO(Long storeRequestSeqNo, Character doneflag, String fromDttm, Character isBooked,
+			Long jobWorkSeqNo, Long locationSeqNo, Integer modeTxn, Float movedQty, Character okflag,
+			Float qtyAllocated, Float qtyBooked, Float qtyRequested, Long qtyUnitSeqNo, Long requestedToPartySeqNo,
+			Long requestorSeqNo, Long resourceSeqNo, String toDttm, Long targetWorkSeqNo, Long targetSeqNo,
+			Long toLocationSeqNo, Long frLocationSeqNo) {
+		super();
+		this.storeRequestSeqNo = storeRequestSeqNo;
+		this.doneflag = doneflag;
+		this.fromDttm = fromDttm;
+		this.isBooked = isBooked;
+		this.jobWorkSeqNo = jobWorkSeqNo;
+		this.locationSeqNo = locationSeqNo;
+		this.modeTxn = modeTxn;
+		this.movedQty = movedQty;
+		this.okflag = okflag;
+		this.qtyAllocated = qtyAllocated;
+		this.qtyBooked = qtyBooked;
+		this.qtyRequested = qtyRequested;
+		this.qtyUnitSeqNo = qtyUnitSeqNo;
+		this.requestedToPartySeqNo = requestedToPartySeqNo;
+		this.requestorSeqNo = requestorSeqNo;
+		this.resourceSeqNo = resourceSeqNo;
+		this.toDttm = toDttm;
+		this.targetWorkSeqNo = targetWorkSeqNo;
+		this.targetSeqNo = targetSeqNo;
+		this.toLocationSeqNo = toLocationSeqNo;
+		this.frLocationSeqNo = frLocationSeqNo;
 	}
 
 }

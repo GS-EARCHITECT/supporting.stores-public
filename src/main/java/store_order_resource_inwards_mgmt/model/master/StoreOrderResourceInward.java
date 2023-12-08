@@ -38,7 +38,7 @@ public class StoreOrderResourceInward implements Serializable {
 	private Long locationSeqNo;
 
 	@Column(name = "MODE_TXN")
-	private Long modeTxn;
+	private Integer modeTxn;
 
 	@Column(name = "MOVED_QTY")
 	private Float movedQty;
@@ -72,6 +72,9 @@ public class StoreOrderResourceInward implements Serializable {
 
 	@Column(name = "TARGET_WORK_SEQ_NO")
 	private Long targetWorkSeqNo;
+
+	@Column(name = "TARGET_SEQ_NO")
+	private Long targetSeqNo;
 
 	@Column(name = "TO_LOCATION_SEQ_NO")
 	private Long toLocationSeqNo;
@@ -130,11 +133,11 @@ public class StoreOrderResourceInward implements Serializable {
 		this.locationSeqNo = locationSeqNo;
 	}
 
-	public Long getModeTxn() {
+	public Integer getModeTxn() {
 		return this.modeTxn;
 	}
 
-	public void setModeTxn(Long modeTxn) {
+	public void setModeTxn(Integer modeTxn) {
 		this.modeTxn = modeTxn;
 	}
 
@@ -242,6 +245,14 @@ public class StoreOrderResourceInward implements Serializable {
 		this.frLocationSeqNo = frLocationSeqNo;
 	}
 
+	public Long getTargetSeqNo() {
+		return targetSeqNo;
+	}
+
+	public void setTargetSeqNo(Long targetSeqNo) {
+		this.targetSeqNo = targetSeqNo;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -280,9 +291,10 @@ public class StoreOrderResourceInward implements Serializable {
 	}
 
 	public StoreOrderResourceInward(Long storeRequestSeqNo, Character doneflag, Timestamp fromDttm, Character isBooked,
-			Long jobWorkSeqNo, Long locationSeqNo, Long modeTxn, Float movedQty, Character okflag, Float qtyAllocated,
+			Long jobWorkSeqNo, Long locationSeqNo, Integer modeTxn, Float movedQty, Character okflag, Float qtyAllocated,
 			Float qtyBooked, Float qtyRequested, Long qtyUnitSeqNo, Long requestedToPartySeqNo, Long requestorSeqNo,
-			Long resourceSeqNo, Timestamp toDttm, Long targetWorkSeqNo, Long toLocationSeqNo, Long frLocationSeqNo) {
+			Long resourceSeqNo, Timestamp toDttm, Long targetWorkSeqNo, Long targetSeqNo, Long toLocationSeqNo,
+			Long frLocationSeqNo) {
 		super();
 		this.storeRequestSeqNo = storeRequestSeqNo;
 		this.doneflag = doneflag;
@@ -302,6 +314,7 @@ public class StoreOrderResourceInward implements Serializable {
 		this.resourceSeqNo = resourceSeqNo;
 		this.toDttm = toDttm;
 		this.targetWorkSeqNo = targetWorkSeqNo;
+		this.targetSeqNo = targetSeqNo;
 		this.toLocationSeqNo = toLocationSeqNo;
 		this.frLocationSeqNo = frLocationSeqNo;
 	}

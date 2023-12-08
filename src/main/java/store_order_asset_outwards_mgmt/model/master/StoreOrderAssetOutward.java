@@ -10,8 +10,7 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "STORE_ORDERASSET_OUTWARDS")
-public class StoreOrderAssetOutward implements Serializable 
-{
+public class StoreOrderAssetOutward implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -48,7 +47,7 @@ public class StoreOrderAssetOutward implements Serializable
 	private Long locationSeqNo;
 
 	@Column(name = "MODE_TXN")
-	private Long modeTxn;
+	private Integer modeTxn;
 
 	@Column(name = "MOVED_FLAG")
 	private Character movedFlag;
@@ -64,16 +63,18 @@ public class StoreOrderAssetOutward implements Serializable
 
 	@Column(name = "TO_DTTM")
 	private Timestamp toDttm;
-	
+
 	@Column(name = "TARGET_WORK_SEQ_NO")
 	private Long targetWorkSeqNo;
-	
+
+	@Column(name = "TARGET_SEQ_NO")
+	private Long targetSeqNo;
+
 	@Column(name = "TO_LOCATION_SEQ_NO")
 	private Long toLocationSeqNo;
 
 	@Column(name = "FR_LOCATION_SEQ_NO")
 	private Long frLocationSeqNo;
-
 
 	public StoreOrderAssetOutward() {
 	}
@@ -158,11 +159,11 @@ public class StoreOrderAssetOutward implements Serializable
 		this.locationSeqNo = locationSeqNo;
 	}
 
-	public Long getModeTxn() {
+	public Integer getModeTxn() {
 		return modeTxn;
 	}
 
-	public void setModeTxn(Long modeTxn) {
+	public void setModeTxn(Integer modeTxn) {
 		this.modeTxn = modeTxn;
 	}
 
@@ -267,10 +268,19 @@ public class StoreOrderAssetOutward implements Serializable
 		return true;
 	}
 
+	public Long getTargetSeqNo() {
+		return targetSeqNo;
+	}
+
+	public void setTargetSeqNo(Long targetSeqNo) {
+		this.targetSeqNo = targetSeqNo;
+	}
+
 	public StoreOrderAssetOutward(Long storeRequestSeqNo, Long assetSeqNo, Character doneflag, Character flagAllocated,
 			Character flagBooked, Character flagRequested, Timestamp fromDttm, Character isBooked, Long jobWorkSeqNo,
-			Long locationSeqNo, Long modeTxn, Character movedFlag, Character okflag, Long requestedToPartySeqNo,
-			Long requestorSeqNo, Timestamp toDttm, Long targetWorkSeqNo, Long toLocationSeqNo, Long frLocationSeqNo) {
+			Long locationSeqNo, Integer modeTxn, Character movedFlag, Character okflag, Long requestedToPartySeqNo,
+			Long requestorSeqNo, Timestamp toDttm, Long targetWorkSeqNo, Long targetSeqNo, Long toLocationSeqNo,
+			Long frLocationSeqNo) {
 		super();
 		this.storeRequestSeqNo = storeRequestSeqNo;
 		this.assetSeqNo = assetSeqNo;
@@ -289,9 +299,9 @@ public class StoreOrderAssetOutward implements Serializable
 		this.requestorSeqNo = requestorSeqNo;
 		this.toDttm = toDttm;
 		this.targetWorkSeqNo = targetWorkSeqNo;
+		this.targetSeqNo = targetSeqNo;
 		this.toLocationSeqNo = toLocationSeqNo;
 		this.frLocationSeqNo = frLocationSeqNo;
 	}
-	
 
 }

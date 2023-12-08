@@ -42,8 +42,38 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 		},asyncExecutor);
 
 	return future;
+	}
+	
+	@Override
+	public CompletableFuture<CopyOnWriteArrayList<StoreOrderAssetOutward_DTO>> getRowsForJobWorks(CopyOnWriteArrayList<Long> jWorkList)  
+	{
+		CompletableFuture<CopyOnWriteArrayList<StoreOrderAssetOutward_DTO>> future = CompletableFuture.supplyAsync(() -> 
+		{
+		CopyOnWriteArrayList<StoreOrderAssetOutward> stoList = (CopyOnWriteArrayList<StoreOrderAssetOutward>) storeOrderAssetOutwardsReadPublicRepo.getRowsForJobWorks(jWorkList);
+		CopyOnWriteArrayList<StoreOrderAssetOutward_DTO> stoDTOs = new CopyOnWriteArrayList<StoreOrderAssetOutward_DTO>();
+		stoDTOs = stoList != null ? this.getStoreOrderAssetOutward_DTOs(stoList) : null;
+		return stoDTOs;
+		},asyncExecutor);
+
+	return future;
 
 	}
+
+	@Override
+	public CompletableFuture<CopyOnWriteArrayList<StoreOrderAssetOutward_DTO>> getRowsForJobWorksDone(CopyOnWriteArrayList<Long> jWorkList)  
+	{
+		CompletableFuture<CopyOnWriteArrayList<StoreOrderAssetOutward_DTO>> future = CompletableFuture.supplyAsync(() -> 
+		{
+		CopyOnWriteArrayList<StoreOrderAssetOutward> stoList = (CopyOnWriteArrayList<StoreOrderAssetOutward>) storeOrderAssetOutwardsReadPublicRepo.getRowsForJobWorksDone(jWorkList);
+		CopyOnWriteArrayList<StoreOrderAssetOutward_DTO> stoDTOs = new CopyOnWriteArrayList<StoreOrderAssetOutward_DTO>();
+		stoDTOs = stoList != null ? this.getStoreOrderAssetOutward_DTOs(stoList) : null;
+		return stoDTOs;
+		},asyncExecutor);
+
+	return future;
+
+	}
+
 	
 	@Override
 	public CompletableFuture<CopyOnWriteArrayList<StoreOrderAssetOutward_DTO>> getSelectOrderOutwards( CopyOnWriteArrayList<Long> sids)  
@@ -61,7 +91,7 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 	}
 
 	@Override
-	public CompletableFuture<CopyOnWriteArrayList<StoreOrderAssetOutward_DTO>> getAllRowsForMode( Short mode)  
+	public CompletableFuture<CopyOnWriteArrayList<StoreOrderAssetOutward_DTO>> getAllRowsForMode( Integer mode)  
 	{
 		CompletableFuture<CopyOnWriteArrayList<StoreOrderAssetOutward_DTO>> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -139,7 +169,7 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 
 	}	
 	
-	public CompletableFuture<Float> getCountRequestedForJob( Long jobWorkSeqNo,  Long assetSeqNo,  Short mode)
+	public CompletableFuture<Float> getCountRequestedForJob( Long jobWorkSeqNo,  Long assetSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -151,7 +181,7 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 
 	}	
 
-	public CompletableFuture<Float> getCountRequestedBeforeThisRequest( Long storeReqSeqNo,  Long assetSeqNo,  Short mode)
+	public CompletableFuture<Float> getCountRequestedBeforeThisRequest( Long storeReqSeqNo,  Long assetSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -163,7 +193,7 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 
 	}	
 
-	public CompletableFuture<Float> getCountRequestedBeforeDTTM( String dTTm,  Long assetSeqNo,  Short mode)
+	public CompletableFuture<Float> getCountRequestedBeforeDTTM( String dTTm,  Long assetSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -190,7 +220,7 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 
 	}
 	
-	public CompletableFuture<Float> getCountAllocatedForJob( Long jobWorkSeqNo,  Long assetSeqNo,  Short mode)
+	public CompletableFuture<Float> getCountAllocatedForJob( Long jobWorkSeqNo,  Long assetSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -202,7 +232,7 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 
 	}	
 
-	public CompletableFuture<Float> getCountAllocatedBeforeThisRequest( Long storeReqSeqNo,  Long assetSeqNo,  Short mode)
+	public CompletableFuture<Float> getCountAllocatedBeforeThisRequest( Long storeReqSeqNo,  Long assetSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -215,7 +245,7 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 	}	
 
 
-	public CompletableFuture<Float> getCountAllocatedBeforeDTTM( String dTTm,  Long assetSeqNo,  Short mode)
+	public CompletableFuture<Float> getCountAllocatedBeforeDTTM( String dTTm,  Long assetSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -244,7 +274,7 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 	}
 
 	
-	public CompletableFuture<Float> getCountBookedForJob( Long jobWorkSeqNo,  Long assetSeqNo,  Short mode)
+	public CompletableFuture<Float> getCountBookedForJob( Long jobWorkSeqNo,  Long assetSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -256,7 +286,7 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 
 	}	
 
-	public CompletableFuture<Float> getCountBookedBeforeThisRequest( Long storeReqSeqNo,  Long assetSeqNo,  Short mode)
+	public CompletableFuture<Float> getCountBookedBeforeThisRequest( Long storeReqSeqNo,  Long assetSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -269,7 +299,7 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 	}	
 
 
-	public CompletableFuture<Float> getCountBookedBeforeDTTM( String dTTm,  Long assetSeqNo,  Short mode)
+	public CompletableFuture<Float> getCountBookedBeforeDTTM( String dTTm,  Long assetSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -297,7 +327,7 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 
 	}
 
-	public CompletableFuture<Float> getCountMovedForJob( Long jobWorkSeqNo,  Long assetSeqNo, Short md)
+	public CompletableFuture<Float> getCountMovedForJob( Long jobWorkSeqNo,  Long assetSeqNo, Integer md)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -309,7 +339,7 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 
 	}
 	
-	public CompletableFuture<Float> getCountMovedBeforeThisRequest( Long storeReqSeqNo,  Long assetSeqNo,  Short mode)
+	public CompletableFuture<Float> getCountMovedBeforeThisRequest( Long storeReqSeqNo,  Long assetSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -321,7 +351,7 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 
 	}
 	
-	public CompletableFuture<Float> getCountMovedBeforeDTTM( String dTTm,  Long assetSeqNo,  Short mode)
+	public CompletableFuture<Float> getCountMovedBeforeDTTM( String dTTm,  Long assetSeqNo,  Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
@@ -336,7 +366,7 @@ public class StoreOrderAssetOutwardsReadPublic_Service implements I_StoreOrderAs
 
 	}	
 
-	public CompletableFuture<Float> getTotalRowsForAssetsBeforeThisDTTM( String dTTm,  Long assetSeqNo, Short mode)
+	public CompletableFuture<Float> getTotalRowsForAssetsBeforeThisDTTM( String dTTm,  Long assetSeqNo, Integer mode)
 	{
 		CompletableFuture<Float> future = CompletableFuture.supplyAsync(() -> 
 		{
